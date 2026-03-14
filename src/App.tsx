@@ -44,23 +44,21 @@ function AppRoutes() {
   )
 
  return (
-    <Routes>
-  <Route path="/" element={!user ? <Landing /> : <Navigate to="/dashboard" replace />} />
-  <Route path="/login" element={!user ? <Login /> : <Navigate to="/dashboard" replace />} />
-  <Route path="/dashboard" element={<Guard><Layout /></Guard>}>
-    <Route index element={<Dashboard />} />
-  </Route>
+   <Routes>
+  <Route path="/" element={!user ? <Landing /> : <Navigate to="/campi" replace />} />
+  <Route path="/login" element={!user ? <Login /> : <Navigate to="/" replace />} />
   <Route element={<Guard><Layout /></Guard>}>
-    <Route path="campi" element={<Campi />} />
-    <Route path="colture" element={<Colture />} />
-    <Route path="soci" element={<Guard roles={['admin', 'agronomo']}><Soci /></Guard>} />
-    <Route path="prodotti" element={<Prodotti />} />
-    <Route path="eventi" element={<Eventi />} />
-    <Route path="valutazione-terreno" element={<Guard roles={['admin']}><ValutazioneTerreno /></Guard>} />
-    <Route path="terreni-valutati" element={<Guard roles={['admin']}><TerreniValutati /></Guard>} />
-    <Route path="terreni-valutati/:id" element={<Guard roles={['admin']}><TerrenoDettaglio /></Guard>} />
+    <Route path="/dashboard" element={<Dashboard />} />
+    <Route path="/campi" element={<Campi />} />
+    <Route path="/colture" element={<Colture />} />
+    <Route path="/soci" element={<Guard roles={['admin', 'agronomo']}><Soci /></Guard>} />
+    <Route path="/prodotti" element={<Prodotti />} />
+    <Route path="/eventi" element={<Eventi />} />
+    <Route path="/valutazione-terreno" element={<Guard roles={['admin']}><ValutazioneTerreno /></Guard>} />
+    <Route path="/terreni-valutati" element={<Guard roles={['admin']}><TerreniValutati /></Guard>} />
+    <Route path="/terreni-valutati/:id" element={<Guard roles={['admin']}><TerrenoDettaglio /></Guard>} />
   </Route>
-  <Route path="*" element={<Navigate to="/dashboard" replace />} />
+  <Route path="*" element={<Navigate to="/" replace />} />
 </Routes>
   )
 }
