@@ -16,17 +16,17 @@ interface NavItem {
 
 const NAV: NavItem[] = [
   { section: 'Principale' },
-  { path: '/dashboard',         label: 'Dashboard', icon: LayoutDashboard },
+  { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { section: 'Agricoltura' },
-  { path: '/dashboard/campi',    label: 'Campi',     icon: MapPin },
-  { path: '/dashboard/colture',  label: 'Colture',   icon: Sprout },
-  { path: '/dashboard/attivita', label: 'Attività',  icon: Activity },
-  { path: '/dashboard/valutazione-terreno', label: 'Valutazione Terreno', icon: ClipboardList, staffOnly: true },
-  { path: '/dashboard/terreni-valutati', label: 'Terreni Valutati', icon: MapPin, staffOnly: true },
+  { path: '/campi', label: 'Campi', icon: MapPin },
+  { path: '/colture', label: 'Colture', icon: Sprout },
+  { path: '/attivita', label: 'Attività', icon: Activity },
+  { path: '/valutazione-terreno', label: 'Valutazione Terreno', icon: ClipboardList, staffOnly: true },
+  { path: '/terreni-valutati', label: 'Terreni Valutati', icon: MapPin, staffOnly: true },
   { section: 'Gestione' },
-  { path: '/dashboard/soci',     label: 'Soci',      icon: Users, staffOnly: true },
-  { path: '/dashboard/prodotti', label: 'Prodotti',  icon: ShoppingBasket },
-  { path: '/dashboard/eventi',   label: 'Eventi',    icon: Calendar },
+  { path: '/soci', label: 'Soci', icon: Users, staffOnly: true },
+  { path: '/prodotti', label: 'Prodotti', icon: ShoppingBasket },
+  { path: '/eventi', label: 'Eventi', icon: Calendar },
 ]
 
 export default function Layout() {
