@@ -1,14 +1,196 @@
 <!DOCTYPE html>
 <html lang="it">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Amalis Urban Farm 4.0</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amalis Urban Farm 4.0 — In arrivo</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+html,body{
+  width:100%;
+  min-height:100%;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:#ffffff;
+  color:#1d1d1f;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  overflow:hidden;
+}
+
+.glow{
+  position:fixed;
+  width:700px;
+  height:700px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(26,127,78,.08) 0%,transparent 70%);
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+
+.container{
+  position:relative;
+  z-index:2;
+  max-width:620px;
+  padding:24px;
+}
+
+.logo{
+  font-size:18px;
+  font-weight:600;
+  margin-bottom:30px;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:#e8f5ee;
+  color:#1a7f4e;
+  padding:6px 16px;
+  border-radius:100px;
+  font-size:12px;
+  font-weight:500;
+  margin-bottom:30px;
+}
+
+.dot{
+  width:6px;
+  height:6px;
+  background:#1a7f4e;
+  border-radius:50%;
+  animation:blink 2s infinite;
+}
+
+@keyframes blink{
+  0%,100%{opacity:1}
+  50%{opacity:.3}
+}
+
+h1{
+  font-size:clamp(42px,7vw,76px);
+  font-weight:700;
+  letter-spacing:-0.04em;
+  line-height:1.05;
+  margin-bottom:22px;
+}
+
+.green{
+  color:#1a7f4e;
+}
+
+p{
+  font-size:18px;
+  color:#6e6e73;
+  line-height:1.6;
+  margin-bottom:40px;
+}
+
+.form{
+  display:flex;
+  border:1px solid #e5e5e7;
+  border-radius:50px;
+  overflow:hidden;
+  background:#fff;
+  box-shadow:0 4px 20px rgba(0,0,0,.05);
+}
+
+input{
+  flex:1;
+  border:none;
+  padding:15px 20px;
+  font-size:14px;
+  outline:none;
+  min-width:0;
+}
+
+button{
+  background:#1a7f4e;
+  color:#fff;
+  border:none;
+  padding:0 24px;
+  cursor:pointer;
+  font-size:14px;
+  font-weight:500;
+  white-space:nowrap;
+}
+
+button:hover{
+  background:#0d6a3d;
+}
+
+.footer{
+  position:fixed;
+  bottom:22px;
+  left:0;
+  right:0;
+  font-size:12px;
+  color:#a1a1a6;
+  text-align:center;
+}
+
+@media(max-width:600px){
+  .form{
+    flex-direction:column;
+    border-radius:18px;
+  }
+
+  input{
+    text-align:center;
+  }
+
+  button{
+    padding:14px 20px;
+  }
+
+  p{
+    font-size:16px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="glow"></div>
+
+<div class="container">
+
+  <div class="logo">Amalis Urban Farm 4.0</div>
+
+  <div class="badge">
+    <div class="dot"></div>
+    Sito in lavorazione
+  </div>
+
+  <h1>Siamo quasi<br><span class="green">pronti.</span></h1>
+
+  <p>
+    Stiamo preparando qualcosa di importante.<br>
+    Lascia la tua email per essere tra i primi ad accedere.
+  </p>
+
+  <div class="form">
+    <input type="email" placeholder="La tua email">
+    <button>Accedi in anteprima</button>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2026 amalisfarm.com
+</div>
+
+</body>
 </html>
