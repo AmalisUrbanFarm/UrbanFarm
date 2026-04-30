@@ -3,852 +3,170 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Amalis Urban Farm 4.0 — amalisfarm.com</title>
+<title>Amalis Urban Farm 4.0 — In arrivo</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
-body{font-family:-apple-system,'Inter','Helvetica Neue',sans-serif;background:#fff;color:#1d1d1f;-webkit-font-smoothing:antialiased}
-:root{--green:#1a7f4e;--green-d:#0d6a3d;--green-s:#e8f5ee;--g50:#f5f5f7;--g100:#e8e8ed;--g400:#86868b;--g600:#424245;--g800:#1d1d1f}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 44px;background:rgba(255,255,255,.88);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(0,0,0,.08)}
-.logo{display:flex;align-items:center;gap:10px;cursor:pointer}
-.logo-i{width:28px;height:28px;background:var(--green);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px}
-.logo-n{font-size:14px;font-weight:600;letter-spacing:-.02em;color:var(--g800)}
-.logo-s{font-size:12px;color:var(--g400);margin-left:2px}
-.nav-r{display:flex;align-items:center;gap:24px}
-.nl{font-size:13px;color:var(--g600);cursor:pointer;text-decoration:none;transition:color .15s}
-.nl:hover{color:#000}
-.ncta{background:var(--green);color:#fff;border:none;padding:7px 18px;border-radius:100px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;transition:background .2s}
-.ncta:hover{background:var(--green-d)}
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 44px 80px;position:relative;overflow:hidden}
-.glow{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(26,127,78,.07) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
-.badge{display:inline-flex;align-items:center;gap:7px;background:var(--green-s);border-radius:100px;padding:5px 14px;margin-bottom:32px;font-size:12px;font-weight:500;color:var(--green)}
-.bdot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:bl 2s infinite}
-@keyframes bl{0%,100%{opacity:1}50%{opacity:.3}}
-h1{font-size:clamp(56px,9vw,96px);font-weight:700;line-height:1.02;letter-spacing:-.04em;color:#000;margin-bottom:22px;max-width:880px;position:relative;z-index:1}
-.gr{color:var(--green)}
-.hsub{font-size:clamp(17px,2vw,21px);line-height:1.62;color:var(--g400);max-width:540px;margin:0 auto 48px;font-weight:400;letter-spacing:-.01em;position:relative;z-index:1}
-.hsub b{color:var(--g800);font-weight:500}
-.cd{display:inline-flex;border:1px solid var(--g100);border-radius:18px;overflow:hidden;margin-bottom:44px;background:var(--g50);position:relative;z-index:1}
-.ci{text-align:center;padding:16px 28px;border-right:1px solid var(--g100)}
-.ci:last-child{border-right:none}
-.cn{font-size:42px;font-weight:700;color:#000;line-height:1;letter-spacing:-.04em;display:block}
-.cl{font-size:10px;font-weight:500;color:var(--g400);letter-spacing:.06em;text-transform:uppercase;margin-top:5px;display:block}
-.ef-w{max-width:400px;margin:0 auto 24px;position:relative;z-index:1}
-.ef{display:flex;border:1px solid var(--g100);border-radius:100px;overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.06)}
-.ei{flex:1;border:none;outline:none;padding:13px 20px;font-size:14px;font-family:inherit;color:#000}
-.ei::placeholder{color:var(--g400)}
-.eb{background:var(--green);color:#fff;border:none;cursor:pointer;padding:10px 22px;font-size:13px;font-weight:500;font-family:inherit;border-radius:100px;margin:3px;transition:background .15s}
-.eb:hover{background:var(--green-d)}
-.hn{font-size:13px;color:var(--g400);position:relative;z-index:1}
-.strip{display:grid;grid-template-columns:repeat(4,1fr);background:#000;padding:56px 80px}
-.si{text-align:center;padding:0 16px;border-right:1px solid rgba(255,255,255,.08)}
-.si:last-child{border-right:none}
-.sn{font-size:52px;font-weight:700;color:#fff;letter-spacing:-.04em;line-height:1;display:block}
-.sl{font-size:12px;color:rgba(255,255,255,.4);margin-top:8px;display:block}
-.sec{padding:120px 80px}
-.sec.alt{background:var(--g50)}
-.sec-in{max-width:1060px;margin:0 auto}
-.stag{font-size:12px;font-weight:600;color:var(--green);letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px}
-.sec h2{font-size:clamp(36px,5vw,56px);font-weight:700;letter-spacing:-.04em;line-height:1.05;color:#000;margin-bottom:16px}
-.sec h2 em{color:var(--green);font-style:normal}
-.sdesc{font-size:18px;color:var(--g400);line-height:1.65;max-width:520px;font-weight:400;letter-spacing:-.01em;margin-bottom:48px}
-.sdesc b{color:var(--g800);font-weight:500}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center}
-.two-t{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:start}
-.facts{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.fact{background:#fff;border:1px solid var(--g100);border-radius:16px;padding:26px;transition:all .25s}
-.fact:hover{border-color:var(--green);transform:translateY(-2px);box-shadow:0 4px 20px rgba(26,127,78,.08)}
-.fact-n{font-size:44px;font-weight:700;color:var(--green);letter-spacing:-.04em;line-height:1}
-.fact-l{font-size:13px;color:var(--g400);margin-top:7px;line-height:1.45}
-.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--g100);border-radius:16px;overflow:hidden}
-.pill{background:#fff;padding:40px 32px;transition:background .2s}
-.pill:hover{background:var(--g50)}
-.pico{font-size:36px;margin-bottom:18px;display:block}
-.ptit{font-size:20px;font-weight:600;color:#000;margin-bottom:10px;letter-spacing:-.02em}
-.pdes{font-size:14px;line-height:1.7;color:var(--g400)}
-.ptag{display:inline-block;margin-top:14px;font-size:11px;font-weight:500;color:var(--green)}
-.gallery{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:8px;height:260px;border-radius:20px;overflow:hidden;margin-top:52px}
-.gc{display:flex;align-items:center;justify-content:center;font-size:52px;position:relative;transition:transform .3s}
-.gc:hover{transform:scale(1.03)}
-.gc:nth-child(1){background:linear-gradient(135deg,#d1fae5,#a7f3d0)}
-.gc:nth-child(2){background:linear-gradient(135deg,#fef3c7,#fde68a)}
-.gc:nth-child(3){background:linear-gradient(135deg,#fce7f3,#fbcfe8)}
-.gc:nth-child(4){background:linear-gradient(135deg,#dbeafe,#bfdbfe)}
-.gc-l{position:absolute;bottom:14px;left:16px;font-size:12px;font-weight:500;color:#424245}
-.steps{display:flex;flex-direction:column}
-.step{display:flex;gap:20px;padding:24px 0;border-bottom:1px solid var(--g100)}
-.step:last-child{border-bottom:none}
-.stn{width:32px;height:32px;min-width:32px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#fff;margin-top:2px}
-.stit{font-size:16px;font-weight:600;color:#000;margin-bottom:4px;letter-spacing:-.02em}
-.sdes{font-size:14px;color:var(--g400);line-height:1.6}
-.fcard{background:#fff;border:1px solid var(--g100);border-radius:20px;padding:36px;box-shadow:0 2px 20px rgba(0,0,0,.05)}
-.fcard h3{font-size:22px;font-weight:600;letter-spacing:-.03em;margin-bottom:24px;color:#000}
-.flb{font-size:12px;font-weight:500;color:var(--g600);letter-spacing:.02em;margin-bottom:5px;display:block}
-.fin{width:100%;background:var(--g50);border:1px solid var(--g100);border-radius:10px;padding:11px 14px;color:#000;font-size:14px;font-family:inherit;outline:none;margin-bottom:12px;transition:all .15s}
-.fin:focus{border-color:var(--green);background:#fff;box-shadow:0 0 0 3px rgba(26,127,78,.1)}
-.fin::placeholder{color:var(--g400)}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.bg{width:100%;background:var(--green);color:#fff;border:none;cursor:pointer;padding:13px;font-size:14px;font-weight:500;font-family:inherit;border-radius:10px;transition:all .2s;margin-top:4px}
-.bg:hover{background:var(--green-d)}
-.bb{width:100%;background:#000;color:#fff;border:none;cursor:pointer;padding:13px;font-size:14px;font-weight:500;font-family:inherit;border-radius:10px;transition:background .2s;margin-top:4px}
-.bb:hover{background:var(--g800)}
-.prom{font-size:12px;color:var(--g400);margin-top:12px;line-height:1.5}
-.smsg{display:none;background:var(--green-s);color:var(--green);font-size:14px;font-weight:500;padding:12px 16px;border-radius:10px;margin-top:10px;text-align:center}
-.jobs{border:1px solid var(--g100);border-radius:16px;overflow:hidden;margin-top:28px}
-.job{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--g100);background:#fff;transition:background .15s;gap:12px;cursor:pointer}
-.job:last-child{border-bottom:none}
-.job:hover{background:var(--g50)}
-.jtit{font-size:15px;font-weight:500;color:#000;margin-bottom:3px;letter-spacing:-.01em}
-.jsub{font-size:12px;color:var(--g400)}
-.jb{font-size:11px;font-weight:500;padding:4px 12px;border-radius:100px;flex-shrink:0}
-.jbo{background:var(--green-s);color:var(--green)}
-.jbu{background:#fff3e0;color:#c45000}
-footer{background:#000;padding:64px 80px 40px}
-.ftg{display:grid;grid-template-columns:2fr 1fr 1fr;gap:56px;margin-bottom:48px}
-.ft-n{font-size:15px;font-weight:600;color:#fff;letter-spacing:-.02em;margin-bottom:4px}
-.ft-s{font-size:8px;letter-spacing:.18em;color:rgba(26,127,78,.8);text-transform:uppercase;margin-bottom:14px}
-.ft-d{font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;max-width:270px}
-.ft-c{margin-top:14px;font-size:12px;color:rgba(255,255,255,.35);line-height:2.1}
-.ftg h4{font-size:11px;font-weight:600;color:rgba(255,255,255,.3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
-.ftg a{display:block;font-size:13px;color:rgba(255,255,255,.5);text-decoration:none;margin-bottom:9px;transition:color .15s;cursor:pointer}
-.ftg a:hover{color:#fff}
-.ftb{display:flex;justify-content:space-between;padding-top:22px;border-top:1px solid rgba(255,255,255,.07);font-size:12px;color:rgba(255,255,255,.2)}
-.rv{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
-.rv.vis{opacity:1;transform:translateY(0)}
-.rd1{transition-delay:.12s}.rd2{transition-delay:.22s}
-::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--g100);border-radius:3px}
-@media(max-width:768px){
-  nav{padding:0 20px}.nav-r .nl{display:none}
-  .hero{padding:90px 20px 60px}.cn{font-size:32px}.ci{padding:12px 14px}
-  .ef{flex-direction:column;border-radius:14px}.eb{border-radius:10px;margin:0 4px 4px}
-  .strip{grid-template-columns:1fr 1fr;padding:36px 20px}.sn{font-size:36px}
-  .sec{padding:72px 20px}.two,.two-t{grid-template-columns:1fr;gap:48px}
-  .pillars{grid-template-columns:1fr}.gallery{grid-template-columns:1fr 1fr;height:260px}
-  footer{padding:48px 20px 30px}.ftg{grid-template-columns:1fr;gap:28px}
-  .ftb{flex-direction:column;gap:8px;text-align:center}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Inter',sans-serif;
+  background:#ffffff;
+  color:#1d1d1f;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:100vh;
+  text-align:center;
+  overflow:hidden;
+}
+
+/* sfondo glow */
+.glow{
+  position:absolute;
+  width:700px;
+  height:700px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(26,127,78,.08) 0%,transparent 70%);
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+}
+
+/* container */
+.container{
+  position:relative;
+  z-index:2;
+  max-width:600px;
+  padding:20px;
+}
+
+/* logo */
+.logo{
+  font-size:18px;
+  font-weight:600;
+  margin-bottom:30px;
+}
+
+/* badge */
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:#e8f5ee;
+  color:#1a7f4e;
+  padding:6px 16px;
+  border-radius:100px;
+  font-size:12px;
+  font-weight:500;
+  margin-bottom:30px;
+}
+
+.dot{
+  width:6px;
+  height:6px;
+  background:#1a7f4e;
+  border-radius:50%;
+  animation:blink 2s infinite;
+}
+
+@keyframes blink{
+  0%,100%{opacity:1}
+  50%{opacity:.3}
+}
+
+/* titolo */
+h1{
+  font-size:clamp(40px,6vw,72px);
+  font-weight:700;
+  letter-spacing:-0.04em;
+  margin-bottom:20px;
+}
+
+.green{
+  color:#1a7f4e;
+}
+
+/* testo */
+p{
+  font-size:18px;
+  color:#6e6e73;
+  line-height:1.6;
+  margin-bottom:40px;
+}
+
+/* input email */
+.form{
+  display:flex;
+  border:1px solid #e5e5e7;
+  border-radius:50px;
+  overflow:hidden;
+  background:#fff;
+  box-shadow:0 4px 20px rgba(0,0,0,.05);
+}
+
+input{
+  flex:1;
+  border:none;
+  padding:14px 20px;
+  font-size:14px;
+  outline:none;
+}
+
+button{
+  background:#1a7f4e;
+  color:#fff;
+  border:none;
+  padding:0 24px;
+  cursor:pointer;
+  font-size:14px;
+  font-weight:500;
+}
+
+button:hover{
+  background:#0d6a3d;
+}
+
+/* footer */
+.footer{
+  position:absolute;
+  bottom:20px;
+  font-size:12px;
+  color:#a1a1a6;
 }
 </style>
 </head>
+
 <body>
 
-<nav>
-  <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-    <div class="logo-i">🌿</div>
-    <span class="logo-n">Amalis Urban Farm 4.0</span>
-    <span class="logo-s">— amalisfarm.com</span>
-  </div>
-  <div class="nav-r">
-    <a class="nl" onclick="g('#manifesto')">Progetto</a>
-    <a class="nl" onclick="g('#processo')">Come funziona</a>
-    <a class="nl" onclick="g('#prop')">Proprietari</a>
-    <a class="nl" onclick="g('#presentazione')">Presentazione</a>
-    <a class="nl" onclick="g('#lavoro')">Lavoro</a>
-    <button class="ncta" onclick="g('#notify')">Iscriviti</button>
-<a href="/login" style="background:#1d1d1f;color:#fff;border:none;padding:7px 18px;border-radius:100px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;text-decoration:none;margin-left:8px">Accedi</a>
-  </div>
-</nav>
+<div class="glow"></div>
 
-<section class="hero" id="home">
-  <div class="glow"></div>
-  <div class="badge"><div class="bdot"></div>In arrivo — amalisfarm.com</div>
-  <h1>La Sicilia<br>torna a <span class="gr">fiorire.</span></h1>
-  <p class="hsub">Trasformiamo i <b>terreni abbandonati siciliani</b> in ecosistemi agricoli moderni. Idroponica, urban farming, colture tradizionali. <b>Creiamo lavoro reale.</b></p>
-  <div class="cd">
-    <div class="ci"><span class="cn" id="cd-d">--</span><span class="cl">Giorni</span></div>
-    <div class="ci"><span class="cn" id="cd-h">--</span><span class="cl">Ore</span></div>
-    <div class="ci"><span class="cn" id="cd-m">--</span><span class="cl">Minuti</span></div>
-    <div class="ci"><span class="cn" id="cd-s">--</span><span class="cl">Secondi</span></div>
-  </div>
-  <div id="notify" class="ef-w">
-    <div class="ef" id="eform">
-      <input type="email" class="ei" id="eml" placeholder="La tua email per aggiornamenti">
-      <button class="eb" onclick="subEmail()">Avvisami</button>
-    </div>
-    <div class="smsg" id="eok">✓ Perfetto! Ti avviseremo al lancio.</div>
-  </div>
-  <p class="hn">Zero spam. Solo notizie importanti.</p>
-</section>
+<div class="container">
 
-<div class="strip">
-  <div class="si"><span class="sn">200k</span><span class="sl">Ettari abbandonati in Sicilia</span></div>
-  <div class="si"><span class="sn">40%</span><span class="sl">Disoccupazione giovanile rurale</span></div>
-  <div class="si"><span class="sn">10x</span><span class="sl">Resa idroponica vs suolo</span></div>
-  <div class="si"><span class="sn">20–30%</span><span class="sl">Quota ricavi per il proprietario</span></div>
+  <div class="logo">🌿 Amalis Urban Farm 4.0</div>
+
+  <div class="badge">
+    <div class="dot"></div>
+    Sito in lavorazione
+  </div>
+
+  <h1>Siamo quasi<br><span class="green">pronti.</span></h1>
+
+  <p>
+    Stiamo preparando qualcosa di importante.<br>
+    Lascia la tua email per essere tra i primi ad accedere.
+  </p>
+
+  <div class="form">
+    <input type="email" placeholder="La tua email">
+    <button>Accedi in anteprima</button>
+  </div>
+
 </div>
 
-<section class="sec" id="manifesto">
-  <div class="sec-in">
-    <div class="two">
-      <div class="rv">
-        <div class="stag">Il Progetto</div>
-        <h2>Un'occasione <em>enorme</em>.</h2>
-        <p class="sdesc">La Sicilia ha <b>200.000 ettari di terreni abbandonati</b>. Noi li prendiamo in comodato gratuito, li coltiviamo con tecnologie 4.0 e assumiamo le persone del territorio.</p>
-        <p style="font-size:15px;color:var(--g400);line-height:1.75">Nessun costo per il proprietario. Contratti regolari per i lavoratori. Prodotti di qualità per il mercato.</p>
-      </div>
-      <div class="facts rv rd1">
-        <div class="fact"><div class="fact-n">200k</div><div class="fact-l">Ettari abbandonati in Sicilia pronti a tornare produttivi</div></div>
-        <div class="fact"><div class="fact-n">40%</div><div class="fact-l">Disoccupazione giovanile nelle aree rurali siciliane</div></div>
-        <div class="fact"><div class="fact-n">10x</div><div class="fact-l">Resa idroponica rispetto alla coltivazione tradizionale</div></div>
-        <div class="fact"><div class="fact-n">0€</div><div class="fact-l">Zero costi per i proprietari che cedono il terreno in comodato</div></div>
-      </div>
-    </div>
-  </div>
-</section>
+<div class="footer">
+  © 2026 amalisfarm.com
+</div>
 
-<section class="sec alt" id="cosa">
-  <div class="sec-in">
-    <div class="rv" style="text-align:center;margin-bottom:52px">
-      <div class="stag">Come coltiviamo</div>
-      <h2>Tre modi di fare <em>agricoltura</em>.</h2>
-    </div>
-    <div class="pillars rv rd1">
-      <div class="pill"><span class="pico">🌾</span><div class="ptit">Colture Tradizionali</div><p class="pdes">Grano duro, ulivi, agrumi, vite. Le eccellenze siciliane con metodi sostenibili a basso impatto.</p><span class="ptag">Grano · Ulivo · Agrumi · Vite</span></div>
-      <div class="pill"><span class="pico">💧</span><div class="ptit">Idroponica & Acquaponica</div><p class="pdes">Sistemi a circuito chiuso per verdure e microgreens. Fino a 10x la resa per metro quadro.</p><span class="ptag">Basilico · Microgreens · Lattuga</span></div>
-      <div class="pill"><span class="pico">🏙</span><div class="ptit">Urban Farming 4.0</div><p class="pdes">Serre verticali e orti urbani integrati nelle comunità. Produzione a km0 per ristoranti e GDO.</p><span class="ptag">Serre verticali · Rooftop · km0</span></div>
-    </div>
-    <div class="gallery rv rd2">
-      <div class="gc">🌾<div class="gc-l">Grano · Agrigento</div></div>
-      <div class="gc">💧<div class="gc-l">Serra idroponica</div></div>
-      <div class="gc">🫒<div class="gc-l">Oliveto · Ragusa</div></div>
-      <div class="gc">🍋<div class="gc-l">Agrumeto · Catania</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="sec alt" id="processo">
-  <div class="sec-in">
-    <div class="rv" style="text-align:center;margin-bottom:64px">
-      <div class="stag">Come funziona</div>
-      <h2>Dal primo contatto<br>al <em>primo raccolto</em>.</h2>
-      <p style="font-size:18px;color:var(--g400);max-width:500px;margin:16px auto 0;line-height:1.65">Un processo trasparente in 5 fasi. Saprai sempre a che punto siamo.</p>
-    </div>
-
-    <div class="rv rd1" style="position:relative">
-
-      <!-- linea verticale connettore -->
-      <div style="position:absolute;left:39px;top:40px;bottom:40px;width:2px;background:linear-gradient(to bottom,var(--green),rgba(26,127,78,.1));z-index:0;border-radius:2px"></div>
-
-      <div style="display:flex;flex-direction:column;gap:0">
-
-        <!-- FASE 1 -->
-        <div style="display:flex;gap:28px;align-items:flex-start;padding:0 0 36px">
-          <div style="position:relative;z-index:1;flex-shrink:0">
-            <div style="width:80px;height:80px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 4px 20px rgba(26,127,78,.25)">📋</div>
-          </div>
-          <div style="flex:1;padding-top:16px">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
-              <div style="font-size:11px;font-weight:600;color:var(--green);letter-spacing:.08em;text-transform:uppercase">Fase 1</div>
-              <div style="height:1px;flex:1;background:var(--g100)"></div>
-            </div>
-            <h3 style="font-size:22px;font-weight:700;color:#000;letter-spacing:-.02em;margin-bottom:8px">Primo contatto e raccolta informazioni</h3>
-            <p style="font-size:15px;color:var(--g400);line-height:1.7;max-width:600px">Il proprietario ci contatta tramite il modulo o telefonicamente. Raccogliamo le informazioni di base: ubicazione, superficie, eventuali coltivazioni presenti, stato del terreno. È sufficiente una descrizione approssimativa — pensiamo noi al resto.</p>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
-              <span style="font-size:12px;font-weight:500;color:var(--green);background:var(--green-s);padding:4px 12px;border-radius:100px">⏱ Entro 24 ore</span>
-              <span style="font-size:12px;font-weight:500;color:var(--g600);background:var(--g50);padding:4px 12px;border-radius:100px">Nessun impegno</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- FASE 2 -->
-        <div style="display:flex;gap:28px;align-items:flex-start;padding:0 0 36px">
-          <div style="position:relative;z-index:1;flex-shrink:0">
-            <div style="width:80px;height:80px;border-radius:50%;background:#fff;border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:28px">🔍</div>
-          </div>
-          <div style="flex:1;padding-top:16px">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
-              <div style="font-size:11px;font-weight:600;color:var(--green);letter-spacing:.08em;text-transform:uppercase">Fase 2</div>
-              <div style="height:1px;flex:1;background:var(--g100)"></div>
-            </div>
-            <h3 style="font-size:22px;font-weight:700;color:#000;letter-spacing:-.02em;margin-bottom:8px">Sopralluogo e valutazione tecnica</h3>
-            <p style="font-size:15px;color:var(--g400);line-height:1.7;max-width:600px">Il nostro agronomo visita il terreno entro 48 ore. Analizziamo la qualità e composizione del suolo, l'esposizione solare, la disponibilità idrica, la presenza di energia elettrica, l'accessibilità viaria e le infrastrutture esistenti.</p>
-            <p style="font-size:15px;color:var(--g400);line-height:1.7;max-width:600px;margin-top:12px"><b style="color:var(--g800)">Siamo noi a decidere quale coltura attivare.</b> In base all'analisi completa del terreno, della zona geografica, del microclima e delle risorse disponibili, selezioniamo l'attività più adatta: che sia grano, oliveto, idroponica, allevamento, elicicoltura, produzione uova o un agriturismo. L'obiettivo è massimizzare i ricavi — e quindi anche la tua quota.</p>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
-              <span style="font-size:12px;font-weight:500;color:var(--green);background:var(--green-s);padding:4px 12px;border-radius:100px">⏱ Entro 48 ore</span>
-              <span style="font-size:12px;font-weight:500;color:var(--g600);background:var(--g50);padding:4px 12px;border-radius:100px">Sopralluogo gratuito</span>
-              <span style="font-size:12px;font-weight:500;color:var(--g600);background:var(--g50);padding:4px 12px;border-radius:100px">Analisi del suolo</span>
-              <span style="font-size:12px;font-weight:500;color:var(--g600);background:var(--g50);padding:4px 12px;border-radius:100px">Risorse idriche & elettricità</span>
-              <span style="font-size:12px;font-weight:500;color:var(--g600);background:var(--g50);padding:4px 12px;border-radius:100px">Selezione coltura ottimale</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- FASE 3 -->
-        <div style="display:flex;gap:28px;align-items:flex-start;padding:0 0 36px">
-          <div style="position:relative;z-index:1;flex-shrink:0">
-            <div style="width:80px;height:80px;border-radius:50%;background:#fff;border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:28px">📊</div>
-          </div>
-          <div style="flex:1;padding-top:16px">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
-              <div style="font-size:11px;font-weight:600;color:var(--green);letter-spacing:.08em;text-transform:uppercase">Fase 3</div>
-              <div style="height:1px;flex:1;background:var(--g100)"></div>
-            </div>
-            <h3 style="font-size:22px;font-weight:700;color:#000;letter-spacing:-.02em;margin-bottom:8px">Proposta e piano di coltivazione</h3>
-            <p style="font-size:15px;color:var(--g400);line-height:1.7;max-width:600px">Presentiamo al proprietario un piano dettagliato: colture selezionate, calendario agricolo, stima dei ricavi annui e la quota spettante. Tutto è trasparente e discusso insieme prima di firmare qualsiasi cosa. Il proprietario può fare domande, richiedere modifiche e prendersi il tempo necessario.</p>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
-              <span style="font-size:12px;font-weight:500;color:var(--green);background:var(--green-s);padding:4px 12px;border-radius:100px">📈 Stima ricavi inclusa</span>
-              <span style="font-size:12px;font-weight:500;color:var(--g600);background:var(--g50);padding:4px 12px;border-radius:100px">Nessuna pressione</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- FASE 4 -->
-        <div style="display:flex;gap:28px;align-items:flex-start;padding:0 0 36px">
-          <div style="position:relative;z-index:1;flex-shrink:0">
-            <div style="width:80px;height:80px;border-radius:50%;background:#fff;border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:28px">✍️</div>
-          </div>
-          <div style="flex:1;padding-top:16px">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
-              <div style="font-size:11px;font-weight:600;color:var(--green);letter-spacing:.08em;text-transform:uppercase">Fase 4</div>
-              <div style="height:1px;flex:1;background:var(--g100)"></div>
-            </div>
-            <h3 style="font-size:22px;font-weight:700;color:#000;letter-spacing:-.02em;margin-bottom:8px">Firma del comodato d'uso</h3>
-            <p style="font-size:15px;color:var(--g400);line-height:1.7;max-width:600px">Si firma il contratto di comodato d'uso gratuito, con durata scelta tra 10, 15 o 20 anni. Il terreno rimane di proprietà del titolare in ogni momento. Il contratto specifica la percentuale sui ricavi, le modalità di rendicontazione e le condizioni di recesso. Può essere registrato presso l'Agenzia delle Entrate.</p>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
-              <span style="font-size:12px;font-weight:500;color:var(--green);background:var(--green-s);padding:4px 12px;border-radius:100px">📝 10 / 15 / 20 anni</span>
-              <span style="font-size:12px;font-weight:500;color:var(--g600);background:var(--g50);padding:4px 12px;border-radius:100px">Registrabile AdE</span>
-              <span style="font-size:12px;font-weight:500;color:var(--g600);background:var(--g50);padding:4px 12px;border-radius:100px">Terreno sempre tuo</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- FASE 5 -->
-        <div style="display:flex;gap:28px;align-items:flex-start">
-          <div style="position:relative;z-index:1;flex-shrink:0">
-            <div style="width:80px;height:80px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 4px 20px rgba(26,127,78,.25)">🌱</div>
-          </div>
-          <div style="flex:1;padding-top:16px">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
-              <div style="font-size:11px;font-weight:600;color:var(--green);letter-spacing:.08em;text-transform:uppercase">Fase 5</div>
-              <div style="height:1px;flex:1;background:var(--g100)"></div>
-            </div>
-            <h3 style="font-size:22px;font-weight:700;color:#000;letter-spacing:-.02em;margin-bottom:8px">Avvio, coltivazione e rendicontazione</h3>
-            <p style="font-size:15px;color:var(--g400);line-height:1.7;max-width:600px">Amalis avvia le bonifiche, installa gli impianti e assume i lavoratori locali. Il proprietario non deve fare nulla. A fine stagione riceve il rendiconto dettagliato e la sua quota dei ricavi. L'accesso alla piattaforma permette di monitorare in tempo reale lo stato delle coltivazioni.</p>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
-              <span style="font-size:12px;font-weight:500;color:var(--green);background:var(--green-s);padding:4px 12px;border-radius:100px">💰 Quota ricavi ogni stagione</span>
-              <span style="font-size:12px;font-weight:500;color:var(--g600);background:var(--g50);padding:4px 12px;border-radius:100px">Dashboard monitoraggio</span>
-              <span style="font-size:12px;font-weight:500;color:var(--g600);background:var(--g50);padding:4px 12px;border-radius:100px">Zero gestione per te</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="sec" id="prop">
-  <div class="sec-in">
-    <div class="two-t">
-      <div class="rv">
-        <div class="stag">Per i proprietari</div>
-        <h2>Il tuo terreno<br>ti fa <em>guadagnare</em>.</h2>
-        <p class="sdesc">Hai un terreno abbandonato in Sicilia? <b>Noi investiamo, coltiviamo e ti riconosciamo una quota sui ricavi.</b> Zero costi, zero rischi.</p>
-        <div style="background:var(--green-s);border:1px solid rgba(26,127,78,.18);border-radius:16px;padding:24px 28px;margin-bottom:32px">
-          <div style="font-size:11px;font-weight:600;color:var(--green);letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px">Il tuo guadagno</div>
-          <div style="display:flex;gap:28px;align-items:flex-end;flex-wrap:wrap">
-            <div>
-              <div style="font-size:52px;font-weight:700;color:var(--green);letter-spacing:-.04em;line-height:1">20–30%</div>
-              <div style="font-size:13px;color:var(--g600);margin-top:5px;line-height:1.45">dei ricavi netti<br>del tuo terreno</div>
-            </div>
-            <div style="flex:1;min-width:160px;border-left:1px solid rgba(26,127,78,.2);padding-left:24px">
-              <p style="font-size:14px;color:var(--g600);line-height:1.7;margin:0">Ogni stagione ricevi la tua quota direttamente, in modo trasparente. Più il terreno produce, più guadagni — senza muovere un dito.</p>
-            </div>
-          </div>
-          <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(26,127,78,.15);display:flex;gap:20px;flex-wrap:wrap">
-            <span style="font-size:12px;color:var(--green);font-weight:500">✓ Nessun costo iniziale</span>
-            <span style="font-size:12px;color:var(--green);font-weight:500">✓ Rendicontazione annuale</span>
-            <span style="font-size:12px;color:var(--green);font-weight:500">✓ Possibili detrazioni fiscali</span>
-          </div>
-        </div>
-        <div class="steps">
-          <div class="step"><div class="stn">1</div><div><div class="stit">Proponi il terreno</div><div class="sdes">Sopralluogo gratuito entro 48 ore. Valutiamo insieme le potenzialità e la stima dei ricavi.</div></div></div>
-          <div class="step"><div class="stn">2</div><div><div class="stit">Firmiamo il contratto</div><div class="sdes">Comodato d'uso, minimo 5 anni. Il terreno resta sempre tuo. La tua percentuale è scritta nero su bianco.</div></div></div>
-          <div class="step"><div class="stn">3</div><div><div class="stit">Pensiamo a tutto noi</div><div class="sdes">Bonifica, coltivazione, lavoratori, manutenzione. Tu ricevi la tua quota ogni stagione.</div></div></div>
-        </div>
-      </div>
-      <div class="rv rd1">
-        <div class="fcard">
-          <h3>Proponi il tuo terreno</h3>
-          <label class="flb">Nome e Cognome</label><input type="text" class="fin" id="pn" placeholder="Mario Rossi">
-          <label class="flb">Telefono o Email</label><input type="text" class="fin" id="pc" placeholder="+39 320 000 0000">
-          <div class="frow">
-            <div><label class="flb">Comune</label><input type="text" class="fin" id="pco" placeholder="Agrigento"></div>
-            <div><label class="flb">Provincia</label>
-              <select class="fin" id="pp" style="appearance:none;cursor:pointer">
-                <option value="">—</option><option>Agrigento</option><option>Caltanissetta</option>
-                <option>Catania</option><option>Enna</option><option>Messina</option>
-                <option>Palermo</option><option>Ragusa</option><option>Siracusa</option><option>Trapani</option>
-              </select>
-            </div>
-          </div>
-          <label class="flb">Superficie stimata (ettari)</label><input type="number" class="fin" id="ph" placeholder="es. 5">
-          <button class="bg" onclick="subTerreno()">Invia la richiesta</button>
-          <p class="prom">✓ Il tuo terreno rimane sempre tuo. Zero costi, zero obblighi.</p>
-          <div class="smsg" id="tok">✓ Ottimo! Ti ricontatteremo entro 48 ore.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SEZIONE CAROSELLO PRESENTAZIONE -->
-<section class="sec" id="esempi">
-  <div class="sec-in">
-    <div class="rv" style="margin-bottom:20px">
-      <div class="stag">Quanto puoi guadagnare</div>
-      <h2>Dipende dal terreno.<br>Ecco <em>alcuni esempi</em>.</h2>
-      <p class="sdesc">Siamo noi a scegliere la coltura più adatta in base all'analisi del suolo, della zona, delle risorse idriche e delle infrastrutture. <b>L'agricoltura è a 360 gradi</b> — dal grano all'agriturismo.</p>
-    </div>
-    <div class="rv rd1" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px">
-
-      <div class="fact" style="border-radius:16px;padding:28px">
-        <div style="font-size:28px;margin-bottom:12px">🌾</div>
-        <div style="font-size:12px;font-weight:600;color:var(--green);letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px">Cereali · Grano duro</div>
-        <div style="font-size:13px;color:var(--g400);line-height:1.6;margin-bottom:16px">Grano duro con metodi sostenibili. Ricavo stimato €9.800/anno.</div>
-        <div style="display:flex;justify-content:space-between;align-items:flex-end;padding-top:14px;border-top:1px solid var(--g100)">
-          <div><div style="font-size:10px;color:var(--g400)">Quota proprietario (25%)</div><div style="font-size:28px;font-weight:700;color:var(--green);letter-spacing:-.03em">€ 2.450</div><div style="font-size:11px;color:var(--g400)">all'anno</div></div>
-        </div>
-      </div>
-
-      <div class="fact" style="border-radius:16px;padding:28px">
-        <div style="font-size:28px;margin-bottom:12px">🫒</div>
-        <div style="font-size:12px;font-weight:600;color:var(--green);letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px">Oliveto · Olio DOP</div>
-        <div style="font-size:13px;color:var(--g400);line-height:1.6;margin-bottom:16px">Olio extravergine a marchio DOP. Alta resa per ettaro, mercato premium.</div>
-        <div style="display:flex;justify-content:space-between;align-items:flex-end;padding-top:14px;border-top:1px solid var(--g100)">
-          <div><div style="font-size:10px;color:var(--g400)">Quota proprietario (25%)</div><div style="font-size:28px;font-weight:700;color:var(--green);letter-spacing:-.03em">€ 15.625</div><div style="font-size:11px;color:var(--g400)">all'anno</div></div>
-        </div>
-      </div>
-
-      <div class="fact" style="border-radius:16px;padding:28px">
-        <div style="font-size:28px;margin-bottom:12px">💧</div>
-        <div style="font-size:12px;font-weight:600;color:var(--green);letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px">Serra idroponica</div>
-        <div style="font-size:13px;color:var(--g400);line-height:1.6;margin-bottom:16px">Microgreens e lattuga in circuito chiuso. Resa fino a 10x rispetto al suolo.</div>
-        <div style="display:flex;justify-content:space-between;align-items:flex-end;padding-top:14px;border-top:1px solid var(--g100)">
-          <div><div style="font-size:10px;color:var(--g400)">Quota proprietario (25%)</div><div style="font-size:28px;font-weight:700;color:var(--green);letter-spacing:-.03em">€ 12.000</div><div style="font-size:11px;color:var(--g400)">all'anno</div></div>
-        </div>
-      </div>
-
-    </div>
-    <div class="rv rd1" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
-
-      <div class="fact" style="border-radius:16px;padding:28px">
-        <div style="font-size:28px;margin-bottom:12px">🐌</div>
-        <div style="font-size:12px;font-weight:600;color:var(--green);letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px">Elicicoltura · Lumache</div>
-        <div style="font-size:13px;color:var(--g400);line-height:1.6;margin-bottom:16px">Allevamento lumache per ristorazione e export. Filiera corta ad alta marginalità.</div>
-        <div style="display:flex;justify-content:space-between;align-items:flex-end;padding-top:14px;border-top:1px solid var(--g100)">
-          <div><div style="font-size:10px;color:var(--g400)">Quota proprietario (25%)</div><div style="font-size:28px;font-weight:700;color:var(--green);letter-spacing:-.03em">€ 9.000</div><div style="font-size:11px;color:var(--g400)">all'anno</div></div>
-        </div>
-      </div>
-
-      <div class="fact" style="border-radius:16px;padding:28px">
-        <div style="font-size:28px;margin-bottom:12px">🥚</div>
-        <div style="font-size:12px;font-weight:600;color:var(--green);letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px">Allevamento & Uova</div>
-        <div style="font-size:13px;color:var(--g400);line-height:1.6;margin-bottom:16px">Pollame a terra, uova biologiche e carni. Produzione a km0 per GDO locale e ristoranti.</div>
-        <div style="display:flex;justify-content:space-between;align-items:flex-end;padding-top:14px;border-top:1px solid var(--g100)">
-          <div><div style="font-size:10px;color:var(--g400)">Quota proprietario (25%)</div><div style="font-size:28px;font-weight:700;color:var(--green);letter-spacing:-.03em">€ 7.500</div><div style="font-size:11px;color:var(--g400)">all'anno</div></div>
-        </div>
-      </div>
-
-      <div class="fact" style="border-radius:16px;padding:28px;background:var(--green);border-color:var(--green)">
-        <div style="font-size:28px;margin-bottom:12px">🏡</div>
-        <div style="font-size:12px;font-weight:600;color:rgba(255,255,255,.7);letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px">Agriturismo & eventi</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:16px">Esperienze agricole, degustazioni, eventi privati. Il potenziale più alto per terreni con strutture.</div>
-        <div style="display:flex;justify-content:space-between;align-items:flex-end;padding-top:14px;border-top:1px solid rgba(255,255,255,.2)">
-          <div><div style="font-size:10px;color:rgba(255,255,255,.6)">Quota proprietario (25%)</div><div style="font-size:28px;font-weight:700;color:#fff;letter-spacing:-.03em">€ 23.750</div><div style="font-size:11px;color:rgba(255,255,255,.6)">all'anno</div></div>
-        </div>
-      </div>
-
-    </div>
-    <p style="font-size:12px;color:var(--g400);margin-top:20px;text-align:center">* Stime indicative basate su dati medi di mercato 2024. La quota effettiva è definita nel contratto.</p>
-  </div>
-</section>
-
-<section class="sec alt" id="presentazione">
-  <div class="sec-in">
-    <div class="rv" style="text-align:center;margin-bottom:48px">
-      <div class="stag">Presentazione per i proprietari</div>
-      <h2>Tutto quello che<br>devi <em>sapere</em>.</h2>
-      <p style="font-size:17px;color:var(--g400);max-width:480px;margin:0 auto;line-height:1.65">Sfoglia la presentazione per capire come funziona il progetto e quanto puoi guadagnare.</p>
-    </div>
-
-    <!-- Carosello -->
-    <div class="rv rd1" style="position:relative;max-width:860px;margin:0 auto">
-
-      <!-- Slide wrapper -->
-      <div id="carousel" style="position:relative;border-radius:20px;overflow:hidden;box-shadow:0 8px 48px rgba(0,0,0,.12);aspect-ratio:16/9;background:#000">
-
-        <!-- SLIDE 1: Cover -->
-        <div class="cslide" style="display:flex;flex-direction:column;justify-content:center;padding:8% 9%;background:#000;position:relative;overflow:hidden">
-          <div style="position:absolute;right:-8%;top:-20%;width:55%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(26,127,78,.18) 0%,transparent 70%);pointer-events:none"></div>
-          <div style="position:absolute;left:0;top:0;width:1.5%;height:100%;background:var(--green)"></div>
-          <div style="font-size:clamp(8px,1.1vw,11px);font-weight:600;color:rgba(26,127,78,.8);letter-spacing:.2em;text-transform:uppercase;margin-bottom:6%">Presentazione riservata ai proprietari</div>
-          <div style="font-size:clamp(22px,5vw,52px);font-weight:700;line-height:1.05;letter-spacing:-.03em;color:#fff;margin-bottom:4%">Il tuo terreno<br><span style="color:var(--green)">ti fa guadagnare.</span></div>
-          <div style="font-size:clamp(10px,1.6vw,16px);color:var(--g400)">Zero costi per te. Zero rischi. Una quota dei ricavi ogni stagione.</div>
-          <div style="position:absolute;bottom:5%;right:4%;background:var(--green);border-radius:6px;padding:3px 12px;font-size:clamp(7px,1vw,10px);font-weight:600;color:#fff">Amalis Urban Farm 4.0</div>
-        </div>
-
-        <!-- SLIDE 2: Contesto -->
-        <div class="cslide" style="display:none;flex-direction:column;justify-content:flex-start;padding:7% 8%;background:var(--g50)">
-          <div style="width:100%;height:3px;background:var(--green);border-radius:2px;margin-bottom:5%"></div>
-          <div style="font-size:clamp(7px,1vw,10px);font-weight:600;color:var(--green);letter-spacing:.2em;text-transform:uppercase;margin-bottom:3%">Il Contesto</div>
-          <div style="font-size:clamp(18px,4vw,36px);font-weight:700;letter-spacing:-.03em;color:var(--g800);line-height:1.1;margin-bottom:4%">200.000 ettari di terreni<br>abbandonati in Sicilia.</div>
-          <div style="font-size:clamp(9px,1.3vw,14px);color:var(--g400);margin-bottom:6%">Terreni che non producono reddito, che si degradano ogni anno, che pesano sul proprietario.</div>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2%">
-            <div style="background:#fff;border:1px solid var(--g100);border-radius:12px;padding:5% 4%;text-align:center">
-              <div style="font-size:clamp(16px,3vw,28px);margin-bottom:4%">💸</div>
-              <div style="font-size:clamp(9px,1.2vw,13px);font-weight:600;color:var(--g800);margin-bottom:3%">Nessun reddito</div>
-              <div style="font-size:clamp(7px,1vw,11px);color:var(--g400);line-height:1.4">Il terreno abbandonato non genera nulla</div>
-            </div>
-            <div style="background:#fff;border:1px solid var(--g100);border-radius:12px;padding:5% 4%;text-align:center">
-              <div style="font-size:clamp(16px,3vw,28px);margin-bottom:4%">⚠️</div>
-              <div style="font-size:clamp(9px,1.2vw,13px);font-weight:600;color:var(--g800);margin-bottom:3%">Costi nascosti</div>
-              <div style="font-size:clamp(7px,1vw,11px);color:var(--g400);line-height:1.4">IMU, manutenzione, rischio occupazione abusiva</div>
-            </div>
-            <div style="background:#fff;border:1px solid var(--g100);border-radius:12px;padding:5% 4%;text-align:center">
-              <div style="font-size:clamp(16px,3vw,28px);margin-bottom:4%">📉</div>
-              <div style="font-size:clamp(9px,1.2vw,13px);font-weight:600;color:var(--g800);margin-bottom:3%">Degrado del valore</div>
-              <div style="font-size:clamp(7px,1vw,11px);color:var(--g400);line-height:1.4">Un terreno non coltivato perde valore ogni anno</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- SLIDE 3: Soluzione -->
-        <div class="cslide" style="display:none;flex-direction:column;justify-content:flex-start;padding:7% 8%;background:#fff">
-          <div style="width:100%;height:3px;background:var(--green);border-radius:2px;margin-bottom:5%"></div>
-          <div style="font-size:clamp(7px,1vw,10px);font-weight:600;color:var(--green);letter-spacing:.2em;text-transform:uppercase;margin-bottom:3%">La Soluzione</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6%;align-items:start">
-            <div>
-              <div style="font-size:clamp(16px,3.5vw,32px);font-weight:700;letter-spacing:-.03em;color:var(--g800);line-height:1.1;margin-bottom:5%">Amalis gestisce tutto.<br><span style="color:var(--green)">Tu ricevi una quota.</span></div>
-              <div style="display:flex;flex-direction:column;gap:3%">
-                <div style="display:flex;gap:3%;align-items:flex-start"><div style="min-width:clamp(16px,2.5vw,24px);height:clamp(16px,2.5vw,24px);border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:clamp(7px,1vw,11px);font-weight:700;color:#fff;flex-shrink:0;margin-top:1%">1</div><div><div style="font-size:clamp(9px,1.2vw,13px);font-weight:600;color:var(--g800)">Sopralluogo gratuito</div><div style="font-size:clamp(7px,.95vw,11px);color:var(--g400)">Valutiamo in 48 ore con stima ricavi</div></div></div>
-                <div style="display:flex;gap:3%;align-items:flex-start"><div style="min-width:clamp(16px,2.5vw,24px);height:clamp(16px,2.5vw,24px);border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:clamp(7px,1vw,11px);font-weight:700;color:#fff;flex-shrink:0;margin-top:1%">2</div><div><div style="font-size:clamp(9px,1.2vw,13px);font-weight:600;color:var(--g800)">Contratto trasparente</div><div style="font-size:clamp(7px,.95vw,11px);color:var(--g400)">Percentuale scritta nero su bianco</div></div></div>
-                <div style="display:flex;gap:3%;align-items:flex-start"><div style="min-width:clamp(16px,2.5vw,24px);height:clamp(16px,2.5vw,24px);border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:clamp(7px,1vw,11px);font-weight:700;color:#fff;flex-shrink:0;margin-top:1%">3</div><div><div style="font-size:clamp(9px,1.2vw,13px);font-weight:600;color:var(--g800)">Noi coltiviamo</div><div style="font-size:clamp(7px,.95vw,11px);color:var(--g400)">Bonifica, impianti, lavoratori, manutenzione</div></div></div>
-                <div style="display:flex;gap:3%;align-items:flex-start"><div style="min-width:clamp(16px,2.5vw,24px);height:clamp(16px,2.5vw,24px);border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:clamp(7px,1vw,11px);font-weight:700;color:#fff;flex-shrink:0;margin-top:1%">4</div><div><div style="font-size:clamp(9px,1.2vw,13px);font-weight:600;color:var(--g800)">Tu guadagni</div><div style="font-size:clamp(7px,.95vw,11px);color:var(--g400)">Quota ogni stagione, rendicontazione annuale</div></div></div>
-              </div>
-            </div>
-            <div style="background:var(--green-s);border:1px solid rgba(26,127,78,.2);border-radius:14px;padding:6%">
-              <div style="font-size:clamp(7px,1vw,11px);font-weight:600;color:var(--green);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4%">Il tuo guadagno stimato</div>
-              <div style="font-size:clamp(32px,6vw,58px);font-weight:700;color:var(--green);letter-spacing:-.04em;line-height:1;margin-bottom:3%">20–30%</div>
-              <div style="font-size:clamp(9px,1.2vw,13px);color:var(--g600);margin-bottom:5%;line-height:1.5">dei ricavi netti<br>ogni stagione agricola</div>
-              <div style="border-top:1px solid rgba(26,127,78,.2);padding-top:4%;display:flex;flex-direction:column;gap:2%">
-                <span style="font-size:clamp(7px,1vw,11px);color:var(--green);font-weight:600">✓ Nessun costo iniziale</span>
-                <span style="font-size:clamp(7px,1vw,11px);color:var(--green);font-weight:600">✓ Detrazioni fiscali possibili</span>
-                <span style="font-size:clamp(7px,1vw,11px);color:var(--green);font-weight:600">✓ Terreno sempre tuo</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- SLIDE 4: I Numeri — esempi multipli -->
-        <div class="cslide" style="display:none;flex-direction:column;justify-content:flex-start;padding:5% 7%;background:var(--g50)">
-          <div style="width:100%;height:3px;background:var(--green);border-radius:2px;margin-bottom:3%"></div>
-          <div style="font-size:clamp(7px,1vw,10px);font-weight:600;color:var(--green);letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.5%">I Numeri</div>
-          <div style="font-size:clamp(16px,3.2vw,28px);font-weight:700;letter-spacing:-.03em;color:var(--g800);margin-bottom:1.5%">Dipende dal terreno. Ecco alcuni esempi reali.</div>
-          <div style="font-size:clamp(8px,1.1vw,12px);color:var(--g400);margin-bottom:3%">La coltura è scelta da noi in base all'analisi. Ogni terreno ha il suo potenziale.</div>
-          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:1.5%;flex:1">
-
-            <!-- Esempio 1: Grano -->
-            <div style="background:#fff;border:1px solid var(--g100);border-radius:10px;overflow:hidden;display:flex;flex-direction:column">
-              <div style="background:var(--green);padding:3% 4%;font-size:clamp(8px,1vw,11px);font-weight:600;color:#fff;text-align:center">🌾 Cereali</div>
-              <div style="padding:4% 5%;flex:1;display:flex;flex-direction:column;gap:5%">
-                <div style="font-size:clamp(6px,.85vw,10px);color:var(--g400)">Superficie</div>
-                <div style="font-size:clamp(11px,1.8vw,16px);font-weight:700;color:var(--g800)">Grano duro</div>
-                <div style="height:1px;background:var(--g100)"></div>
-                <div style="font-size:clamp(6px,.85vw,10px);color:var(--g400)">Ricavo lordo/anno</div>
-                <div style="font-size:clamp(11px,1.8vw,16px);font-weight:700;color:var(--g800)">€ 9.800</div>
-                <div style="height:1px;background:var(--g100)"></div>
-                <div style="font-size:clamp(6px,.85vw,10px);color:var(--g400)">La tua quota (25%)</div>
-                <div style="font-size:clamp(13px,2.2vw,20px);font-weight:700;color:var(--green)">€ 2.450</div>
-                <div style="font-size:clamp(6px,.8vw,9px);color:var(--green);font-weight:500">all'anno</div>
-              </div>
-            </div>
-
-            <!-- Esempio 2: Oliveto -->
-            <div style="background:#fff;border:1px solid var(--g100);border-radius:10px;overflow:hidden;display:flex;flex-direction:column">
-              <div style="background:var(--green);padding:3% 4%;font-size:clamp(8px,1vw,11px);font-weight:600;color:#fff;text-align:center">🫒 Oliveto</div>
-              <div style="padding:4% 5%;flex:1;display:flex;flex-direction:column;gap:5%">
-                <div style="font-size:clamp(6px,.85vw,10px);color:var(--g400)">Superficie</div>
-                <div style="font-size:clamp(11px,1.8vw,16px);font-weight:700;color:var(--g800)">Olio extravergine DOP</div>
-                <div style="height:1px;background:var(--g100)"></div>
-                <div style="font-size:clamp(6px,.85vw,10px);color:var(--g400)">Ricavo lordo/anno</div>
-                <div style="font-size:clamp(11px,1.8vw,16px);font-weight:700;color:var(--g800)">€ 62.500</div>
-                <div style="height:1px;background:var(--g100)"></div>
-                <div style="font-size:clamp(6px,.85vw,10px);color:var(--g400)">La tua quota (25%)</div>
-                <div style="font-size:clamp(13px,2.2vw,20px);font-weight:700;color:var(--green)">€ 15.625</div>
-                <div style="font-size:clamp(6px,.8vw,9px);color:var(--green);font-weight:500">all'anno</div>
-              </div>
-            </div>
-
-            <!-- Esempio 3: Idroponica -->
-            <div style="background:#fff;border:1px solid var(--g100);border-radius:10px;overflow:hidden;display:flex;flex-direction:column">
-              <div style="background:var(--green);padding:3% 4%;font-size:clamp(8px,1vw,11px);font-weight:600;color:#fff;text-align:center">💧 Idroponica</div>
-              <div style="padding:4% 5%;flex:1;display:flex;flex-direction:column;gap:5%">
-                <div style="font-size:clamp(6px,.85vw,10px);color:var(--g400)">Superficie</div>
-                <div style="font-size:clamp(11px,1.8vw,16px);font-weight:700;color:var(--g800)">Serra · circuito chiuso</div>
-                <div style="height:1px;background:var(--g100)"></div>
-                <div style="font-size:clamp(6px,.85vw,10px);color:var(--g400)">Ricavo lordo/anno</div>
-                <div style="font-size:clamp(11px,1.8vw,16px);font-weight:700;color:var(--g800)">€ 48.000</div>
-                <div style="height:1px;background:var(--g100)"></div>
-                <div style="font-size:clamp(6px,.85vw,10px);color:var(--g400)">La tua quota (25%)</div>
-                <div style="font-size:clamp(13px,2.2vw,20px);font-weight:700;color:var(--green)">€ 12.000</div>
-                <div style="font-size:clamp(6px,.8vw,9px);color:var(--green);font-weight:500">all'anno</div>
-              </div>
-            </div>
-
-            <!-- Esempio 4: Elicicoltura -->
-            <div style="background:#fff;border:1px solid var(--g100);border-radius:10px;overflow:hidden;display:flex;flex-direction:column">
-              <div style="background:var(--green);padding:3% 4%;font-size:clamp(8px,1vw,11px);font-weight:600;color:#fff;text-align:center">🐌 Elicicoltura</div>
-              <div style="padding:4% 5%;flex:1;display:flex;flex-direction:column;gap:5%">
-                <div style="font-size:clamp(6px,.85vw,10px);color:var(--g400)">Superficie</div>
-                <div style="font-size:clamp(11px,1.8vw,16px);font-weight:700;color:var(--g800)">Lumache · export</div>
-                <div style="height:1px;background:var(--g100)"></div>
-                <div style="font-size:clamp(6px,.85vw,10px);color:var(--g400)">Ricavo lordo/anno</div>
-                <div style="font-size:clamp(11px,1.8vw,16px);font-weight:700;color:var(--g800)">€ 36.000</div>
-                <div style="height:1px;background:var(--g100)"></div>
-                <div style="font-size:clamp(6px,.85vw,10px);color:var(--g400)">La tua quota (25%)</div>
-                <div style="font-size:clamp(13px,2.2vw,20px);font-weight:700;color:var(--green)">€ 9.000</div>
-                <div style="font-size:clamp(6px,.8vw,9px);color:var(--green);font-weight:500">all'anno</div>
-              </div>
-            </div>
-
-            <!-- Esempio 5: Agriturismo -->
-            <div style="background:#fff;border:1px solid var(--g100);border-radius:10px;overflow:hidden;display:flex;flex-direction:column">
-              <div style="background:var(--green-d);padding:3% 4%;font-size:clamp(8px,1vw,11px);font-weight:600;color:#fff;text-align:center">🏡 Agriturismo</div>
-              <div style="padding:4% 5%;flex:1;display:flex;flex-direction:column;gap:5%">
-                <div style="font-size:clamp(6px,.85vw,10px);color:var(--g400)">Superficie</div>
-                <div style="font-size:clamp(11px,1.8vw,16px);font-weight:700;color:var(--g800)">Esperienze &amp; eventi</div>
-                <div style="height:1px;background:var(--g100)"></div>
-                <div style="font-size:clamp(6px,.85vw,10px);color:var(--g400)">Ricavo lordo/anno</div>
-                <div style="font-size:clamp(11px,1.8vw,16px);font-weight:700;color:var(--g800)">€ 95.000</div>
-                <div style="height:1px;background:var(--g100)"></div>
-                <div style="font-size:clamp(6px,.85vw,10px);color:var(--g400)">La tua quota (25%)</div>
-                <div style="font-size:clamp(13px,2.2vw,20px);font-weight:700;color:var(--green)">€ 23.750</div>
-                <div style="font-size:clamp(6px,.8vw,9px);color:var(--green);font-weight:500">all'anno</div>
-              </div>
-            </div>
-
-          </div>
-          <div style="margin-top:2%;font-size:clamp(6px,.85vw,10px);color:var(--g400);font-style:italic">* Stime indicative basate su dati medi di mercato. La quota effettiva è definita nel contratto.</div>
-        </div>
-
-        <!-- SLIDE 5: Il Contratto -->
-        <div class="cslide" style="display:none;flex-direction:column;justify-content:flex-start;padding:7% 8%;background:#fff">
-          <div style="width:100%;height:3px;background:var(--green);border-radius:2px;margin-bottom:4%"></div>
-          <div style="font-size:clamp(7px,1vw,10px);font-weight:600;color:var(--green);letter-spacing:.2em;text-transform:uppercase;margin-bottom:2%">Il Contratto</div>
-          <div style="font-size:clamp(16px,3.2vw,28px);font-weight:700;letter-spacing:-.03em;color:var(--g800);margin-bottom:5%">Semplice, trasparente, a tuo favore.</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3%;flex:1">
-            <div style="border:1px solid var(--g100);border-radius:12px;overflow:hidden">
-              <div style="background:var(--green);padding:3% 4%;font-size:clamp(9px,1.2vw,13px);font-weight:600;color:#fff">🌱 Cosa facciamo noi</div>
-              <div style="padding:4%;display:flex;flex-direction:column;gap:3%">
-                <div style="font-size:clamp(8px,1.1vw,12px);color:var(--g600)"><span style="color:var(--green);font-weight:700">✓ </span>Bonifiche e preparazione del terreno</div>
-                <div style="font-size:clamp(8px,1.1vw,12px);color:var(--g600)"><span style="color:var(--green);font-weight:700">✓ </span>Impianti idroponici o tradizionali</div>
-                <div style="font-size:clamp(8px,1.1vw,12px);color:var(--g600)"><span style="color:var(--green);font-weight:700">✓ </span>Assunzione e gestione lavoratori</div>
-                <div style="font-size:clamp(8px,1.1vw,12px);color:var(--g600)"><span style="color:var(--green);font-weight:700">✓ </span>Manutenzione e gestione ordinaria</div>
-                <div style="font-size:clamp(8px,1.1vw,12px);color:var(--g600)"><span style="color:var(--green);font-weight:700">✓ </span>Commercializzazione dei prodotti</div>
-                <div style="font-size:clamp(8px,1.1vw,12px);color:var(--g600)"><span style="color:var(--green);font-weight:700">✓ </span>Rendicontazione annuale trasparente</div>
-              </div>
-            </div>
-            <div style="border:1px solid rgba(26,127,78,.25);border-radius:12px;overflow:hidden;background:var(--green-s)">
-              <div style="background:var(--green-d);padding:3% 4%;font-size:clamp(9px,1.2vw,13px);font-weight:600;color:#fff">💰 Cosa ottieni tu</div>
-              <div style="padding:4%;display:flex;flex-direction:column;gap:3%">
-                <div style="font-size:clamp(8px,1.1vw,12px);color:var(--g600)"><span style="color:var(--green);font-weight:700">✓ </span>20–30% dei ricavi netti ogni stagione</div>
-                <div style="font-size:clamp(8px,1.1vw,12px);color:var(--g600)"><span style="color:var(--green);font-weight:700">✓ </span>Il terreno resta sempre di tua proprietà</div>
-                <div style="font-size:clamp(8px,1.1vw,12px);color:var(--g600)"><span style="color:var(--green);font-weight:700">✓ </span>Zero spese di qualsiasi tipo</div>
-                <div style="font-size:clamp(8px,1.1vw,12px);color:var(--g600)"><span style="color:var(--green);font-weight:700">✓ </span>Contratto registrato e legalmente valido</div>
-                <div style="font-size:clamp(8px,1.1vw,12px);color:var(--g600)"><span style="color:var(--green);font-weight:700">✓ </span>Possibili detrazioni fiscali</div>
-                <div style="font-size:clamp(8px,1.1vw,12px);color:var(--g600)"><span style="color:var(--green);font-weight:700">✓ </span>Valorizzazione del tuo patrimonio</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- SLIDE 6: Coltivazioni -->
-        <div class="cslide" style="display:none;flex-direction:column;justify-content:flex-start;padding:7% 8%;background:var(--g50)">
-          <div style="width:100%;height:3px;background:var(--green);border-radius:2px;margin-bottom:4%"></div>
-          <div style="font-size:clamp(7px,1vw,10px);font-weight:600;color:var(--green);letter-spacing:.2em;text-transform:uppercase;margin-bottom:2%">Le Coltivazioni</div>
-          <div style="font-size:clamp(16px,3.2vw,30px);font-weight:700;letter-spacing:-.03em;color:var(--g800);margin-bottom:5%">Tre modelli, una sola missione.</div>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3%;flex:1">
-            <div style="background:#fff;border:1px solid var(--g100);border-radius:12px;overflow:hidden;display:flex;flex-direction:column">
-              <div style="height:3px;background:var(--green)"></div>
-              <div style="padding:5% 4%;flex:1;display:flex;flex-direction:column">
-                <div style="font-size:clamp(20px,3.5vw,32px);text-align:center;margin-bottom:4%">🌾</div>
-                <div style="font-size:clamp(9px,1.3vw,14px);font-weight:600;color:var(--g800);text-align:center;margin-bottom:3%">Colture Tradizionali</div>
-                <div style="font-size:clamp(7px,1vw,11px);color:var(--g400);text-align:center;line-height:1.5;flex:1">Grano duro, ulivi, agrumi, vite. Le eccellenze siciliane con metodi sostenibili.</div>
-                <div style="margin-top:4%;background:var(--green-s);border-radius:6px;padding:2% 3%;font-size:clamp(6px,.9vw,10px);color:var(--green);font-weight:600;text-align:center">Grano · Ulivo · Agrumi · Vite</div>
-              </div>
-            </div>
-            <div style="background:#fff;border:1px solid var(--g100);border-radius:12px;overflow:hidden;display:flex;flex-direction:column">
-              <div style="height:3px;background:var(--green)"></div>
-              <div style="padding:5% 4%;flex:1;display:flex;flex-direction:column">
-                <div style="font-size:clamp(20px,3.5vw,32px);text-align:center;margin-bottom:4%">💧</div>
-                <div style="font-size:clamp(9px,1.3vw,14px);font-weight:600;color:var(--g800);text-align:center;margin-bottom:3%">Idroponica & Acquaponica</div>
-                <div style="font-size:clamp(7px,1vw,11px);color:var(--g400);text-align:center;line-height:1.5;flex:1">Sistemi a circuito chiuso. Fino a 10x la resa per metro quadro.</div>
-                <div style="margin-top:4%;background:var(--green-s);border-radius:6px;padding:2% 3%;font-size:clamp(6px,.9vw,10px);color:var(--green);font-weight:600;text-align:center">Basilico · Microgreens · Lattuga</div>
-              </div>
-            </div>
-            <div style="background:#fff;border:1px solid var(--g100);border-radius:12px;overflow:hidden;display:flex;flex-direction:column">
-              <div style="height:3px;background:var(--green)"></div>
-              <div style="padding:5% 4%;flex:1;display:flex;flex-direction:column">
-                <div style="font-size:clamp(20px,3.5vw,32px);text-align:center;margin-bottom:4%">🏙️</div>
-                <div style="font-size:clamp(9px,1.3vw,14px);font-weight:600;color:var(--g800);text-align:center;margin-bottom:3%">Urban Farming 4.0</div>
-                <div style="font-size:clamp(7px,1vw,11px);color:var(--g400);text-align:center;line-height:1.5;flex:1">Serre verticali e orti integrati nelle comunità. Produzione km0.</div>
-                <div style="margin-top:4%;background:var(--green-s);border-radius:6px;padding:2% 3%;font-size:clamp(6px,.9vw,10px);color:var(--green);font-weight:600;text-align:center">Serre verticali · Rooftop · km0</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- SLIDE 7: CTA -->
-        <div class="cslide" style="display:none;flex-direction:column;justify-content:center;padding:8% 9%;background:var(--green);position:relative;overflow:hidden">
-          <div style="position:absolute;right:-10%;top:-30%;width:60%;aspect-ratio:1;border-radius:50%;background:rgba(0,0,0,.1);pointer-events:none"></div>
-          <div style="position:absolute;left:-5%;bottom:-20%;width:40%;aspect-ratio:1;border-radius:50%;background:rgba(0,0,0,.08);pointer-events:none"></div>
-          <div style="font-size:clamp(32px,7vw,64px);font-weight:700;color:#fff;letter-spacing:-.04em;line-height:1;margin-bottom:4%;position:relative">Inizia oggi.</div>
-          <div style="font-size:clamp(11px,1.6vw,16px);color:rgba(255,255,255,.8);max-width:55%;line-height:1.6;margin-bottom:7%;position:relative">Proponi il tuo terreno. Valutiamo insieme in 48 ore. Zero costi, zero rischi. Solo opportunità.</div>
-          <div style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:14px;padding:4% 5%;display:inline-flex;flex-direction:column;gap:3%;position:relative;width:fit-content">
-            <div style="font-size:clamp(9px,1.2vw,13px);color:#fff">📍 Sicilia, Italia</div>
-            <div style="font-size:clamp(9px,1.2vw,13px);color:#fff">✉ info@amalisfarm.com</div>
-            <div style="font-size:clamp(9px,1.2vw,13px);color:#fff">🌐 amalisfarm.com</div>
-          </div>
-        </div>
-
-      </div><!-- /carousel -->
-
-      <!-- Controlli navigazione -->
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:20px">
-        <button id="cprev" onclick="cNav(-1)" style="width:40px;height:40px;border-radius:50%;border:1px solid var(--g100);background:#fff;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .2s;color:var(--g800)" onmouseover="this.style.background='var(--green)';this.style.color='#fff';this.style.borderColor='var(--green)'" onmouseout="this.style.background='#fff';this.style.color='var(--g800)';this.style.borderColor='var(--g100)'">‹</button>
-        <div id="cdots" style="display:flex;gap:8px;align-items:center"></div>
-        <button id="cnext" onclick="cNav(1)" style="width:40px;height:40px;border-radius:50%;border:1px solid var(--g100);background:#fff;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .2s;color:var(--g800)" onmouseover="this.style.background='var(--green)';this.style.color='#fff';this.style.borderColor='var(--green)'" onmouseout="this.style.background='#fff';this.style.color='var(--g800)';this.style.borderColor='var(--g100)'">›</button>
-      </div>
-
-    </div><!-- /carosello wrapper -->
-  </div>
-</section>
-
-<section class="sec alt" id="lavoro">
-  <div class="sec-in">
-    <div class="two-t">
-      <div class="rv">
-        <div class="stag">Lavora con noi</div>
-        <h2>Cerchiamo persone,<br>non <em>curricula</em>.</h2>
-        <p class="sdesc">Contratti regolari, formazione inclusa. Con o senza esperienza.</p>
-        <div class="jobs">
-          <div class="job"><div><div class="jtit">Operaio Agricolo Generico</div><div class="jsub">Tutta la Sicilia · Nessuna esperienza</div></div><span class="jb jbo">12 posti</span></div>
-          <div class="job"><div><div class="jtit">Tecnico Sistemi Idroponici</div><div class="jsub">Catania · Palermo</div></div><span class="jb jbo">3 posti</span></div>
-          <div class="job"><div><div class="jtit">Agronomo / Tecnico Agricolo</div><div class="jsub">Agrigento · Palermo · Diploma agrario</div></div><span class="jb jbu">Urgente</span></div>
-          <div class="job"><div><div class="jtit">Responsabile Terreno</div><div class="jsub">Tutta la Sicilia · Gestione team</div></div><span class="jb jbo">4 posti</span></div>
-        </div>
-      </div>
-      <div class="rv rd1">
-        <div class="fcard">
-          <h3>Candidati ora</h3>
-          <div class="frow">
-            <div><label class="flb">Nome</label><input type="text" class="fin" id="ln" placeholder="Mario"></div>
-            <div><label class="flb">Cognome</label><input type="text" class="fin" id="lc" placeholder="Rossi"></div>
-          </div>
-          <label class="flb">Comune di residenza</label><input type="text" class="fin" id="lco" placeholder="es. Palermo">
-          <label class="flb">Posizione</label>
-          <select class="fin" id="lp" style="appearance:none;cursor:pointer">
-            <option>Operaio Agricolo Generico</option><option>Tecnico Sistemi Idroponici</option>
-            <option>Agronomo / Tecnico Agricolo</option><option>Responsabile Terreno</option><option>Altra</option>
-          </select>
-          <label class="flb">Esperienza</label>
-          <select class="fin" id="le" style="appearance:none;cursor:pointer">
-            <option>Nessuna</option><option>Meno di 1 anno</option><option>1-3 anni</option><option>Oltre 3 anni</option>
-          </select>
-          <label class="flb">Telefono o Email</label><input type="text" class="fin" id="lct" placeholder="+39 320 000 0000">
-          <button class="bb" onclick="subLavoro()">Invia candidatura</button>
-          <div class="smsg" id="lok">✓ Candidatura ricevuta! Ti contatteremo presto.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="ftg">
-    <div>
-      <div class="ft-n">Amalis Urban Farm 4.0</div>
-      <div class="ft-s">Ramo agricolo · Amalis Group SRL</div>
-      <p class="ft-d">Terreni abbandonati che tornano a produrre. Persone che tornano a lavorare. La Sicilia che torna a fiorire.</p>
-      <div class="ft-c">📍 Sicilia, Italia<br>✉ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="31585f575e71505c505d58425750435c1f525e5c">[email&#160;protected]</a><br>🌐 amalisfarm.com</div>
-    </div>
-    <div>
-      <h4>Progetto</h4>
-      <a onclick="g('#manifesto')">Il Manifesto</a>
-      <a onclick="g('#processo')">Come funziona</a>
-      <a onclick="g('#cosa')">Come coltiviamo</a>
-      <a onclick="g('#prop')">Per i proprietari</a>
-      <a onclick="g('#lavoro')">Lavora con noi</a>
-    </div>
-    <div>
-      <h4>Amalis Group</h4>
-      <a href="#">Amalis Group SRL</a>
-      <a href="#">Sostenibilità</a>
-      <a href="#">Press & Media</a>
-      <a onclick="g('#notify')">Newsletter</a>
-    </div>
-  </div>
-  <div class="ftb">
-    <span>© 2025 Amalis Urban Farm 4.0 · Amalis Group SRL</span>
-    <span>amalisfarm.com · Made in Sicilia 🌿</span>
-  </div>
-</footer>
-
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-function g(t){document.querySelector(t)?.scrollIntoView({behavior:'smooth',block:'start'})}
-const ld=new Date();ld.setDate(ld.getDate()+90);
-function tick(){const d=ld-new Date();if(d<=0)return;
-  document.getElementById('cd-d').textContent=String(Math.floor(d/86400000)).padStart(2,'0');
-  document.getElementById('cd-h').textContent=String(Math.floor(d%86400000/3600000)).padStart(2,'0');
-  document.getElementById('cd-m').textContent=String(Math.floor(d%3600000/60000)).padStart(2,'0');
-  document.getElementById('cd-s').textContent=String(Math.floor(d%60000/1000)).padStart(2,'0');
-}
-setInterval(tick,1000);tick();
-const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis')}),{threshold:.08});
-document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
-function subEmail(){const e=document.getElementById('eml').value.trim();if(!e||!e.includes('@')){document.getElementById('eml').style.borderColor='#ef4444';setTimeout(()=>document.getElementById('eml').style.borderColor='',2000);return}document.getElementById('eform').style.display='none';document.getElementById('eok').style.display='block'}
-function subTerreno(){if(!document.getElementById('pn').value.trim()||!document.getElementById('pc').value.trim()){alert('Inserisci nome e contatto.');return}document.getElementById('tok').style.display='block';['pn','pc','pco','ph'].forEach(id=>document.getElementById(id).value='')}
-function subLavoro(){if(!document.getElementById('ln').value.trim()||!document.getElementById('lct').value.trim()){alert('Inserisci nome e contatto.');return}document.getElementById('lok').style.display='block'}
-
-// ── Carosello ──
-let cIdx = 0;
-const cSlides = document.querySelectorAll('.cslide');
-const cTotal = cSlides.length;
-
-function cRender() {
-  cSlides.forEach((s, i) => {
-    s.style.display = i === cIdx ? 'flex' : 'none';
-  });
-  // dots
-  const dots = document.getElementById('cdots');
-  dots.innerHTML = '';
-  for (let i = 0; i < cTotal; i++) {
-    const d = document.createElement('div');
-    d.style.cssText = `width:${i===cIdx?'20px':'8px'};height:8px;border-radius:100px;background:${i===cIdx?'var(--green)':'var(--g100)'};transition:all .3s;cursor:pointer`;
-    d.onclick = () => { cIdx = i; cRender(); };
-    dots.appendChild(d);
-  }
-  document.getElementById('cprev').style.opacity = cIdx === 0 ? '0.3' : '1';
-  document.getElementById('cnext').style.opacity = cIdx === cTotal - 1 ? '0.3' : '1';
-}
-
-function cNav(dir) {
-  cIdx = Math.max(0, Math.min(cTotal - 1, cIdx + dir));
-  cRender();
-}
-
-// swipe support
-let cX0 = null;
-const cEl = document.getElementById('carousel');
-cEl.addEventListener('touchstart', e => { cX0 = e.touches[0].clientX; });
-cEl.addEventListener('touchend', e => {
-  if (cX0 === null) return;
-  const dx = e.changedTouches[0].clientX - cX0;
-  if (Math.abs(dx) > 40) cNav(dx < 0 ? 1 : -1);
-  cX0 = null;
-});
-
-cRender();
-</script>
 </body>
 </html>
