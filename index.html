@@ -1,0 +1,5056 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Amalis Urban Farm">
+  <title>Amalis Urban Farm</title>
+  <link rel="icon" href="assets/amalis-logo.svg" type="image/svg+xml">
+  <style>
+    :root {
+      --ink: #07120f;
+      --muted: #62706a;
+      --line: rgba(7, 18, 15, 0.12);
+      --soft: #f6f8f5;
+      --soft-2: #eef4f0;
+      --green: #1b7a4a;
+      --green-2: #5cb883;
+      --steel: #d8e1df;
+      --blue: #4f7d94;
+      --gold: #b08a43;
+      --white: #ffffff;
+      --shadow: 0 24px 70px rgba(7, 18, 15, 0.12);
+      --radius: 8px;
+      --header: 72px;
+      --section-y: 88px;
+      --section-y-tablet: 76px;
+      --section-y-mobile: 60px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--white);
+      scroll-behavior: smooth;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(238, 244, 240, 0.72), rgba(255,255,255,0) 360px),
+        var(--white);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+      opacity: 0.42;
+      background-image:
+        linear-gradient(rgba(7, 18, 15, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(7, 18, 15, 0.045) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(180deg, black, transparent 80%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    select {
+      font: inherit;
+    }
+
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      height: var(--header);
+      border-bottom: 1px solid rgba(7, 18, 15, 0.08);
+      background: rgba(255, 255, 255, 0.76);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-shell {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      width: min(1180px, calc(100% - 40px));
+      height: 100%;
+      margin: 0 auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      font-weight: 760;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    .brand-logo {
+      display: block;
+      width: clamp(158px, 16vw, 230px);
+      height: 42px;
+      object-fit: contain;
+      object-position: left center;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 13px;
+      color: rgba(7, 18, 15, 0.72);
+    }
+
+    .nav-links a {
+      transition: color 180ms ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .language-select {
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0 34px 0 12px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.82);
+      cursor: pointer;
+    }
+
+    .nav-login,
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      border-radius: 8px;
+      border: 1px solid rgba(7, 18, 15, 0.14);
+      padding: 0 18px;
+      font-size: 14px;
+      font-weight: 680;
+      letter-spacing: 0;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+      cursor: pointer;
+    }
+
+    .nav-login {
+      background: var(--ink);
+      color: var(--white);
+      box-shadow: 0 12px 30px rgba(7, 18, 15, 0.16);
+    }
+
+    .btn.primary {
+      background: var(--ink);
+      color: var(--white);
+      box-shadow: 0 18px 46px rgba(7, 18, 15, 0.18);
+    }
+
+    .btn.secondary {
+      background: rgba(255,255,255,0.72);
+      color: var(--ink);
+    }
+
+    .btn:hover,
+    .nav-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 52px rgba(7, 18, 15, 0.17);
+    }
+
+    main {
+      padding-top: var(--header);
+    }
+
+    .section {
+      position: relative;
+      min-height: auto;
+      display: grid;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .section-inner {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: var(--section-y) 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 24px;
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 780;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    .display {
+      margin: 0;
+      max-width: 1050px;
+      font-size: clamp(46px, 6.3vw, 92px);
+      line-height: 0.98;
+      letter-spacing: 0;
+      font-weight: 820;
+    }
+
+    .hero .display {
+      max-width: 520px;
+      font-size: clamp(42px, 5.05vw, 74px);
+      line-height: 1.04;
+      color: transparent;
+      background:
+        linear-gradient(105deg, #07120f 0%, #07120f 34%, #1b7a4a 52%, #4f7d94 72%, #07120f 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .headline {
+      margin: 0;
+      max-width: 930px;
+      font-size: clamp(42px, 6vw, 88px);
+      line-height: 0.98;
+      letter-spacing: 0;
+      font-weight: 800;
+    }
+
+    .lead {
+      margin: 32px 0 0;
+      max-width: 680px;
+      color: var(--muted);
+      font-size: clamp(18px, 2.2vw, 25px);
+      line-height: 1.42;
+    }
+
+    .hero {
+      min-height: auto;
+    }
+
+    .hero .section-inner {
+      padding-top: 54px;
+      padding-bottom: 66px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.98fr) minmax(360px, 0.82fr);
+      column-gap: 56px;
+      row-gap: 0;
+      align-items: center;
+    }
+
+    .hero-copy {
+      padding: 8px 0 32px;
+    }
+
+    .hero-roadmap {
+      position: relative;
+      width: min(1100px, 100%);
+      grid-column: 1 / -1;
+      justify-self: center;
+      margin: 0 auto 18px;
+      border: 0;
+      border-radius: 0;
+      padding: 2px 4px 6px;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .roadmap-title {
+      margin: 0 0 10px;
+      color: #2E7D32;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+    }
+
+    .roadmap-track {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(7, minmax(92px, 1fr));
+      gap: 0;
+      align-items: start;
+      padding-top: 10px;
+    }
+
+    .roadmap-track::before,
+    .roadmap-track::after {
+      content: "";
+      position: absolute;
+      left: 44px;
+      right: 44px;
+      top: 22px;
+      height: 3px;
+      border-radius: 999px;
+    }
+
+    .roadmap-track::before {
+      background: linear-gradient(90deg, rgba(15,81,50,0.12), rgba(87,167,115,0.2), rgba(15,81,50,0.1));
+    }
+
+    .roadmap-track::after {
+      right: auto;
+      width: calc((100% - 88px) * 0.17);
+      background: linear-gradient(90deg, #0F5132, #2E7D32, #57A773);
+      transform-origin: left;
+      animation: roadmapLine 2s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    .roadmap-step {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      justify-items: center;
+      gap: 10px;
+      min-width: 0;
+      color: var(--ink);
+      text-align: center;
+      opacity: 1;
+      transform: translateY(0);
+      animation: roadmapStep 720ms cubic-bezier(0.22,1,0.36,1);
+      transition: transform 220ms cubic-bezier(0.22,1,0.36,1), filter 220ms ease;
+    }
+
+    .roadmap-step:nth-child(1) { animation-delay: 120ms; }
+    .roadmap-step:nth-child(2) { animation-delay: 240ms; }
+    .roadmap-step:nth-child(3) { animation-delay: 360ms; }
+    .roadmap-step:nth-child(4) { animation-delay: 480ms; }
+    .roadmap-step:nth-child(5) { animation-delay: 600ms; }
+    .roadmap-step:nth-child(6) { animation-delay: 720ms; }
+    .roadmap-step:nth-child(7) { animation-delay: 840ms; }
+
+    .roadmap-step:hover {
+      transform: translateY(-4px) scale(1.05);
+      filter: drop-shadow(0 16px 24px rgba(7,18,15,0.1));
+    }
+
+    .roadmap-step:not(.done):not(.current) {
+      color: #A0AAA3;
+    }
+
+    .roadmap-dot {
+      display: grid;
+      place-items: center;
+      width: 18px;
+      height: 18px;
+      border: 1px solid #D9E1DC;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.72);
+      color: #A0AAA3;
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1;
+      backdrop-filter: blur(10px);
+    }
+
+    .roadmap-step.done .roadmap-dot {
+      width: 22px;
+      height: 22px;
+      border-color: #2E7D32;
+      background: #2E7D32;
+      color: #FFFFFF;
+      animation: roadmapPulse 3.8s ease-in-out infinite;
+    }
+
+    .roadmap-step.current .roadmap-dot {
+      width: 28px;
+      height: 28px;
+      border-color: #2E7D32;
+      background: #2E7D32;
+      color: #FFFFFF;
+      box-shadow: 0 0 25px rgba(46,125,50,0.35);
+      animation: roadmapPulse 3s ease-in-out infinite;
+    }
+
+    .roadmap-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      min-height: 58px;
+    }
+
+    .roadmap-label strong {
+      max-width: 124px;
+      font-size: 11px;
+      line-height: 1.22;
+      letter-spacing: 0;
+    }
+
+    .roadmap-label span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 22px;
+      border-radius: 999px;
+      padding: 0 8px;
+      background: rgba(243,245,244,0.72);
+      color: #7d8982;
+      font-size: 9px;
+      font-weight: 760;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .roadmap-step.done .roadmap-label span,
+    .roadmap-step.current .roadmap-label span {
+      background: rgba(46,125,50,0.1);
+      color: #2E7D32;
+    }
+
+    .roadmap-tooltip {
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 14px);
+      width: max-content;
+      max-width: 230px;
+      border-radius: 14px;
+      padding: 11px 13px;
+      background: #111111;
+      color: #FFFFFF;
+      font-size: 12px;
+      line-height: 1.35;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 8px);
+      transition: opacity 180ms ease, transform 180ms cubic-bezier(0.22,1,0.36,1);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    .roadmap-tooltip::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -6px;
+      width: 12px;
+      height: 12px;
+      background: inherit;
+      transform: translateX(-50%) rotate(45deg);
+    }
+
+    .roadmap-step:hover .roadmap-tooltip {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .signal-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 36px;
+      max-width: 650px;
+    }
+
+    .signal {
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+    }
+
+    .signal strong {
+      display: block;
+      font-size: 28px;
+      letter-spacing: 0;
+    }
+
+    .signal span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .world-visual {
+      position: relative;
+      min-height: 500px;
+      isolation: isolate;
+      transform: none;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 28px 90px rgba(7, 18, 15, 0.14);
+      background: #f7faf7;
+    }
+
+    .orbit-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .network-hero-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      z-index: 1;
+      transform: scale(1.02);
+    }
+
+    .world-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.18), transparent 24%),
+        radial-gradient(circle at 50% 55%, transparent 42%, rgba(255,255,255,0.16) 100%);
+    }
+
+    .data-pill {
+      position: absolute;
+      z-index: 4;
+      border: 1px solid rgba(7, 18, 15, 0.12);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+      padding: 14px 16px;
+      min-width: 132px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .data-pill span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 680;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .data-pill strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 21px;
+    }
+
+    .data-pill.one {
+      left: 7%;
+      top: 10%;
+    }
+
+    .data-pill.two {
+      right: 6%;
+      top: 18%;
+      animation-delay: -2s;
+    }
+
+    .data-pill.three {
+      left: 10%;
+      bottom: 10%;
+      animation-delay: -4s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-16px); }
+    }
+
+    @keyframes roadmapLine {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    @keyframes roadmapStep {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes roadmapPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    .problem {
+      background: linear-gradient(180deg, #ffffff 0%, #f8faf8 100%);
+      min-height: auto;
+      align-items: start;
+    }
+
+    .problem .section-inner {
+      padding: var(--section-y) 0;
+    }
+
+    .problem::before {
+      content: "";
+      position: absolute;
+      left: -160px;
+      top: 70px;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(46,125,50,0.08), transparent 70%);
+      pointer-events: none;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+      column-gap: 96px;
+      row-gap: 42px;
+      align-items: center;
+    }
+
+    .problem .eyebrow {
+      font-size: 13px;
+      letter-spacing: 2px;
+      font-weight: 700;
+      color: #2E7D32;
+    }
+
+    .problem .eyebrow::before {
+      width: 28px;
+      height: 2px;
+    }
+
+    .problem-title {
+      max-width: 650px;
+      font-size: clamp(48px, 6.4vw, 92px);
+      line-height: 0.95;
+      letter-spacing: -4px;
+      color: #0A0A0A;
+    }
+
+    .problem-lead {
+      max-width: 700px;
+      font-size: clamp(20px, 2.1vw, 26px);
+      line-height: 1.4;
+      color: #5F6762;
+    }
+
+    .problem-metrics {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      isolation: isolate;
+    }
+
+    .problem-metrics::before {
+      content: "";
+      position: absolute;
+      inset: -40px;
+      z-index: -1;
+      opacity: 0.06;
+      background:
+        linear-gradient(28deg, transparent 0 21%, #2E7D32 21% 21.4%, transparent 21.4% 100%),
+        linear-gradient(-18deg, transparent 0 34%, #2E7D32 34% 34.35%, transparent 34.35% 100%),
+        radial-gradient(circle at 16% 72%, #2E7D32 0 5px, transparent 6px),
+        radial-gradient(circle at 42% 38%, #2E7D32 0 4px, transparent 5px),
+        radial-gradient(circle at 76% 58%, #2E7D32 0 5px, transparent 6px),
+        radial-gradient(circle at 88% 18%, #2E7D32 0 4px, transparent 5px);
+    }
+
+    .problem-metric {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #E6EAE7;
+      border-radius: 24px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(247,251,248,0.94)),
+        #FFFFFF;
+      padding: 24px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.04);
+      opacity: 0;
+      transform: translateY(40px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .problem-metric::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(46,125,50,0.08), transparent 34%),
+        repeating-linear-gradient(90deg, transparent 0 28px, rgba(46,125,50,0.045) 28px 29px);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .problem-metric::after {
+      content: "";
+      position: absolute;
+      right: 22px;
+      top: 22px;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #57A773;
+      box-shadow: 0 0 0 8px rgba(87,167,115,0.12), 0 0 22px rgba(87,167,115,0.36);
+    }
+
+    .problem-metric.visible {
+      animation: metricIn 0.8s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+
+    .problem-metric:nth-child(2).visible { animation-delay: 150ms; }
+    .problem-metric:nth-child(3).visible { animation-delay: 300ms; }
+    .problem-metric:nth-child(4).visible { animation-delay: 450ms; }
+
+    .problem-metric:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+      border-color: rgba(46,125,50,0.28);
+    }
+
+    .problem-metric:hover::before {
+      opacity: 1;
+    }
+
+    .problem-metric strong {
+      position: relative;
+      z-index: 1;
+      display: block;
+      margin: 0 0 14px;
+      color: transparent;
+      background: linear-gradient(105deg, #07120f 0%, #0F5132 48%, #57A773 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      font-size: clamp(44px, 4.4vw, 64px);
+      font-weight: 800;
+      line-height: 0.9;
+      letter-spacing: -3px;
+    }
+
+    .problem-metric h3,
+    .path-card h3,
+    .production-card h3,
+    .reserved-panel h3 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0;
+    }
+
+    .problem-metric h3 {
+      position: relative;
+      z-index: 1;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .problem-metric p,
+    .path-card p,
+    .production-card p,
+    .reserved-panel p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 16px;
+    }
+
+    .problem-metric p {
+      position: relative;
+      z-index: 1;
+      color: #7A847D;
+      font-size: 15px;
+    }
+
+    .problem-metric:nth-child(1) {
+      background:
+        radial-gradient(circle at 92% 10%, rgba(87,167,115,0.2), transparent 34%),
+        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(245,251,247,0.96));
+    }
+
+    .problem-metric:nth-child(2) {
+      background:
+        radial-gradient(circle at 92% 10%, rgba(46,125,50,0.18), transparent 34%),
+        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(242,249,245,0.96));
+    }
+
+    .problem-metric:nth-child(3) {
+      background:
+        radial-gradient(circle at 92% 10%, rgba(79,125,148,0.16), transparent 34%),
+        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(246,250,248,0.96));
+    }
+
+    .problem-metric:nth-child(4) {
+      background:
+        radial-gradient(circle at 92% 10%, rgba(176,138,67,0.14), transparent 34%),
+        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(249,250,246,0.96));
+    }
+
+    .problem-close {
+      grid-column: 1 / -1;
+      position: relative;
+      width: min(980px, 100%);
+      max-width: 980px;
+      margin: 36px auto 0;
+      text-align: center;
+      border-top: 1px solid rgba(46,125,50,0.18);
+      border-radius: 0;
+      padding: 34px 0 0;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+    }
+
+    .problem-close::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: -2px;
+      width: 86px;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #0F5132, #2E7D32, #57A773);
+      transform: translateX(-50%);
+    }
+
+    .problem-close strong {
+      display: block;
+      max-width: 900px;
+      margin: 0 auto;
+      color: #0A0A0A;
+      font-size: clamp(26px, 3vw, 40px);
+      line-height: 1.06;
+      letter-spacing: -1px;
+    }
+
+    .problem-close span {
+      display: block;
+      margin-top: 14px;
+      color: #5F6762;
+      font-size: clamp(18px, 2vw, 24px);
+      line-height: 1.35;
+    }
+
+    @keyframes metricIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .cinema {
+      min-height: auto;
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .cinema::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(92,184,131,0.16), transparent 45%),
+        radial-gradient(circle at 76% 50%, rgba(79,125,148,0.22), transparent 36%);
+      opacity: 0.9;
+    }
+
+    .cinema .lead,
+    .cinema .eyebrow {
+      color: rgba(255,255,255,0.74);
+    }
+
+    .network-map {
+      position: absolute;
+      right: min(8vw, 120px);
+      bottom: 8%;
+      width: min(520px, 82vw);
+      height: min(520px, 82vw);
+      opacity: 0.82;
+    }
+
+    .italy-map {
+      opacity: 0.9;
+    }
+
+    .italy-map::before {
+      content: "";
+      position: absolute;
+      left: 42%;
+      top: 8%;
+      width: 22%;
+      height: 78%;
+      border: 1px solid rgba(255,255,255,0.28);
+      background: linear-gradient(180deg, rgba(255,255,255,0.2), rgba(92,184,131,0.16));
+      clip-path: polygon(44% 0, 65% 7%, 56% 17%, 72% 28%, 55% 39%, 72% 52%, 62% 65%, 83% 78%, 66% 91%, 43% 78%, 50% 62%, 35% 49%, 45% 34%, 31% 21%);
+      filter: drop-shadow(0 28px 46px rgba(92,184,131,0.2));
+    }
+
+    .italy-map::after {
+      content: "";
+      position: absolute;
+      inset: 11% 0 3% 18%;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 50%;
+      transform: rotate(-18deg);
+    }
+
+    .hub-node {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--green-2);
+      box-shadow: 0 0 0 7px rgba(92,184,131,0.14), 0 0 30px rgba(92,184,131,0.9);
+    }
+
+    .hub-node.main {
+      width: 22px;
+      height: 22px;
+      left: 49%;
+      top: 44%;
+      background: #ffffff;
+    }
+
+    .hub-node.a { left: 20%; top: 22%; }
+    .hub-node.b { left: 72%; top: 19%; }
+    .hub-node.c { left: 18%; top: 68%; }
+    .hub-node.d { left: 78%; top: 72%; }
+    .hub-node.e { left: 54%; top: 82%; }
+
+    .network-line {
+      position: absolute;
+      left: 50%;
+      top: 45%;
+      width: 1px;
+      height: 260px;
+      transform-origin: top;
+      background: linear-gradient(rgba(255,255,255,0.72), transparent);
+    }
+
+    .network-line.l1 { transform: rotate(132deg); }
+    .network-line.l2 { transform: rotate(46deg); }
+    .network-line.l3 { transform: rotate(225deg); }
+    .network-line.l4 { transform: rotate(-46deg); }
+    .network-line.l5 { transform: rotate(182deg); height: 220px; }
+
+    .network-section {
+      min-height: auto;
+      background: #07120F;
+    }
+
+    .network-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 75% 45%, rgba(92,184,131,0.16), transparent 38%),
+        radial-gradient(circle at 20% 80%, rgba(79,125,148,0.12), transparent 42%);
+      opacity: 1;
+    }
+
+    .network-layout {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 0.86fr) minmax(520px, 1.14fr);
+      gap: 70px;
+      align-items: center;
+    }
+
+    .network-copy .display {
+      max-width: 950px;
+      color: #FFFFFF;
+      font-size: clamp(72px, 6.7vw, 96px);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -4px;
+    }
+
+    .network-copy .lead {
+      max-width: 760px;
+      color: rgba(255,255,255,0.78);
+      font-size: 24px;
+      line-height: 1.45;
+    }
+
+    .network-expansion-card {
+      position: relative;
+      min-height: 0;
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 28px;
+      background: rgba(255,255,255,0.04);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.22);
+      overflow: hidden;
+    }
+
+    .network-map-image {
+      position: relative;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      height: 400px;
+      margin-top: 0;
+      border-radius: 20px;
+      object-fit: cover;
+      object-position: center;
+      filter: saturate(1.08) contrast(1.04);
+      box-shadow: 0 22px 55px rgba(0,0,0,0.20);
+    }
+
+    .network-expansion-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 58% 42%, rgba(92,184,131,0.12), transparent 30%),
+        linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+      pointer-events: none;
+    }
+
+    .network-card-copy {
+      position: relative;
+      z-index: 2;
+      max-width: 430px;
+    }
+
+    .network-card-copy h3 {
+      margin: 0;
+      color: #FFFFFF;
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .network-card-copy p {
+      margin: 10px 0 0;
+      color: rgba(255,255,255,0.62);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .geo-map {
+      position: absolute;
+      left: 34px;
+      right: 34px;
+      top: 126px;
+      bottom: 118px;
+      z-index: 1;
+    }
+
+    .geo-italy {
+      position: absolute;
+      left: 38%;
+      top: 2%;
+      width: 22%;
+      height: 84%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.30), rgba(92,184,131,0.22));
+      clip-path: polygon(43% 0, 68% 8%, 56% 18%, 76% 29%, 58% 42%, 73% 53%, 62% 66%, 84% 78%, 66% 92%, 41% 80%, 50% 63%, 33% 50%, 45% 34%, 30% 20%);
+      opacity: 0.62;
+      filter: drop-shadow(0 24px 44px rgba(92,184,131,0.16));
+    }
+
+    .geo-sicily {
+      position: absolute;
+      left: 51%;
+      top: 78%;
+      width: 54px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(92,184,131,0.28);
+      transform: rotate(-18deg);
+      filter: blur(0.2px);
+    }
+
+    .geo-europe {
+      position: absolute;
+      right: -2%;
+      top: 5%;
+      width: 40%;
+      height: 78%;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-left: 0;
+      border-radius: 50%;
+      transform: rotate(-16deg);
+      opacity: 0;
+      transition: opacity 700ms ease;
+      transition-delay: 1600ms;
+    }
+
+    .geo-line {
+      position: absolute;
+      height: 2px;
+      border-radius: 999px;
+      background: rgba(92,184,131,0.65);
+      box-shadow: 0 0 28px rgba(92,184,131,0.45);
+      opacity: 0;
+      transform-origin: left center;
+      transform: rotate(var(--r)) scaleX(0);
+      transition: opacity 600ms ease, transform 900ms cubic-bezier(0.22,1,0.36,1);
+    }
+
+    .geo-line.l1 { left: 52%; top: 76%; width: 74px; --r: -93deg; transition-delay: 250ms; }
+    .geo-line.l2 { left: 51%; top: 60%; width: 82px; --r: -74deg; transition-delay: 650ms; }
+    .geo-line.l3 { left: 53%; top: 43%; width: 88px; --r: -82deg; transition-delay: 1050ms; }
+    .geo-line.l4 { left: 52%; top: 25%; width: 190px; --r: -20deg; transition-delay: 1450ms; }
+    .geo-line.l5 { left: 67%; top: 22%; width: 135px; --r: 16deg; transition-delay: 1650ms; }
+
+    .geo-node {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      width: var(--s, 14px);
+      height: var(--s, 14px);
+      border-radius: 50%;
+      background: #5CB883;
+      box-shadow: 0 0 0 8px rgba(92,184,131,0.12), 0 0 28px rgba(92,184,131,0.45);
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.6);
+      transition: opacity 600ms ease, transform 600ms cubic-bezier(0.22,1,0.36,1);
+      transition-delay: var(--delay, 0ms);
+    }
+
+    .geo-node.start {
+      --x: 54%;
+      --y: 80%;
+      --s: 22px;
+      background: #FFFFFF;
+    }
+
+    .geo-node.south { --x: 52%; --y: 62%; --delay: 400ms; }
+    .geo-node.center { --x: 50%; --y: 45%; --delay: 800ms; }
+    .geo-node.north { --x: 54%; --y: 25%; --delay: 1200ms; }
+    .geo-node.eu1 { --x: 74%; --y: 20%; --s: 12px; --delay: 2000ms; }
+    .geo-node.eu2 { --x: 82%; --y: 34%; --s: 10px; --delay: 2100ms; }
+    .geo-node.eu3 { --x: 87%; --y: 16%; --s: 10px; --delay: 2200ms; }
+    .geo-node.eu4 { --x: 78%; --y: 50%; --s: 9px; --delay: 2300ms; }
+
+    .network-expansion-card.visible .geo-node,
+    .network-expansion-card.visible .geo-europe {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+      animation: geoPulse 4.8s ease-in-out infinite;
+    }
+
+    .network-expansion-card.visible .geo-europe {
+      transform: rotate(-16deg);
+      transition-delay: 1600ms;
+      animation: none;
+    }
+
+    .network-expansion-card.visible .geo-line {
+      opacity: 1;
+      transform: rotate(var(--r)) scaleX(1);
+    }
+
+    .network-steps { display: none; }
+
+    .network-step {
+      padding: 12px 14px;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.70);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.15;
+      text-transform: uppercase;
+    }
+
+    .network-step.active {
+      border-color: rgba(92,184,131,0.35);
+      background: rgba(92,184,131,0.14);
+      color: #DFF7E8;
+    }
+
+    @keyframes geoPulse {
+      0%, 100% { box-shadow: 0 0 0 8px rgba(92,184,131,0.12), 0 0 28px rgba(92,184,131,0.45); }
+      50% { box-shadow: 0 0 0 11px rgba(92,184,131,0.16), 0 0 34px rgba(92,184,131,0.58); }
+    }
+
+    .growth-section {
+      min-height: auto;
+      overflow: hidden;
+    }
+
+    .growth-section .section-inner {
+      padding-top: var(--section-y);
+      padding-bottom: var(--section-y);
+    }
+
+    .growth-layout {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 0.94fr) minmax(420px, 1.06fr);
+      gap: clamp(34px, 5vw, 76px);
+      align-items: center;
+    }
+
+    .growth-copy .display {
+      max-width: 900px;
+      font-size: clamp(52px, 6.4vw, 96px);
+    }
+
+    .growth-copy .lead {
+      max-width: 660px;
+    }
+
+    .growth-visual {
+      position: relative;
+      min-height: 530px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(92,184,131,0.18), transparent 26%),
+        radial-gradient(circle at 70% 22%, rgba(135,190,166,0.18), transparent 22%),
+        linear-gradient(145deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 34px 80px rgba(0,0,0,0.18);
+      overflow: hidden;
+    }
+
+    .growth-visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: radial-gradient(circle at 50% 48%, black, transparent 74%);
+      opacity: 0.36;
+    }
+
+    .growth-stage-rail {
+      position: absolute;
+      top: 22px;
+      left: 22px;
+      right: 22px;
+      z-index: 3;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .growth-stage {
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.045);
+      color: rgba(255,255,255,0.46);
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 1.15;
+      text-align: center;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: growthStageIn 10s cubic-bezier(0.22,1,0.36,1) infinite;
+    }
+
+    .growth-stage:nth-child(2) { animation-delay: 0.8s; }
+    .growth-stage:nth-child(3) { animation-delay: 1.6s; }
+    .growth-stage:nth-child(4) { animation-delay: 2.4s; }
+    .growth-stage:nth-child(5) { animation-delay: 3.2s; }
+
+    .growth-network {
+      position: absolute;
+      inset: 94px 22px 28px;
+    }
+
+    .growth-link {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      width: var(--w);
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(92,184,131,0), rgba(92,184,131,0.95), rgba(255,255,255,0.8));
+      box-shadow: 0 0 20px rgba(92,184,131,0.42);
+      opacity: 0;
+      transform-origin: left center;
+      transform: rotate(var(--r)) scaleX(0);
+      animation: growthLinkIn 10s cubic-bezier(0.22,1,0.36,1) infinite;
+    }
+
+    .growth-link.l1 { --x: 49%; --y: 48%; --w: 150px; --r: -34deg; animation-delay: 0.5s; }
+    .growth-link.l2 { --x: 49%; --y: 48%; --w: 164px; --r: 35deg; animation-delay: 0.8s; }
+    .growth-link.l3 { --x: 49%; --y: 48%; --w: 178px; --r: 138deg; animation-delay: 1.1s; }
+    .growth-link.l4 { --x: 49%; --y: 48%; --w: 170px; --r: -142deg; animation-delay: 1.4s; }
+    .growth-link.l5 { --x: 30%; --y: 28%; --w: 118px; --r: 24deg; animation-delay: 2.0s; }
+    .growth-link.l6 { --x: 66%; --y: 31%; --w: 112px; --r: 155deg; animation-delay: 2.2s; }
+    .growth-link.l7 { --x: 26%; --y: 70%; --w: 130px; --r: -22deg; animation-delay: 2.4s; }
+    .growth-link.l8 { --x: 64%; --y: 69%; --w: 128px; --r: 205deg; animation-delay: 2.6s; }
+    .growth-link.l9 { --x: 50%; --y: 48%; --w: 220px; --r: -78deg; animation-delay: 3.2s; }
+    .growth-link.l10 { --x: 49%; --y: 48%; --w: 230px; --r: 78deg; animation-delay: 3.5s; }
+
+    .growth-node {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      width: var(--s, 13px);
+      height: var(--s, 13px);
+      border-radius: 50%;
+      background: #65C58B;
+      box-shadow: 0 0 0 8px rgba(92,184,131,0.12), 0 0 28px rgba(92,184,131,0.78);
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.35);
+      animation: growthNodeIn 10s cubic-bezier(0.22,1,0.36,1) infinite;
+    }
+
+    .growth-node.core {
+      --x: 50%;
+      --y: 50%;
+      --s: 28px;
+      background: #ffffff;
+      box-shadow: 0 0 0 12px rgba(92,184,131,0.16), 0 0 42px rgba(92,184,131,0.86);
+    }
+
+    .growth-node.n2 { --x: 68%; --y: 30%; animation-delay: 0.55s; }
+    .growth-node.n3 { --x: 70%; --y: 70%; animation-delay: 0.8s; }
+    .growth-node.n4 { --x: 30%; --y: 70%; animation-delay: 1.05s; }
+    .growth-node.n5 { --x: 30%; --y: 28%; animation-delay: 1.3s; }
+    .growth-node.n6 { --x: 22%; --y: 44%; --s: 10px; animation-delay: 1.8s; }
+    .growth-node.n7 { --x: 38%; --y: 18%; --s: 10px; animation-delay: 2.0s; }
+    .growth-node.n8 { --x: 82%; --y: 42%; --s: 10px; animation-delay: 2.15s; }
+    .growth-node.n9 { --x: 56%; --y: 18%; --s: 10px; animation-delay: 2.3s; }
+    .growth-node.n10 { --x: 44%; --y: 82%; --s: 10px; animation-delay: 2.45s; }
+    .growth-node.n11 { --x: 82%; --y: 78%; --s: 10px; animation-delay: 2.6s; }
+    .growth-node.n12 { --x: 16%; --y: 76%; --s: 10px; animation-delay: 2.75s; }
+    .growth-node.n13 { --x: 18%; --y: 20%; --s: 10px; animation-delay: 2.9s; }
+    .growth-node.n14 { --x: 90%; --y: 22%; --s: 10px; animation-delay: 3.05s; }
+    .growth-node.n15 { --x: 53%; --y: 5%; --s: 9px; animation-delay: 3.25s; }
+    .growth-node.n16 { --x: 49%; --y: 94%; --s: 9px; animation-delay: 3.45s; }
+    .growth-node.n17 { --x: 5%; --y: 50%; --s: 9px; animation-delay: 3.65s; }
+    .growth-node.n18 { --x: 95%; --y: 54%; --s: 9px; animation-delay: 3.85s; }
+    .growth-node.n19 { --x: 72%; --y: 7%; --s: 9px; animation-delay: 4.05s; }
+    .growth-node.n20 { --x: 28%; --y: 92%; --s: 9px; animation-delay: 4.25s; }
+
+    .growth-counter {
+      position: absolute;
+      left: 50%;
+      top: 51%;
+      z-index: 4;
+      width: min(280px, 68%);
+      padding: 22px 24px 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      background: rgba(2,17,13,0.78);
+      box-shadow: 0 22px 60px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.08);
+      backdrop-filter: blur(18px);
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .growth-counter strong {
+      display: block;
+      color: #ffffff;
+      font-size: clamp(30px, 4.2vw, 52px);
+      line-height: 0.95;
+      letter-spacing: -1px;
+    }
+
+    .growth-counter span {
+      display: block;
+      margin-top: 10px;
+      color: rgba(255,255,255,0.72);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+    }
+
+    @keyframes growthNodeIn {
+      0%, 8% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.35);
+      }
+      18%, 86% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      42%, 72% {
+        box-shadow: 0 0 0 11px rgba(92,184,131,0.12), 0 0 36px rgba(92,184,131,0.9);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.7);
+      }
+    }
+
+    @keyframes growthLinkIn {
+      0%, 12% {
+        opacity: 0;
+        transform: rotate(var(--r)) scaleX(0);
+      }
+      24%, 82% {
+        opacity: 1;
+        transform: rotate(var(--r)) scaleX(1);
+      }
+      100% {
+        opacity: 0;
+        transform: rotate(var(--r)) scaleX(1);
+      }
+    }
+
+    @keyframes growthStageIn {
+      0%, 8% {
+        opacity: 0;
+        transform: translateY(10px);
+        color: rgba(255,255,255,0.42);
+      }
+      18%, 72% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      26%, 48% {
+        border-color: rgba(92,184,131,0.34);
+        background: rgba(92,184,131,0.11);
+        color: #DFF7E8;
+        box-shadow: 0 0 26px rgba(92,184,131,0.12);
+      }
+      100% {
+        opacity: 0.55;
+        transform: translateY(0);
+      }
+    }
+
+    .growth-visual {
+      min-height: 500px;
+      background:
+        radial-gradient(circle at 72% 46%, rgba(92,184,131,0.16), transparent 24%),
+        radial-gradient(circle at 25% 50%, rgba(92,184,131,0.12), transparent 20%),
+        linear-gradient(145deg, rgba(255,255,255,0.038), rgba(255,255,255,0.01));
+    }
+
+    .growth-stage {
+      opacity: 1;
+      transform: none;
+      animation: none;
+      background: rgba(255,255,255,0.035);
+      color: rgba(255,255,255,0.62);
+    }
+
+    .growth-stage:nth-child(1),
+    .growth-stage:nth-child(2),
+    .growth-stage:nth-child(3) {
+      border-color: rgba(92,184,131,0.18);
+      color: rgba(223,247,232,0.82);
+    }
+
+    .growth-stage:nth-child(4),
+    .growth-stage:nth-child(5) {
+      border-color: rgba(92,184,131,0.28);
+      background: rgba(92,184,131,0.08);
+      color: #F2FFF6;
+    }
+
+    .growth-network {
+      inset: 96px 34px 190px;
+    }
+
+    .growth-link {
+      height: 1px;
+      opacity: 1;
+      overflow: hidden;
+      background: rgba(255,255,255,0.16);
+      box-shadow: none;
+      transform: rotate(var(--r)) scaleX(1);
+      animation: none;
+    }
+
+    .growth-link::after {
+      content: "";
+      position: absolute;
+      inset: -1px 0;
+      background: linear-gradient(90deg, transparent, rgba(92,184,131,0.95), rgba(255,255,255,0.8), transparent);
+      transform: translateX(-110%);
+      animation: dataFlow 5.8s cubic-bezier(0.22,1,0.36,1) infinite;
+      animation-delay: var(--d, 0s);
+    }
+
+    .growth-link.l1 { --x: 8%; --y: 50%; --w: 18%; --r: 0deg; --d: 0s; }
+    .growth-link.l2 { --x: 27%; --y: 50%; --w: 18%; --r: 0deg; --d: 0.45s; }
+    .growth-link.l3 { --x: 47%; --y: 50%; --w: 18%; --r: 0deg; --d: 0.9s; }
+    .growth-link.l4 { --x: 68%; --y: 50%; --w: 18%; --r: 0deg; --d: 1.35s; }
+    .growth-link.l5 { --x: 25%; --y: 35%; --w: 12%; --r: 37deg; --d: 1.8s; }
+    .growth-link.l6 { --x: 25%; --y: 65%; --w: 12%; --r: -37deg; --d: 2.05s; }
+    .growth-link.l7 { --x: 45%; --y: 35%; --w: 14%; --r: 26deg; --d: 2.3s; }
+    .growth-link.l8 { --x: 45%; --y: 66%; --w: 14%; --r: -26deg; --d: 2.55s; }
+    .growth-link.l9 { --x: 65%; --y: 32%; --w: 16%; --r: 31deg; --d: 2.8s; }
+    .growth-link.l10 { --x: 65%; --y: 68%; --w: 16%; --r: -31deg; --d: 3.05s; }
+
+    .growth-node {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+      animation: nodeBreathe 4.8s ease-in-out infinite;
+      animation-delay: var(--d, 0s);
+    }
+
+    .growth-node.core {
+      --x: 8%;
+      --y: 50%;
+      --s: 24px;
+    }
+
+    .growth-node.n2 { --x: 27%; --y: 50%; --d: 0.2s; }
+    .growth-node.n3 { --x: 25%; --y: 35%; --s: 10px; --d: 0.35s; }
+    .growth-node.n4 { --x: 25%; --y: 65%; --s: 10px; --d: 0.5s; }
+    .growth-node.n5 { --x: 31%; --y: 43%; --s: 10px; --d: 0.65s; }
+    .growth-node.n6 { --x: 47%; --y: 50%; --s: 13px; --d: 0.8s; }
+    .growth-node.n7 { --x: 45%; --y: 32%; --s: 10px; --d: 0.95s; }
+    .growth-node.n8 { --x: 45%; --y: 68%; --s: 10px; --d: 1.1s; }
+    .growth-node.n9 { --x: 52%; --y: 35%; --s: 10px; --d: 1.25s; }
+    .growth-node.n10 { --x: 53%; --y: 64%; --s: 10px; --d: 1.4s; }
+    .growth-node.n11 { --x: 68%; --y: 50%; --s: 15px; --d: 1.55s; }
+    .growth-node.n12 { --x: 65%; --y: 30%; --s: 10px; --d: 1.7s; }
+    .growth-node.n13 { --x: 66%; --y: 72%; --s: 10px; --d: 1.85s; }
+    .growth-node.n14 { --x: 73%; --y: 36%; --s: 10px; --d: 2s; }
+    .growth-node.n15 { --x: 74%; --y: 64%; --s: 10px; --d: 2.15s; }
+    .growth-node.n16 { --x: 88%; --y: 50%; --s: 16px; --d: 2.3s; }
+    .growth-node.n17 { --x: 86%; --y: 28%; --s: 9px; --d: 2.45s; }
+    .growth-node.n18 { --x: 86%; --y: 72%; --s: 9px; --d: 2.6s; }
+    .growth-node.n19 { --x: 94%; --y: 38%; --s: 9px; --d: 2.75s; }
+    .growth-node.n20 { --x: 94%; --y: 62%; --s: 9px; --d: 2.9s; }
+
+    .growth-methods {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 24px;
+      z-index: 4;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .growth-method-card {
+      padding: 18px 16px 17px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.035);
+      transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+    }
+
+    .growth-method-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(92,184,131,0.32);
+      background: rgba(92,184,131,0.07);
+    }
+
+    .growth-method-card svg {
+      display: block;
+      width: 24px;
+      height: 24px;
+      margin-bottom: 12px;
+      color: #5CB883;
+      stroke: currentColor;
+    }
+
+    .growth-method-card small,
+    .growth-method-card p {
+      display: block;
+    }
+
+    .growth-method-card small {
+      color: rgba(255,255,255,0.55);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .growth-method-card p {
+      margin: 10px 0 0;
+      color: rgba(255,255,255,0.62);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    @keyframes dataFlow {
+      0% { transform: translateX(-110%); }
+      58%, 100% { transform: translateX(110%); }
+    }
+
+    @keyframes nodeBreathe {
+      0%, 100% {
+        box-shadow: 0 0 0 7px rgba(92,184,131,0.11), 0 0 24px rgba(92,184,131,0.62);
+      }
+      50% {
+        box-shadow: 0 0 0 10px rgba(92,184,131,0.16), 0 0 34px rgba(92,184,131,0.82);
+      }
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 58px;
+      align-items: center;
+    }
+
+    .feature-panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.78);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .module-dashboard {
+      padding: 18px;
+      background:
+        linear-gradient(180deg, rgba(246,248,245,0.96), rgba(255,255,255,0.96));
+    }
+
+    .dashboard-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green-2);
+      box-shadow: 0 0 0 8px rgba(92,184,131,0.16);
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .metric {
+      min-height: 132px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--white);
+      padding: 16px;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 680;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 20px;
+      font-size: clamp(30px, 4vw, 52px);
+      line-height: 1;
+    }
+
+    .meter {
+      height: 6px;
+      margin-top: 22px;
+      border-radius: 999px;
+      background: var(--soft-2);
+      overflow: hidden;
+    }
+
+    .meter i {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--green), var(--blue));
+    }
+
+    .production-grid,
+    .paths-grid,
+    .numbers-grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .production-grid,
+    .numbers-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .numbers-grid {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .paths-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 24px;
+      margin-top: 0;
+    }
+
+    .production-card,
+    .path-card,
+    .number-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.78);
+      padding: 24px;
+      min-height: 250px;
+      box-shadow: 0 12px 36px rgba(7,18,15,0.06);
+    }
+
+    .production-visual {
+      height: 116px;
+      border-radius: 8px;
+      margin-bottom: 22px;
+      border: 1px solid rgba(7,18,15,0.1);
+      background:
+        radial-gradient(circle at 22% 50%, rgba(92,184,131,0.38), transparent 16%),
+        radial-gradient(circle at 45% 44%, rgba(176,138,67,0.3), transparent 16%),
+        radial-gradient(circle at 68% 52%, rgba(79,125,148,0.26), transparent 18%),
+        linear-gradient(135deg, #f8faf7, #e7efeb);
+    }
+
+    .production-visual.micro {
+      background:
+        repeating-linear-gradient(90deg, transparent 0 15px, rgba(27,122,74,0.24) 15px 17px),
+        linear-gradient(135deg, #f8faf7, #e8f2ed);
+    }
+
+    .production-visual.special {
+      background:
+        linear-gradient(135deg, rgba(176,138,67,0.22), transparent),
+        repeating-linear-gradient(-35deg, rgba(79,125,148,0.16) 0 2px, transparent 2px 18px),
+        #f8faf7;
+    }
+
+    .production-section .headline {
+      max-width: 900px;
+      color: #08110D;
+      font-size: clamp(72px, 6.7vw, 96px);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -4px;
+    }
+
+    .production-section .lead {
+      max-width: 900px;
+      color: #5E6761;
+      font-size: 26px;
+      line-height: 1.5;
+    }
+
+    .production-section .production-grid {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .production-section .production-card {
+      grid-column: span 2;
+      min-height: 0;
+      padding: 0;
+      border: 1px solid #E7ECE8;
+      border-radius: 28px;
+      background: #FFFFFF;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.04);
+      overflow: hidden;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .production-section .production-card:nth-child(4) {
+      grid-column: 2 / span 2;
+    }
+
+    .production-section .production-card:nth-child(5) {
+      grid-column: 4 / span 2;
+    }
+
+    .production-section .production-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+    }
+
+    .production-image {
+      display: block;
+      width: 100%;
+      height: 260px;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+    }
+
+    .production-content {
+      padding: 24px;
+    }
+
+    .production-tag {
+      display: block;
+      margin-bottom: 12px;
+      color: #2E7D32;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .production-section .production-card h3 {
+      margin: 0 0 12px;
+      color: #08110D;
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1.05;
+    }
+
+    .production-section .production-card p {
+      margin: 0;
+      color: #68736C;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .production-final {
+      max-width: 1000px;
+      margin: 44px auto 0;
+      color: #08110D;
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.15;
+      text-align: center;
+    }
+
+    .number-card {
+      min-height: 230px;
+      padding: 30px 28px;
+      border: 1px solid #E8ECE9;
+      border-radius: 24px;
+      background: #FFFFFF;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+      transition: opacity 780ms ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .number-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(46,125,50,0.25);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+    }
+
+    .number-card svg {
+      display: block;
+      width: 34px;
+      height: 34px;
+      margin-bottom: 26px;
+      color: #2E7D32;
+      stroke: currentColor;
+    }
+
+    .number-card h3 {
+      display: block;
+      margin: 0 0 18px;
+      color: #08110D;
+      font-size: clamp(21px, 1.45vw, 25px);
+      font-weight: 800;
+      line-height: 1.08;
+    }
+
+    .number-card p {
+      display: block;
+      margin: 0;
+      color: #6B756F;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .numbers-grid .number-card:nth-child(1) { transition-delay: 100ms; }
+    .numbers-grid .number-card:nth-child(2) { transition-delay: 200ms; }
+    .numbers-grid .number-card:nth-child(3) { transition-delay: 300ms; }
+    .numbers-grid .number-card:nth-child(4) { transition-delay: 400ms; }
+    .numbers-grid .number-card:nth-child(5) { transition-delay: 500ms; }
+
+    .numbers-grid .number-card:not(.visible) {
+      transform: translateY(40px);
+    }
+
+    .path-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 30px;
+      min-height: 330px;
+      padding: 32px;
+      border: 1px solid #E7ECE8;
+      border-radius: 28px;
+      background: #FFFFFF;
+      box-shadow: 0 18px 45px rgba(7,18,15,0.06);
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+
+    .path-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(46,125,50,0.25);
+      box-shadow: 0 30px 70px rgba(7,18,15,0.10);
+    }
+
+    .paths-intro {
+      margin: 36px 0 28px;
+      color: #08110D;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.25;
+      text-align: center;
+    }
+
+    .path-icon {
+      display: block;
+      width: 42px;
+      height: 42px;
+      margin-bottom: 28px;
+      color: #2E7D32;
+      stroke: currentColor;
+    }
+
+    .path-label {
+      display: block;
+      margin-bottom: 18px;
+      color: #2E7D32;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.8px;
+      line-height: 1.15;
+      text-transform: uppercase;
+    }
+
+    .path-card h3 {
+      margin: 0 0 16px;
+      color: #08110D;
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 1.05;
+    }
+
+    .path-card p {
+      max-width: 260px;
+      margin: 0;
+      color: #68736C;
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    .path-card .btn {
+      width: fit-content;
+      height: 44px;
+      padding: 0 18px;
+      border-radius: 10px;
+      background: #07120F;
+      color: #FFFFFF;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .path-card .btn:hover {
+      background: #1B7A4A;
+      color: #FFFFFF;
+    }
+
+    .reserved {
+      background: linear-gradient(180deg, #f6f8f5, #ffffff);
+    }
+
+    .reserved-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.84fr) minmax(0, 1.16fr);
+      gap: 40px;
+      align-items: stretch;
+      margin-top: 46px;
+    }
+
+    .reserved-panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--white);
+      padding: 24px;
+      box-shadow: 0 14px 40px rgba(7,18,15,0.06);
+    }
+
+    .app-preview {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #101815;
+      color: var(--white);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .app-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 16px 18px;
+      color: rgba(255,255,255,0.72);
+      font-size: 13px;
+    }
+
+    .app-grid {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      min-height: 410px;
+    }
+
+    .app-side {
+      border-right: 1px solid rgba(255,255,255,0.1);
+      padding: 18px;
+    }
+
+    .app-side span {
+      display: block;
+      height: 34px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .app-side span:first-child {
+      background: rgba(92,184,131,0.28);
+    }
+
+    .app-main {
+      padding: 18px;
+    }
+
+    .app-main-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .app-tile {
+      min-height: 118px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.055);
+      padding: 16px;
+    }
+
+    .app-tile span {
+      color: rgba(255,255,255,0.62);
+      font-size: 12px;
+      font-weight: 680;
+    }
+
+    .app-tile strong {
+      display: block;
+      margin-top: 20px;
+      font-size: 30px;
+    }
+
+    .final {
+      min-height: auto;
+      color: var(--white);
+      background:
+        linear-gradient(120deg, rgba(7,18,15,0.92), rgba(7,18,15,0.7)),
+        linear-gradient(90deg, #1b7a4a, #4f7d94);
+    }
+
+    .final .section-inner {
+      padding-top: 112px;
+      padding-bottom: 112px;
+    }
+
+    .final .headline,
+    .final .lead {
+      color: var(--white);
+    }
+
+    .final .headline {
+      max-width: 1000px;
+      color: #FFFFFF;
+      font-size: clamp(72px, 6.7vw, 96px);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -4px;
+    }
+
+    .final .lead {
+      max-width: 780px;
+      color: rgba(255,255,255,0.78);
+      font-size: 24px;
+      line-height: 1.45;
+    }
+
+    .final-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 36px;
+    }
+
+    .final .btn.primary {
+      height: 48px;
+      padding: 0 22px;
+      border: 1px solid #FFFFFF;
+      border-radius: 10px;
+      background: #FFFFFF;
+      color: #07120F;
+      font-weight: 800;
+    }
+
+    .final .btn.primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px rgba(255,255,255,0.12);
+    }
+
+    .final .btn.secondary {
+      height: 48px;
+      padding: 0 22px;
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 10px;
+      background: transparent;
+      color: #FFFFFF;
+      font-weight: 800;
+    }
+
+    .final .btn.secondary:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,0.48);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .site-footer {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      background: #07120F;
+    }
+
+    .footer-inner {
+      width: min(1400px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 80px 0 40px;
+      color: rgba(255,255,255,0.65);
+      font-size: 14px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 0.75fr);
+      gap: 80px;
+    }
+
+    .footer-brand {
+      margin: 0 0 18px;
+      color: #FFFFFF;
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .footer-text {
+      max-width: 380px;
+      margin: 0;
+      color: rgba(255,255,255,0.65);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .footer-title {
+      display: block;
+      margin: 0 0 18px;
+      color: #FFFFFF;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .footer-company,
+    .footer-links {
+      color: rgba(255,255,255,0.65);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .footer-company p {
+      margin: 0;
+    }
+
+    .footer-company a,
+    .footer-links a {
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      transition: color 0.25s ease;
+    }
+
+    .footer-company a:hover,
+    .footer-links a:hover {
+      color: #5CB883;
+    }
+
+    .footer-links {
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+
+    .footer-separator {
+      margin: 60px 0 30px;
+      border: 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .footer-copyright {
+      color: rgba(255,255,255,0.55);
+      font-size: 14px;
+    }
+
+    .footer-claim {
+      color: rgba(255,255,255,0.45);
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(34px);
+      transition: opacity 780ms ease, transform 780ms ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .number-card.reveal.visible:hover {
+      transform: translateY(-8px);
+    }
+
+    .hero .reveal {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (max-width: 940px) {
+      .nav-links {
+        display: none;
+      }
+
+      .section-inner {
+        padding: var(--section-y-tablet) 0;
+      }
+
+      .hero .section-inner {
+        padding-top: 44px;
+        padding-bottom: 58px;
+      }
+
+      .hero-grid,
+      .problem-grid,
+      .growth-layout,
+      .network-layout,
+      .split,
+      .reserved-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy {
+        padding: 18px 0 0;
+      }
+
+      .hero-roadmap {
+        width: 100%;
+        padding: 22px 18px;
+        overflow: hidden;
+      }
+
+      .roadmap-track {
+        display: flex;
+        gap: 0;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        padding: 18px 6px 4px;
+      }
+
+      .roadmap-track::-webkit-scrollbar {
+        display: none;
+      }
+
+      .roadmap-track::before,
+      .roadmap-track::after {
+        left: 56px;
+        right: auto;
+        width: calc(7 * 148px - 112px);
+      }
+
+      .roadmap-track::after {
+        width: calc((7 * 148px - 112px) * 0.17);
+      }
+
+      .roadmap-step {
+        flex: 0 0 148px;
+        scroll-snap-align: center;
+      }
+
+      .roadmap-tooltip {
+        display: none;
+      }
+
+      .world-visual {
+        min-height: 460px;
+      }
+
+      .growth-section .section-inner {
+        padding-top: var(--section-y-tablet);
+        padding-bottom: var(--section-y-tablet);
+      }
+
+      .growth-visual {
+        min-height: 520px;
+      }
+
+      .paths-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .production-section .headline {
+        font-size: 72px;
+      }
+
+      .production-section .production-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .production-section .production-card,
+      .production-section .production-card:nth-child(4),
+      .production-section .production-card:nth-child(5) {
+        grid-column: auto;
+      }
+
+      .numbers-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .number-card h3 {
+        font-size: 25px;
+      }
+
+      .final .headline {
+        font-size: 72px;
+      }
+
+      .final .section-inner {
+        padding-top: 96px;
+        padding-bottom: 96px;
+      }
+
+      .network-copy .display {
+        font-size: 72px;
+      }
+
+      .network-expansion-card {
+        min-height: 0;
+      }
+
+      .network-map-image {
+        height: 360px;
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 60px;
+      }
+
+      .network-map {
+        opacity: 0.34;
+      }
+    }
+
+    @media (max-width: 640px) {
+      :root {
+        --header: 66px;
+      }
+
+      .nav-shell,
+      .section-inner,
+      .footer-inner {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .section-inner {
+        padding: var(--section-y-mobile) 0;
+      }
+
+      .hero .section-inner {
+        padding-top: 36px;
+        padding-bottom: 50px;
+      }
+
+      .brand span {
+        display: none;
+      }
+
+      .brand-logo {
+        width: 138px;
+        height: 38px;
+      }
+
+      .language-select {
+        width: 74px;
+      }
+
+      .nav-login {
+        display: none;
+      }
+
+      .display {
+        font-size: clamp(48px, 15vw, 72px);
+      }
+
+      .headline {
+        font-size: clamp(38px, 12vw, 58px);
+      }
+
+      .lead {
+        font-size: 18px;
+      }
+
+      .production-section .headline {
+        font-size: 48px;
+        letter-spacing: -2px;
+      }
+
+      .production-section .lead {
+        font-size: 20px;
+      }
+
+      .production-section .production-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .production-image {
+        height: 230px;
+      }
+
+      .production-final {
+        margin-top: 36px;
+        font-size: 26px;
+      }
+
+      .network-copy .display {
+        font-size: 48px;
+        letter-spacing: -2px;
+      }
+
+      .network-copy .lead {
+        font-size: 19px;
+      }
+
+      .network-expansion-card {
+        min-height: auto;
+        padding: 24px;
+      }
+
+      .network-map-image {
+        height: 230px;
+        margin-top: 0;
+        border-radius: 16px;
+      }
+
+      .growth-section .section-inner {
+        padding-top: var(--section-y-mobile);
+        padding-bottom: var(--section-y-mobile);
+      }
+
+      .growth-copy .display {
+        font-size: clamp(44px, 13vw, 62px);
+      }
+
+      .growth-visual {
+        min-height: 590px;
+      }
+
+      .growth-stage-rail {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+      }
+
+      .growth-stage-rail::-webkit-scrollbar {
+        display: none;
+      }
+
+      .growth-stage {
+        flex: 0 0 138px;
+        scroll-snap-align: center;
+      }
+
+      .growth-network {
+        inset: 100px 14px 216px;
+      }
+
+      .growth-methods {
+        left: 14px;
+        right: 14px;
+        bottom: 14px;
+        grid-template-columns: 1fr;
+      }
+
+      .growth-method-card {
+        padding: 13px 14px;
+      }
+
+      .growth-method-card svg {
+        margin-bottom: 8px;
+      }
+
+      .growth-method-card strong {
+        font-size: 22px;
+      }
+
+      .signal-row,
+      .dashboard-grid,
+      .app-main-row,
+      .app-grid,
+      .numbers-grid,
+      .paths-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .number-card {
+        min-height: 220px;
+      }
+
+      .number-card h3 {
+        font-size: 27px;
+      }
+
+      .final .headline {
+        font-size: 48px;
+        letter-spacing: -2px;
+      }
+
+      .final .lead {
+        font-size: 19px;
+      }
+
+      .final .section-inner {
+        padding-top: 82px;
+        padding-bottom: 82px;
+      }
+
+      .footer-inner {
+        padding-top: 64px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+      }
+
+      .footer-text {
+        margin: 0 auto;
+      }
+
+      .footer-links {
+        justify-items: center;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+      }
+
+      .problem-metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .app-side {
+        display: none;
+      }
+
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 1ms !important;
+        scroll-behavior: auto !important;
+        transition-duration: 1ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="brand" href="#top" aria-label="Amalis Urban Farm">
+        <img class="brand-logo" src="assets/amalis-logo.svg" alt="Amalis Urban Farm">
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#vision" data-i18n="nav.vision"></a>
+        <a href="#hub" data-i18n="nav.hub"></a>
+        <a href="#technology" data-i18n="nav.technology"></a>
+        <a href="#network" data-i18n="nav.paths"></a>
+      </nav>
+      <div class="nav-actions">
+        <select id="languageSelect" class="language-select" data-i18n-title="nav.languageTitle"></select>
+        <a class="nav-login" href="#final" data-i18n="nav.login"></a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="section hero">
+      <div class="section-inner hero-grid">
+        <div class="hero-roadmap" aria-label="Project roadmap">
+            <p class="roadmap-title" data-i18n="roadmap.title"></p>
+            <div class="roadmap-track">
+              <div class="roadmap-step done">
+                <span class="roadmap-dot" aria-hidden="true" data-i18n="roadmap.check"></span>
+                <span class="roadmap-tooltip" data-i18n="roadmap.stepOneTooltip"></span>
+                <span class="roadmap-label">
+                  <strong data-i18n="roadmap.stepOneTitle"></strong>
+                  <span data-i18n="roadmap.stepOneStatus"></span>
+                </span>
+              </div>
+              <div class="roadmap-step current">
+                <span class="roadmap-dot" aria-hidden="true" data-i18n="roadmap.check"></span>
+                <span class="roadmap-tooltip" data-i18n="roadmap.stepTwoTooltip"></span>
+                <span class="roadmap-label">
+                  <strong data-i18n="roadmap.stepTwoTitle"></strong>
+                  <span data-i18n="roadmap.stepTwoStatus"></span>
+                </span>
+              </div>
+              <div class="roadmap-step">
+                <span class="roadmap-dot" aria-hidden="true"></span>
+                <span class="roadmap-tooltip" data-i18n="roadmap.stepThreeTooltip"></span>
+                <span class="roadmap-label">
+                  <strong data-i18n="roadmap.stepThreeTitle"></strong>
+                  <span data-i18n="roadmap.stepThreeStatus"></span>
+                </span>
+              </div>
+              <div class="roadmap-step">
+                <span class="roadmap-dot" aria-hidden="true"></span>
+                <span class="roadmap-tooltip" data-i18n="roadmap.stepFourTooltip"></span>
+                <span class="roadmap-label">
+                  <strong data-i18n="roadmap.stepFourTitle"></strong>
+                  <span data-i18n="roadmap.stepFourStatus"></span>
+                </span>
+              </div>
+              <div class="roadmap-step">
+                <span class="roadmap-dot" aria-hidden="true"></span>
+                <span class="roadmap-tooltip" data-i18n="roadmap.stepFiveTooltip"></span>
+                <span class="roadmap-label">
+                  <strong data-i18n="roadmap.stepFiveTitle"></strong>
+                  <span data-i18n="roadmap.stepFiveStatus"></span>
+                </span>
+              </div>
+              <div class="roadmap-step">
+                <span class="roadmap-dot" aria-hidden="true"></span>
+                <span class="roadmap-tooltip" data-i18n="roadmap.stepSixTooltip"></span>
+                <span class="roadmap-label">
+                  <strong data-i18n="roadmap.stepSixTitle"></strong>
+                  <span data-i18n="roadmap.stepSixStatus"></span>
+                </span>
+              </div>
+              <div class="roadmap-step">
+                <span class="roadmap-dot" aria-hidden="true"></span>
+                <span class="roadmap-tooltip" data-i18n="roadmap.stepSevenTooltip"></span>
+                <span class="roadmap-label">
+                  <strong data-i18n="roadmap.stepSevenTitle"></strong>
+                  <span data-i18n="roadmap.stepSevenStatus"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+        <div class="hero-copy reveal">
+          <p class="eyebrow" data-i18n="hero.eyebrow"></p>
+          <h1 class="display" data-i18n="hero.title"></h1>
+          <p class="lead" data-i18n="hero.subtitle"></p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#network" data-i18n="hero.primaryCta"></a>
+            <a class="btn secondary" href="#hub" data-i18n="hero.secondaryCta"></a>
+          </div>
+          <div class="signal-row" aria-label="Signals">
+            <div class="signal">
+              <strong data-i18n="hero.signalOneValue"></strong>
+              <span data-i18n="hero.signalOneLabel"></span>
+            </div>
+            <div class="signal">
+              <strong data-i18n="hero.signalTwoValue"></strong>
+              <span data-i18n="hero.signalTwoLabel"></span>
+            </div>
+            <div class="signal">
+              <strong data-i18n="hero.signalThreeValue"></strong>
+              <span data-i18n="hero.signalThreeLabel"></span>
+            </div>
+          </div>
+        </div>
+        <div class="world-visual reveal" aria-hidden="true">
+          <img class="network-hero-image" src="assets/amalis-network-hero.png" alt="">
+          <canvas class="orbit-canvas" id="orbitCanvas"></canvas>
+          <div class="data-pill one">
+            <span data-i18n="hero.pillOneLabel"></span>
+            <strong data-i18n="hero.pillOneValue"></strong>
+          </div>
+          <div class="data-pill two">
+            <span data-i18n="hero.pillTwoLabel"></span>
+            <strong data-i18n="hero.pillTwoValue"></strong>
+          </div>
+          <div class="data-pill three">
+            <span data-i18n="hero.pillThreeLabel"></span>
+            <strong data-i18n="hero.pillThreeValue"></strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section problem" id="vision">
+      <div class="section-inner problem-grid">
+        <div class="reveal">
+          <p class="eyebrow" data-i18n="vision.eyebrow"></p>
+          <h2 class="headline problem-title" data-i18n="vision.problemTitle"></h2>
+          <p class="lead problem-lead" data-i18n="vision.problemText"></p>
+        </div>
+        <div class="problem-metrics">
+          <article class="problem-metric reveal">
+            <strong data-i18n="vision.metricOneValue"></strong>
+            <h3 data-i18n="vision.metricOneTitle"></h3>
+            <p data-i18n="vision.metricOneText"></p>
+          </article>
+          <article class="problem-metric reveal">
+            <strong data-i18n="vision.metricTwoValue"></strong>
+            <h3 data-i18n="vision.metricTwoTitle"></h3>
+            <p data-i18n="vision.metricTwoText"></p>
+          </article>
+          <article class="problem-metric reveal">
+            <strong data-i18n="vision.metricThreeValue"></strong>
+            <h3 data-i18n="vision.metricThreeTitle"></h3>
+            <p data-i18n="vision.metricThreeText"></p>
+          </article>
+          <article class="problem-metric reveal">
+            <strong data-i18n="vision.metricFourValue"></strong>
+            <h3 data-i18n="vision.metricFourTitle"></h3>
+            <p data-i18n="vision.metricFourText"></p>
+          </article>
+        </div>
+        <div class="problem-close reveal">
+          <strong data-i18n="vision.closeTitle"></strong>
+          <span data-i18n="vision.closeText"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cinema growth-section">
+      <div class="section-inner growth-layout reveal">
+        <div class="growth-copy">
+          <p class="eyebrow" data-i18n="vision.questionEyebrow"></p>
+          <h2 class="headline" data-i18n="vision.questionTitle"></h2>
+          <h2 class="display" data-i18n="vision.questionSecondTitle"></h2>
+          <p class="lead" data-i18n="vision.questionText"></p>
+        </div>
+        <div class="growth-visual" aria-hidden="true">
+          <div class="growth-stage-rail">
+            <span class="growth-stage" data-i18n="vision.growthStageOne"></span>
+            <span class="growth-stage" data-i18n="vision.growthStageTwo"></span>
+            <span class="growth-stage" data-i18n="vision.growthStageThree"></span>
+            <span class="growth-stage" data-i18n="vision.growthStageFour"></span>
+            <span class="growth-stage" data-i18n="vision.growthStageFive"></span>
+          </div>
+          <div class="growth-network">
+            <span class="growth-link l1"></span>
+            <span class="growth-link l2"></span>
+            <span class="growth-link l3"></span>
+            <span class="growth-link l4"></span>
+            <span class="growth-link l5"></span>
+            <span class="growth-link l6"></span>
+            <span class="growth-link l7"></span>
+            <span class="growth-link l8"></span>
+            <span class="growth-link l9"></span>
+            <span class="growth-link l10"></span>
+            <span class="growth-node core"></span>
+            <span class="growth-node n2"></span>
+            <span class="growth-node n3"></span>
+            <span class="growth-node n4"></span>
+            <span class="growth-node n5"></span>
+            <span class="growth-node n6"></span>
+            <span class="growth-node n7"></span>
+            <span class="growth-node n8"></span>
+            <span class="growth-node n9"></span>
+            <span class="growth-node n10"></span>
+            <span class="growth-node n11"></span>
+            <span class="growth-node n12"></span>
+            <span class="growth-node n13"></span>
+            <span class="growth-node n14"></span>
+            <span class="growth-node n15"></span>
+            <span class="growth-node n16"></span>
+            <span class="growth-node n17"></span>
+            <span class="growth-node n18"></span>
+            <span class="growth-node n19"></span>
+            <span class="growth-node n20"></span>
+          </div>
+          <div class="growth-methods">
+            <article class="growth-method-card">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 20V10"></path>
+                <path d="M12 14c-4.5 0-7-2.6-8-7 4.7-.4 7.5 1.3 8 7Z"></path>
+                <path d="M12 12c3.8-.2 6.2-2.1 7-6-4.1-.2-6.6 1.3-7 6Z"></path>
+              </svg>
+              <small data-i18n="vision.growthMethodOneKicker"></small>
+              <p data-i18n="vision.growthMethodOneText"></p>
+            </article>
+            <article class="growth-method-card">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="6" cy="7" r="2.5"></circle>
+                <circle cx="18" cy="7" r="2.5"></circle>
+                <circle cx="12" cy="17" r="2.5"></circle>
+                <path d="M8.2 8.5 10.8 15"></path>
+                <path d="M15.8 8.5 13.2 15"></path>
+                <path d="M8.5 7h7"></path>
+              </svg>
+              <small data-i18n="vision.growthMethodTwoKicker"></small>
+              <p data-i18n="vision.growthMethodTwoText"></p>
+            </article>
+            <article class="growth-method-card">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <path d="M4 12h16"></path>
+                <path d="M12 4c2.2 2.2 3.2 4.8 3.2 8S14.2 17.8 12 20"></path>
+                <path d="M12 4c-2.2 2.2-3.2 4.8-3.2 8S9.8 17.8 12 20"></path>
+                <path d="m17 5 2 2 2-2"></path>
+              </svg>
+              <small data-i18n="vision.growthMethodThreeKicker"></small>
+              <p data-i18n="vision.growthMethodThreeText"></p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="hub">
+      <div class="section-inner split">
+        <div class="reveal">
+          <p class="eyebrow" data-i18n="hub.eyebrow"></p>
+          <h2 class="headline" data-i18n="hub.title"></h2>
+          <p class="lead" data-i18n="hub.text"></p>
+        </div>
+        <div class="feature-panel reveal">
+          <div class="module-dashboard">
+            <div class="dashboard-top">
+              <strong data-i18n="hub.dashboardTitle"></strong>
+              <span class="status-dot" aria-hidden="true"></span>
+            </div>
+            <div class="dashboard-grid">
+              <div class="metric">
+                <span data-i18n="hub.metricOne"></span>
+                <strong data-i18n="hub.metricOneValue"></strong>
+                <div class="meter"><i style="width: 86%"></i></div>
+              </div>
+              <div class="metric">
+                <span data-i18n="hub.metricTwo"></span>
+                <strong data-i18n="hub.metricTwoValue"></strong>
+                <div class="meter"><i style="width: 72%"></i></div>
+              </div>
+              <div class="metric">
+                <span data-i18n="hub.metricThree"></span>
+                <strong data-i18n="hub.metricThreeValue"></strong>
+                <div class="meter"><i style="width: 91%"></i></div>
+              </div>
+              <div class="metric">
+                <span data-i18n="hub.metricFour"></span>
+                <strong data-i18n="hub.metricFourValue"></strong>
+                <div class="meter"><i style="width: 64%"></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="technology">
+      <div class="section-inner">
+        <div class="reveal">
+          <p class="eyebrow" data-i18n="technology.eyebrow"></p>
+          <h2 class="headline" data-i18n="technology.title"></h2>
+          <p class="lead" data-i18n="technology.text"></p>
+        </div>
+        <div class="numbers-grid">
+          <article class="number-card reveal">
+            <svg viewBox="0 0 40 40" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 35s12-10.4 12-21A12 12 0 0 0 8 14c0 10.6 12 21 12 21Z"></path>
+              <circle cx="20" cy="14" r="4"></circle>
+            </svg>
+            <h3 data-i18n="technology.cardOneTitle"></h3>
+            <p data-i18n="technology.cardOneText"></p>
+          </article>
+          <article class="number-card reveal">
+            <svg viewBox="0 0 40 40" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 34V17"></path>
+              <path d="M20 24c-7 0-11-4.1-12.5-11 7.4-.6 11.8 2.1 12.5 11Z"></path>
+              <path d="M20 21c6-.3 9.8-3.3 11-9.5-6.5-.3-10.4 2-11 9.5Z"></path>
+            </svg>
+            <h3 data-i18n="technology.cardTwoTitle"></h3>
+            <p data-i18n="technology.cardTwoText"></p>
+          </article>
+          <article class="number-card reveal">
+            <svg viewBox="0 0 40 40" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 34h26"></path>
+              <path d="M10 34V14l9-5v25"></path>
+              <path d="M19 34V11l11 6v17"></path>
+              <path d="M13 18h2"></path>
+              <path d="M13 24h2"></path>
+              <path d="M23 20h3"></path>
+              <path d="M23 26h3"></path>
+            </svg>
+            <h3 data-i18n="technology.cardThreeTitle"></h3>
+            <p data-i18n="technology.cardThreeText"></p>
+          </article>
+          <article class="number-card reveal">
+            <svg viewBox="0 0 40 40" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 5 32 10v9c0 8-5.2 13.2-12 16-6.8-2.8-12-8-12-16v-9l12-5Z"></path>
+              <path d="m15 20 3 3 7-8"></path>
+            </svg>
+            <h3 data-i18n="technology.cardFourTitle"></h3>
+            <p data-i18n="technology.cardFourText"></p>
+          </article>
+          <article class="number-card reveal">
+            <svg viewBox="0 0 40 40" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 32h26"></path>
+              <path d="M10 28 18 20l6 5 9-13"></path>
+              <path d="M28 12h5v5"></path>
+              <path d="M10 32V12"></path>
+            </svg>
+            <h3 data-i18n="technology.cardFiveTitle"></h3>
+            <p data-i18n="technology.cardFiveText"></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section production-section" id="productions">
+      <div class="section-inner">
+        <div class="reveal">
+          <p class="eyebrow" data-i18n="productions.eyebrow"></p>
+          <h2 class="headline" data-i18n="productions.title"></h2>
+          <p class="lead" data-i18n="productions.text"></p>
+        </div>
+        <div class="production-grid">
+          <article class="production-card reveal">
+            <img class="production-image" src="assets/fungi-gourmet.jpg" alt="">
+            <div class="production-content">
+              <span class="production-tag" data-i18n="productions.cardOneTag"></span>
+              <h3 data-i18n="productions.cardOneTitle"></h3>
+              <p data-i18n="productions.cardOneText"></p>
+            </div>
+          </article>
+          <article class="production-card reveal">
+            <img class="production-image" src="assets/microgreens.jpg" alt="">
+            <div class="production-content">
+              <span class="production-tag" data-i18n="productions.cardTwoTag"></span>
+              <h3 data-i18n="productions.cardTwoTitle"></h3>
+              <p data-i18n="productions.cardTwoText"></p>
+            </div>
+          </article>
+          <article class="production-card reveal">
+            <img class="production-image" src="assets/verdure-foglia.jpg" alt="">
+            <div class="production-content">
+              <span class="production-tag" data-i18n="productions.cardThreeTag"></span>
+              <h3 data-i18n="productions.cardThreeTitle"></h3>
+              <p data-i18n="productions.cardThreeText"></p>
+            </div>
+          </article>
+          <article class="production-card reveal">
+            <img class="production-image" src="assets/colture-speciali.jpg" alt="">
+            <div class="production-content">
+              <span class="production-tag" data-i18n="productions.cardFourTag"></span>
+              <h3 data-i18n="productions.cardFourTitle"></h3>
+              <p data-i18n="productions.cardFourText"></p>
+            </div>
+          </article>
+          <article class="production-card reveal">
+            <img class="production-image" src="assets/foraggio-idroponico.jpg" alt="">
+            <div class="production-content">
+              <span class="production-tag" data-i18n="productions.cardFiveTag"></span>
+              <h3 data-i18n="productions.cardFiveTitle"></h3>
+              <p data-i18n="productions.cardFiveText"></p>
+            </div>
+          </article>
+        </div>
+        <p class="production-final reveal" data-i18n="productions.finalText"></p>
+      </div>
+    </section>
+
+    <section class="section cinema network-section" id="network">
+      <div class="section-inner network-layout">
+        <div class="network-copy reveal">
+          <p class="eyebrow" data-i18n="numbers.eyebrow"></p>
+          <h2 class="display" data-i18n="numbers.title"></h2>
+          <p class="lead" data-i18n="numbers.text"></p>
+        </div>
+        <div class="network-expansion-card reveal">
+          <img class="network-map-image" src="assets/network-map-italy-europe.png" alt="">
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="paths">
+      <div class="section-inner">
+        <div class="reveal">
+          <p class="eyebrow" data-i18n="paths.eyebrow"></p>
+          <h2 class="headline" data-i18n="paths.title"></h2>
+          <p class="lead" data-i18n="paths.text"></p>
+        </div>
+        <p class="paths-intro reveal" data-i18n="paths.intro"></p>
+        <div class="paths-grid">
+          <article class="path-card reveal">
+            <div>
+              <svg class="path-icon" viewBox="0 0 42 42" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="6" y="12" width="30" height="18" rx="2"></rect>
+                <path d="M10 16h22"></path>
+                <path d="M12 30v4"></path>
+                <path d="M30 30v4"></path>
+                <path d="M13 20h4"></path>
+                <path d="M21 20h4"></path>
+                <path d="M29 20h3"></path>
+              </svg>
+              <span class="path-label" data-i18n="paths.hubLabel"></span>
+              <h3 data-i18n="paths.hubTitle"></h3>
+              <p data-i18n="paths.hubText"></p>
+            </div>
+            <a class="btn primary" href="#final" data-i18n="paths.hubCta"></a>
+          </article>
+          <article class="path-card reveal">
+            <div>
+              <svg class="path-icon" viewBox="0 0 42 42" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M7 34h28"></path>
+                <path d="M11 30 19 22l6 5 10-15"></path>
+                <path d="M30 12h5v5"></path>
+                <path d="M11 34V14"></path>
+              </svg>
+              <span class="path-label" data-i18n="paths.investLabel"></span>
+              <h3 data-i18n="paths.investTitle"></h3>
+              <p data-i18n="paths.investText"></p>
+            </div>
+            <a class="btn primary" href="#final" data-i18n="paths.investCta"></a>
+          </article>
+          <article class="path-card reveal">
+            <div>
+              <svg class="path-icon" viewBox="0 0 42 42" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M8 11h4l4 17h17l3-12H15"></path>
+                <circle cx="18" cy="34" r="2.5"></circle>
+                <circle cx="31" cy="34" r="2.5"></circle>
+                <path d="M20 20h9"></path>
+                <path d="M22 16v8"></path>
+              </svg>
+              <span class="path-label" data-i18n="paths.buyLabel"></span>
+              <h3 data-i18n="paths.buyTitle"></h3>
+              <p data-i18n="paths.buyText"></p>
+            </div>
+            <a class="btn primary" href="#final" data-i18n="paths.buyCta"></a>
+          </article>
+          <article class="path-card reveal">
+            <div>
+              <svg class="path-icon" viewBox="0 0 42 42" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 25 9 20l5-5 6 6"></path>
+                <path d="m28 25 5-5-5-5-6 6"></path>
+                <path d="M18 23h6"></path>
+                <path d="M20 17h2c2.4 0 4.4 2 4.4 4.4V23"></path>
+                <path d="M22 25h-2c-2.4 0-4.4-2-4.4-4.4V19"></path>
+                <circle cx="21" cy="21" r="14"></circle>
+              </svg>
+              <span class="path-label" data-i18n="paths.partnerLabel"></span>
+              <h3 data-i18n="paths.partnerTitle"></h3>
+              <p data-i18n="paths.partnerText"></p>
+            </div>
+            <a class="btn primary" href="#final" data-i18n="paths.partnerCta"></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section final" id="final">
+      <div class="section-inner reveal">
+        <p class="eyebrow" data-i18n="finalCta.eyebrow"></p>
+        <h2 class="headline" data-i18n="finalCta.title"></h2>
+        <p class="lead" data-i18n="finalCta.text"></p>
+        <div class="final-actions">
+          <a class="btn primary" href="mailto:hello@amalisurbanfarm.com?subject=Richiesta%20informazioni%20Amalis%20Urban%20Farm" data-i18n="finalCta.primaryCta"></a>
+          <a class="btn secondary" href="mailto:hello@amalisurbanfarm.com?subject=Partnership%20Amalis%20Urban%20Farm" data-i18n="finalCta.secondaryCta"></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <h2 class="footer-brand">Amalis Urban Farm</h2>
+          <p class="footer-text" data-i18n="footer.brandText"></p>
+        </div>
+        <div class="footer-company">
+          <strong class="footer-title" data-i18n="footer.companyTitle"></strong>
+          <p>
+            <span data-i18n="footer.companyName"></span><br>
+            <span data-i18n="footer.companyAddressOne"></span><br>
+            <span data-i18n="footer.companyAddressTwo"></span><br>
+            <span data-i18n="footer.companyCountry"></span><br><br>
+            <span data-i18n="footer.vat"></span><br><br>
+            <a href="mailto:urbanfarm@amalisfarm.com">urbanfarm@amalisfarm.com</a>
+          </p>
+        </div>
+        <div>
+          <strong class="footer-title" data-i18n="footer.infoTitle"></strong>
+          <nav class="footer-links" aria-label="Footer">
+            <a href="#" data-i18n="footer.privacy"></a>
+            <a href="#" data-i18n="footer.terms"></a>
+            <a href="#" data-i18n="footer.sitemap"></a>
+          </nav>
+        </div>
+      </div>
+      <hr class="footer-separator">
+      <div class="footer-bottom">
+        <span class="footer-copyright">© <span id="footerYear"></span> Amalis Urban Farm · Amalis Group S.r.l.</span>
+        <span class="footer-claim" data-i18n="footer.claim"></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const translations = {
+      it: {
+        nav: {
+          vision: "Visione",
+          hub: "Hub",
+          technology: "Tecnologia",
+          paths: "Percorsi",
+          login: "Area riservata",
+          languageTitle: "Seleziona lingua",
+          languageName: "Italiano"
+        },
+        hero: {
+          eyebrow: "Produzione indoor distribuita",
+          title: "Il cibo non dovrebbe percorrere migliaia di chilometri",
+          subtitle: "Amalis Urban Farm costruisce hub produttivi indoor per portare funghi gourmet, microgreens e colture speciali vicino a chi li consuma.",
+          primaryCta: "Esplora i percorsi",
+          secondaryCta: "Scopri la visione",
+          signalOneValue: "24/7",
+          signalOneLabel: "Ambiente controllato e monitorabile",
+          signalTwoValue: "3",
+          signalTwoLabel: "Produzioni iniziali ad alto valore",
+          signalThreeValue: "Hub",
+          signalThreeLabel: "Moduli pensati per scalare in rete",
+          pillOneLabel: "Clima",
+          pillOneValue: "Stabile",
+          pillTwoLabel: "Produzione",
+          pillTwoValue: "Programmabile",
+          pillThreeLabel: "Distanza",
+          pillThreeValue: "Locale"
+        },
+        vision: {
+          eyebrow: "Il problema",
+          problemTitle: "Trasportiamo freschezza attraverso sistemi fragili.",
+          problemText: "Le filiere alimentari dipendono da chilometri, clima, stagioni e disponibilità discontinue. Per le colture ad alto valore, questa distanza diventa costo, spreco e perdita di qualità.",
+          stepOne: "01",
+          transportTitle: "Trasporti lunghi",
+          transportText: "Più strada significa più costi, più emissioni e meno controllo sulla qualità finale.",
+          stepTwo: "02",
+          distanceTitle: "Distanza dal consumo",
+          distanceText: "Ristoranti e retailer hanno bisogno di freschezza prevedibile, non di disponibilità casuale.",
+          stepThree: "03",
+          climateTitle: "Dipendenza dal clima",
+          climateText: "Eventi estremi e instabilità ambientale rendono fragile la produzione tradizionale.",
+          stepFour: "04",
+          seasonTitle: "Stagionalità rigida",
+          seasonText: "La domanda moderna richiede continuità, precisione e calendari produttivi affidabili.",
+          questionEyebrow: "La domanda",
+          questionTitle: "E se potessimo produrlo vicino a chi lo consuma?",
+          questionText: "Non un singolo impianto. Una rete di hub indoor capaci di programmare produzione, qualità e prossimità."
+        },
+        hub: {
+          eyebrow: "Il concetto Amalis",
+          title: "Nasce una nuova rete produttiva.",
+          text: "Ogni hub Amalis è un modulo produttivo indoor progettato per diventare parte di un sistema più grande: standard operativi, dati, ricette di coltivazione e domanda commerciale collegati in una piattaforma comune.",
+          dashboardTitle: "Hub operativo",
+          metricOne: "Temperatura",
+          metricOneValue: "18.5°",
+          metricTwo: "Umidità",
+          metricTwoValue: "86%",
+          metricThree: "Cicli attivi",
+          metricThreeValue: "12",
+          metricFour: "Efficienza",
+          metricFourValue: "94%"
+        },
+        technology: {
+          eyebrow: "Tecnologia e controllo",
+          title: "Controllato 24 ore su 24.",
+          text: "Clima, umidità, ricambio d’aria, illuminazione, cicli produttivi e performance vengono progettati per essere misurabili. La futura piattaforma Amalis trasformerà ogni hub in un nodo operativo con dati, alert e dashboard.",
+          cardOneValue: "Sensor",
+          cardOneText: "Monitoraggio ambientale continuo per supportare qualità e consistenza.",
+          cardTwoValue: "Recipe",
+          cardTwoText: "Parametri produttivi replicabili per colture diverse e calendari programmati.",
+          cardThreeValue: "Cloud",
+          cardThreeText: "Base software pronta per dashboard hub, area partner e area investitori."
+        },
+        productions: {
+          eyebrow: "Prime produzioni",
+          title: "Un modulo produttivo. Infinite possibilità.",
+          text: "La rete nasce da categorie ad alto valore, con cicli rapidi, domanda crescente e forte beneficio dalla produzione locale programmata.",
+          cardOneTitle: "Funghi gourmet e medicinali",
+          cardOneText: "Produzioni premium per ristorazione, retail specializzato e benessere funzionale.",
+          cardTwoTitle: "Microgreens",
+          cardTwoText: "Freschezza estrema, alta densità nutrizionale e consegne locali ricorrenti.",
+          cardThreeTitle: "Colture speciali",
+          cardThreeText: "Varietà ad alto valore sviluppate per mercati professionali e filiere dedicate."
+        },
+        numbers: {
+          eyebrow: "Espansione",
+          title: "Un hub diventa una rete.",
+          text: "Ogni nuovo modulo aumenta capacità produttiva, copertura geografica e potere commerciale. La crescita non è lineare: è infrastruttura distribuita."
+        },
+        paths: {
+          eyebrow: "Tre percorsi",
+          title: "Entra nella rete dal punto più naturale per te.",
+          text: "Amalis parla a imprenditori, investitori e clienti commerciali con una piattaforma unica e una visione comune.",
+          hubTitle: "Avvia un Hub",
+          hubText: "Per chi vuole costruire e gestire un nodo produttivo indoor con standard, supporto e domanda collegata.",
+          hubCta: "Voglio un hub",
+          investTitle: "Investi",
+          investText: "Per chi vede nella produzione distribuita un’infrastruttura scalabile nel food system europeo.",
+          investCta: "Parliamo di crescita",
+          buyTitle: "Acquista Produzione",
+          buyText: "Per ristoranti, distributori e retailer che cercano produzione locale, fresca e programmabile.",
+          buyCta: "Richiedi fornitura"
+        },
+        reservedArea: {
+          eyebrow: "Base webapp",
+          title: "La landing è il primo modulo di una piattaforma.",
+          text: "Login, dashboard hub, monitoraggio produzione, area investitori, area partner e gestione hub sono già previsti nella struttura testuale e visiva.",
+          panelTitle: "Area riservata predisposta",
+          panelText: "Il sistema di traduzione copre già menu, CTA, contenuti e futuri attributi per input, tooltip e interfacce operative.",
+          loginCta: "Accesso futuro",
+          partnerCta: "Area partner",
+          previewTitle: "Dashboard Hub",
+          previewStatus: "Online",
+          tileOne: "Cicli",
+          tileOneValue: "12",
+          tileTwo: "Lotti",
+          tileTwoValue: "48",
+          tileThree: "Previsione produzione",
+          tileThreeValue: "Programmabile"
+        },
+        finalCta: {
+          eyebrow: "Prossimo passo",
+          title: "Costruiamo insieme il futuro del cibo.",
+          text: "Una rete produttiva distribuita nasce con i primi hub, i primi partner e i primi clienti capaci di immaginare un food system più vicino, preciso e resiliente.",
+          primaryCta: "Contatta Amalis",
+          secondaryCta: "Apri area riservata"
+        },
+        footer: {
+          claim: "Indoor farming network",
+          rights: "Tutti i diritti riservati"
+        }
+      },
+      en: {
+        nav: {
+          vision: "Vision",
+          hub: "Hub",
+          technology: "Technology",
+          paths: "Paths",
+          login: "Reserved area",
+          languageTitle: "Select language",
+          languageName: "English"
+        },
+        hero: {
+          eyebrow: "Distributed indoor production",
+          title: "Food is travelling too far.",
+          subtitle: "Amalis Urban Farm builds indoor production hubs to bring gourmet mushrooms, microgreens and specialty crops closer to the people who consume them.",
+          primaryCta: "Explore the paths",
+          secondaryCta: "Discover the vision",
+          signalOneValue: "24/7",
+          signalOneLabel: "Controlled and monitorable environment",
+          signalTwoValue: "3",
+          signalTwoLabel: "Initial high-value production lines",
+          signalThreeValue: "Hub",
+          signalThreeLabel: "Modules designed to scale as a network",
+          pillOneLabel: "Climate",
+          pillOneValue: "Stable",
+          pillTwoLabel: "Production",
+          pillTwoValue: "Planned",
+          pillThreeLabel: "Distance",
+          pillThreeValue: "Local"
+        },
+        vision: {
+          eyebrow: "The problem",
+          problemTitle: "We move freshness through fragile systems.",
+          problemText: "Food supply chains depend on kilometers, climate, seasons and inconsistent availability. For high-value crops, that distance becomes cost, waste and quality loss.",
+          stepOne: "01",
+          transportTitle: "Long transport",
+          transportText: "More distance means higher costs, more emissions and less control over final quality.",
+          stepTwo: "02",
+          distanceTitle: "Far from consumption",
+          distanceText: "Restaurants and retailers need predictable freshness, not random availability.",
+          stepThree: "03",
+          climateTitle: "Climate dependency",
+          climateText: "Extreme events and environmental instability make traditional production fragile.",
+          stepFour: "04",
+          seasonTitle: "Rigid seasonality",
+          seasonText: "Modern demand requires continuity, precision and reliable production calendars.",
+          questionEyebrow: "The question",
+          questionTitle: "What if we could produce it near those who consume it?",
+          questionText: "Not one facility. A network of indoor hubs able to plan production, quality and proximity."
+        },
+        hub: {
+          eyebrow: "The Amalis concept",
+          title: "A new production network is born.",
+          text: "Each Amalis hub is an indoor production module designed to become part of a larger system: operating standards, data, cultivation recipes and commercial demand connected through one shared platform.",
+          dashboardTitle: "Operating hub",
+          metricOne: "Temperature",
+          metricOneValue: "18.5°",
+          metricTwo: "Humidity",
+          metricTwoValue: "86%",
+          metricThree: "Active cycles",
+          metricThreeValue: "12",
+          metricFour: "Efficiency",
+          metricFourValue: "94%"
+        },
+        technology: {
+          eyebrow: "Technology and control",
+          title: "Controlled around the clock.",
+          text: "Climate, humidity, air exchange, lighting, production cycles and performance are designed to be measurable. The future Amalis platform will turn every hub into an operational node with data, alerts and dashboards.",
+          cardOneValue: "Sensor",
+          cardOneText: "Continuous environmental monitoring to support quality and consistency.",
+          cardTwoValue: "Recipe",
+          cardTwoText: "Replicable production parameters for different crops and planned calendars.",
+          cardThreeValue: "Cloud",
+          cardThreeText: "A software base ready for hub dashboards, partner areas and investor areas."
+        },
+        productions: {
+          eyebrow: "Initial productions",
+          title: "One production module. Infinite possibilities.",
+          text: "The network starts from high-value categories with fast cycles, growing demand and strong benefits from planned local production.",
+          cardOneTitle: "Gourmet and medicinal mushrooms",
+          cardOneText: "Premium production for restaurants, specialty retail and functional wellness.",
+          cardTwoTitle: "Microgreens",
+          cardTwoText: "Extreme freshness, high nutritional density and recurring local deliveries.",
+          cardThreeTitle: "Specialty crops",
+          cardThreeText: "High-value varieties developed for professional markets and dedicated supply chains."
+        },
+        numbers: {
+          eyebrow: "Expansion",
+          title: "One hub becomes a network.",
+          text: "Each new module increases production capacity, geographic coverage and commercial power. Growth is not linear: it is distributed infrastructure."
+        },
+        paths: {
+          eyebrow: "Three paths",
+          title: "Enter the network from the point that fits you.",
+          text: "Amalis speaks to entrepreneurs, investors and commercial buyers through one platform and one shared vision.",
+          hubTitle: "Start a Hub",
+          hubText: "For people who want to build and operate an indoor production node with standards, support and connected demand.",
+          hubCta: "I want a hub",
+          investTitle: "Invest",
+          investText: "For those who see distributed production as scalable infrastructure in the European food system.",
+          investCta: "Discuss growth",
+          buyTitle: "Buy Production",
+          buyText: "For restaurants, distributors and retailers looking for local, fresh and programmable production.",
+          buyCta: "Request supply"
+        },
+        reservedArea: {
+          eyebrow: "Webapp base",
+          title: "The landing is the first module of a platform.",
+          text: "Login, hub dashboards, production monitoring, investor areas, partner areas and hub management are already planned in the text and visual structure.",
+          panelTitle: "Reserved area prepared",
+          panelText: "The translation system already covers menus, CTAs, content and future attributes for inputs, tooltips and operating interfaces.",
+          loginCta: "Future access",
+          partnerCta: "Partner area",
+          previewTitle: "Hub Dashboard",
+          previewStatus: "Online",
+          tileOne: "Cycles",
+          tileOneValue: "12",
+          tileTwo: "Batches",
+          tileTwoValue: "48",
+          tileThree: "Production forecast",
+          tileThreeValue: "Programmable"
+        },
+        finalCta: {
+          eyebrow: "Next step",
+          title: "Let’s build the future of food together.",
+          text: "A distributed production network starts with the first hubs, the first partners and the first customers able to imagine a closer, more precise and more resilient food system.",
+          primaryCta: "Contact Amalis",
+          secondaryCta: "Open reserved area"
+        },
+        footer: {
+          claim: "Indoor farming network",
+          rights: "All rights reserved"
+        }
+      },
+      es: {
+        nav: {
+          vision: "Visión",
+          hub: "Hub",
+          technology: "Tecnología",
+          paths: "Rutas",
+          login: "Área reservada",
+          languageTitle: "Seleccionar idioma",
+          languageName: "Español"
+        },
+        hero: {
+          eyebrow: "Producción indoor distribuida",
+          title: "La comida está viajando demasiado.",
+          subtitle: "Amalis Urban Farm crea hubs productivos indoor para acercar setas gourmet, microgreens y cultivos especiales a quienes los consumen.",
+          primaryCta: "Explorar rutas",
+          secondaryCta: "Descubrir la visión",
+          signalOneValue: "24/7",
+          signalOneLabel: "Entorno controlado y monitorizable",
+          signalTwoValue: "3",
+          signalTwoLabel: "Primeras líneas de alto valor",
+          signalThreeValue: "Hub",
+          signalThreeLabel: "Módulos diseñados para escalar en red",
+          pillOneLabel: "Clima",
+          pillOneValue: "Estable",
+          pillTwoLabel: "Producción",
+          pillTwoValue: "Programable",
+          pillThreeLabel: "Distancia",
+          pillThreeValue: "Local"
+        },
+        vision: {
+          eyebrow: "El problema",
+          problemTitle: "Movemos frescura a través de sistemas frágiles.",
+          problemText: "Las cadenas alimentarias dependen de kilómetros, clima, estaciones y disponibilidad irregular. En cultivos de alto valor, esa distancia se convierte en coste, desperdicio y pérdida de calidad.",
+          stepOne: "01",
+          transportTitle: "Transporte largo",
+          transportText: "Más distancia significa más costes, más emisiones y menos control sobre la calidad final.",
+          stepTwo: "02",
+          distanceTitle: "Lejos del consumo",
+          distanceText: "Restaurantes y retailers necesitan frescura previsible, no disponibilidad aleatoria.",
+          stepThree: "03",
+          climateTitle: "Dependencia climática",
+          climateText: "Los eventos extremos y la inestabilidad ambiental hacen frágil la producción tradicional.",
+          stepFour: "04",
+          seasonTitle: "Estacionalidad rígida",
+          seasonText: "La demanda moderna exige continuidad, precisión y calendarios productivos fiables.",
+          questionEyebrow: "La pregunta",
+          questionTitle: "¿Y si pudiéramos producirlo cerca de quien lo consume?",
+          questionText: "No una sola instalación. Una red de hubs indoor capaces de programar producción, calidad y proximidad."
+        },
+        hub: {
+          eyebrow: "El concepto Amalis",
+          title: "Nace una nueva red productiva.",
+          text: "Cada hub Amalis es un módulo productivo indoor diseñado para formar parte de un sistema mayor: estándares operativos, datos, recetas de cultivo y demanda comercial conectados en una plataforma común.",
+          dashboardTitle: "Hub operativo",
+          metricOne: "Temperatura",
+          metricOneValue: "18.5°",
+          metricTwo: "Humedad",
+          metricTwoValue: "86%",
+          metricThree: "Ciclos activos",
+          metricThreeValue: "12",
+          metricFour: "Eficiencia",
+          metricFourValue: "94%"
+        },
+        technology: {
+          eyebrow: "Tecnología y control",
+          title: "Controlado 24 horas al día.",
+          text: "Clima, humedad, intercambio de aire, iluminación, ciclos productivos y rendimiento se diseñan para ser medibles. La futura plataforma Amalis convertirá cada hub en un nodo operativo con datos, alertas y dashboards.",
+          cardOneValue: "Sensor",
+          cardOneText: "Monitorización ambiental continua para apoyar calidad y consistencia.",
+          cardTwoValue: "Recipe",
+          cardTwoText: "Parámetros productivos replicables para distintos cultivos y calendarios planificados.",
+          cardThreeValue: "Cloud",
+          cardThreeText: "Base software preparada para dashboards de hub, áreas partner y áreas inversor."
+        },
+        productions: {
+          eyebrow: "Primeras producciones",
+          title: "Un módulo productivo. Infinitas posibilidades.",
+          text: "La red nace desde categorías de alto valor, con ciclos rápidos, demanda creciente y fuerte beneficio de la producción local programada.",
+          cardOneTitle: "Setas gourmet y medicinales",
+          cardOneText: "Producciones premium para restauración, retail especializado y bienestar funcional.",
+          cardTwoTitle: "Microgreens",
+          cardTwoText: "Frescura extrema, alta densidad nutricional y entregas locales recurrentes.",
+          cardThreeTitle: "Cultivos especiales",
+          cardThreeText: "Variedades de alto valor desarrolladas para mercados profesionales y cadenas dedicadas."
+        },
+        numbers: {
+          eyebrow: "Expansión",
+          title: "Un hub se convierte en una red.",
+          text: "Cada nuevo módulo aumenta capacidad productiva, cobertura geográfica y fuerza comercial. El crecimiento no es lineal: es infraestructura distribuida."
+        },
+        paths: {
+          eyebrow: "Tres rutas",
+          title: "Entra en la red desde el punto más natural para ti.",
+          text: "Amalis habla a emprendedores, inversores y clientes comerciales con una plataforma única y una visión común.",
+          hubTitle: "Inicia un Hub",
+          hubText: "Para quienes quieren construir y operar un nodo productivo indoor con estándares, soporte y demanda conectada.",
+          hubCta: "Quiero un hub",
+          investTitle: "Invierte",
+          investText: "Para quienes ven la producción distribuida como infraestructura escalable en el sistema alimentario europeo.",
+          investCta: "Hablemos de crecimiento",
+          buyTitle: "Compra Producción",
+          buyText: "Para restaurantes, distribuidores y retailers que buscan producción local, fresca y programable.",
+          buyCta: "Solicitar suministro"
+        },
+        reservedArea: {
+          eyebrow: "Base webapp",
+          title: "La landing es el primer módulo de una plataforma.",
+          text: "Login, dashboards de hub, monitorización de producción, área inversores, área partners y gestión de hubs ya están previstos en la estructura textual y visual.",
+          panelTitle: "Área reservada preparada",
+          panelText: "El sistema de traducción ya cubre menús, CTAs, contenidos y futuros atributos para inputs, tooltips e interfaces operativas.",
+          loginCta: "Acceso futuro",
+          partnerCta: "Área partner",
+          previewTitle: "Dashboard Hub",
+          previewStatus: "Online",
+          tileOne: "Ciclos",
+          tileOneValue: "12",
+          tileTwo: "Lotes",
+          tileTwoValue: "48",
+          tileThree: "Previsión de producción",
+          tileThreeValue: "Programable"
+        },
+        finalCta: {
+          eyebrow: "Próximo paso",
+          title: "Construyamos juntos el futuro de la alimentación.",
+          text: "Una red productiva distribuida nace con los primeros hubs, los primeros partners y los primeros clientes capaces de imaginar un sistema alimentario más cercano, preciso y resiliente.",
+          primaryCta: "Contactar Amalis",
+          secondaryCta: "Abrir área reservada"
+        },
+        footer: {
+          claim: "Indoor farming network",
+          rights: "Todos los derechos reservados"
+        }
+      },
+      fr: {
+        nav: {
+          vision: "Vision",
+          hub: "Hub",
+          technology: "Technologie",
+          paths: "Parcours",
+          login: "Espace réservé",
+          languageTitle: "Sélectionner la langue",
+          languageName: "Français"
+        },
+        hero: {
+          eyebrow: "Production indoor distribuée",
+          title: "La nourriture parcourt trop de distance.",
+          subtitle: "Amalis Urban Farm développe des hubs de production indoor pour rapprocher champignons gourmet, microgreens et cultures spéciales de ceux qui les consomment.",
+          primaryCta: "Explorer les parcours",
+          secondaryCta: "Découvrir la vision",
+          signalOneValue: "24/7",
+          signalOneLabel: "Environnement contrôlé et mesurable",
+          signalTwoValue: "3",
+          signalTwoLabel: "Premières productions à haute valeur",
+          signalThreeValue: "Hub",
+          signalThreeLabel: "Modules pensés pour évoluer en réseau",
+          pillOneLabel: "Climat",
+          pillOneValue: "Stable",
+          pillTwoLabel: "Production",
+          pillTwoValue: "Programmable",
+          pillThreeLabel: "Distance",
+          pillThreeValue: "Locale"
+        },
+        vision: {
+          eyebrow: "Le problème",
+          problemTitle: "Nous transportons la fraîcheur à travers des systèmes fragiles.",
+          problemText: "Les filières alimentaires dépendent des kilomètres, du climat, des saisons et d’une disponibilité irrégulière. Pour les cultures à haute valeur, cette distance devient coût, gaspillage et perte de qualité.",
+          stepOne: "01",
+          transportTitle: "Transports longs",
+          transportText: "Plus de distance signifie plus de coûts, plus d’émissions et moins de contrôle sur la qualité finale.",
+          stepTwo: "02",
+          distanceTitle: "Loin de la consommation",
+          distanceText: "Restaurants et retailers ont besoin d’une fraîcheur prévisible, pas d’une disponibilité aléatoire.",
+          stepThree: "03",
+          climateTitle: "Dépendance au climat",
+          climateText: "Les événements extrêmes et l’instabilité environnementale rendent la production traditionnelle fragile.",
+          stepFour: "04",
+          seasonTitle: "Saisonnalité rigide",
+          seasonText: "La demande moderne exige continuité, précision et calendriers de production fiables.",
+          questionEyebrow: "La question",
+          questionTitle: "Et si nous pouvions le produire près de ceux qui le consomment ?",
+          questionText: "Pas une seule installation. Un réseau de hubs indoor capables de programmer production, qualité et proximité."
+        },
+        hub: {
+          eyebrow: "Le concept Amalis",
+          title: "Un nouveau réseau productif voit le jour.",
+          text: "Chaque hub Amalis est un module de production indoor conçu pour faire partie d’un système plus vaste : standards opérationnels, données, recettes de culture et demande commerciale connectés dans une plateforme commune.",
+          dashboardTitle: "Hub opérationnel",
+          metricOne: "Température",
+          metricOneValue: "18.5°",
+          metricTwo: "Humidité",
+          metricTwoValue: "86%",
+          metricThree: "Cycles actifs",
+          metricThreeValue: "12",
+          metricFour: "Efficacité",
+          metricFourValue: "94%"
+        },
+        technology: {
+          eyebrow: "Technologie et contrôle",
+          title: "Contrôlé 24 heures sur 24.",
+          text: "Climat, humidité, renouvellement d’air, éclairage, cycles productifs et performance sont conçus pour être mesurables. La future plateforme Amalis transformera chaque hub en nœud opérationnel avec données, alertes et dashboards.",
+          cardOneValue: "Sensor",
+          cardOneText: "Suivi environnemental continu pour soutenir qualité et constance.",
+          cardTwoValue: "Recipe",
+          cardTwoText: "Paramètres productifs réplicables pour différentes cultures et calendriers planifiés.",
+          cardThreeValue: "Cloud",
+          cardThreeText: "Base logicielle prête pour dashboards hub, espaces partenaires et espaces investisseurs."
+        },
+        productions: {
+          eyebrow: "Premières productions",
+          title: "Un module productif. Des possibilités infinies.",
+          text: "Le réseau démarre par des catégories à haute valeur, aux cycles rapides, à la demande croissante et au fort bénéfice de la production locale programmée.",
+          cardOneTitle: "Champignons gourmet et médicinaux",
+          cardOneText: "Productions premium pour restauration, retail spécialisé et bien-être fonctionnel.",
+          cardTwoTitle: "Microgreens",
+          cardTwoText: "Fraîcheur extrême, haute densité nutritionnelle et livraisons locales récurrentes.",
+          cardThreeTitle: "Cultures spéciales",
+          cardThreeText: "Variétés à haute valeur développées pour marchés professionnels et filières dédiées."
+        },
+        numbers: {
+          eyebrow: "Expansion",
+          title: "Un hub devient un réseau.",
+          text: "Chaque nouveau module augmente capacité productive, couverture géographique et puissance commerciale. La croissance n’est pas linéaire : c’est une infrastructure distribuée."
+        },
+        paths: {
+          eyebrow: "Trois parcours",
+          title: "Entrez dans le réseau par le point qui vous correspond.",
+          text: "Amalis s’adresse aux entrepreneurs, investisseurs et clients commerciaux avec une plateforme unique et une vision commune.",
+          hubTitle: "Lancer un Hub",
+          hubText: "Pour celles et ceux qui veulent construire et opérer un nœud productif indoor avec standards, support et demande connectée.",
+          hubCta: "Je veux un hub",
+          investTitle: "Investir",
+          investText: "Pour ceux qui voient la production distribuée comme une infrastructure scalable dans le food system européen.",
+          investCta: "Parlons croissance",
+          buyTitle: "Acheter la Production",
+          buyText: "Pour restaurants, distributeurs et retailers qui cherchent une production locale, fraîche et programmable.",
+          buyCta: "Demander l’approvisionnement"
+        },
+        reservedArea: {
+          eyebrow: "Base webapp",
+          title: "La landing est le premier module d’une plateforme.",
+          text: "Login, dashboards hub, suivi de production, espace investisseurs, espace partenaires et gestion des hubs sont déjà prévus dans la structure textuelle et visuelle.",
+          panelTitle: "Espace réservé préparé",
+          panelText: "Le système de traduction couvre déjà menus, CTA, contenus et futurs attributs pour inputs, tooltips et interfaces opérationnelles.",
+          loginCta: "Accès futur",
+          partnerCta: "Espace partenaire",
+          previewTitle: "Dashboard Hub",
+          previewStatus: "Online",
+          tileOne: "Cycles",
+          tileOneValue: "12",
+          tileTwo: "Lots",
+          tileTwoValue: "48",
+          tileThree: "Prévision de production",
+          tileThreeValue: "Programmable"
+        },
+        finalCta: {
+          eyebrow: "Prochaine étape",
+          title: "Construisons ensemble le futur de l’alimentation.",
+          text: "Un réseau productif distribué naît avec les premiers hubs, les premiers partenaires et les premiers clients capables d’imaginer un food system plus proche, plus précis et plus résilient.",
+          primaryCta: "Contacter Amalis",
+          secondaryCta: "Ouvrir l’espace réservé"
+        },
+        footer: {
+          claim: "Indoor farming network",
+          rights: "Tous droits réservés"
+        }
+      },
+      de: {
+        nav: {
+          vision: "Vision",
+          hub: "Hub",
+          technology: "Technologie",
+          paths: "Wege",
+          login: "Reservierter Bereich",
+          languageTitle: "Sprache auswählen",
+          languageName: "Deutsch"
+        },
+        hero: {
+          eyebrow: "Verteilte Indoor-Produktion",
+          title: "Lebensmittel legen zu weite Wege zurück.",
+          subtitle: "Amalis Urban Farm baut Indoor-Produktionshubs, um Gourmetpilze, Microgreens und Spezialkulturen näher zu den Menschen zu bringen, die sie konsumieren.",
+          primaryCta: "Wege entdecken",
+          secondaryCta: "Vision ansehen",
+          signalOneValue: "24/7",
+          signalOneLabel: "Kontrollierbare und messbare Umgebung",
+          signalTwoValue: "3",
+          signalTwoLabel: "Erste hochwertige Produktionslinien",
+          signalThreeValue: "Hub",
+          signalThreeLabel: "Module, die als Netzwerk skalieren",
+          pillOneLabel: "Klima",
+          pillOneValue: "Stabil",
+          pillTwoLabel: "Produktion",
+          pillTwoValue: "Planbar",
+          pillThreeLabel: "Distanz",
+          pillThreeValue: "Lokal"
+        },
+        vision: {
+          eyebrow: "Das Problem",
+          problemTitle: "Wir bewegen Frische durch fragile Systeme.",
+          problemText: "Lebensmittelketten hängen von Kilometern, Klima, Jahreszeiten und unregelmäßiger Verfügbarkeit ab. Für hochwertige Kulturen wird diese Distanz zu Kosten, Verschwendung und Qualitätsverlust.",
+          stepOne: "01",
+          transportTitle: "Lange Transporte",
+          transportText: "Mehr Entfernung bedeutet höhere Kosten, mehr Emissionen und weniger Kontrolle über die finale Qualität.",
+          stepTwo: "02",
+          distanceTitle: "Weit vom Verbrauch entfernt",
+          distanceText: "Restaurants und Händler brauchen planbare Frische, keine zufällige Verfügbarkeit.",
+          stepThree: "03",
+          climateTitle: "Klimaabhängigkeit",
+          climateText: "Extreme Ereignisse und Umweltinstabilität machen traditionelle Produktion fragil.",
+          stepFour: "04",
+          seasonTitle: "Starre Saisonalität",
+          seasonText: "Moderne Nachfrage braucht Kontinuität, Präzision und verlässliche Produktionskalender.",
+          questionEyebrow: "Die Frage",
+          questionTitle: "Was wäre, wenn wir es nahe bei den Menschen produzieren könnten?",
+          questionText: "Nicht eine einzelne Anlage. Ein Netzwerk aus Indoor-Hubs, das Produktion, Qualität und Nähe planen kann."
+        },
+        hub: {
+          eyebrow: "Das Amalis-Konzept",
+          title: "Ein neues Produktionsnetzwerk entsteht.",
+          text: "Jeder Amalis Hub ist ein Indoor-Produktionsmodul, das Teil eines größeren Systems werden soll: Betriebsstandards, Daten, Kultivierungsrezepte und kommerzielle Nachfrage verbunden in einer gemeinsamen Plattform.",
+          dashboardTitle: "Operativer Hub",
+          metricOne: "Temperatur",
+          metricOneValue: "18.5°",
+          metricTwo: "Feuchtigkeit",
+          metricTwoValue: "86%",
+          metricThree: "Aktive Zyklen",
+          metricThreeValue: "12",
+          metricFour: "Effizienz",
+          metricFourValue: "94%"
+        },
+        technology: {
+          eyebrow: "Technologie und Kontrolle",
+          title: "Rund um die Uhr kontrolliert.",
+          text: "Klima, Feuchtigkeit, Luftaustausch, Beleuchtung, Produktionszyklen und Performance werden messbar gestaltet. Die künftige Amalis Plattform macht jeden Hub zu einem operativen Knoten mit Daten, Alerts und Dashboards.",
+          cardOneValue: "Sensor",
+          cardOneText: "Kontinuierliches Umweltmonitoring zur Unterstützung von Qualität und Konsistenz.",
+          cardTwoValue: "Recipe",
+          cardTwoText: "Replizierbare Produktionsparameter für verschiedene Kulturen und geplante Kalender.",
+          cardThreeValue: "Cloud",
+          cardThreeText: "Softwarebasis bereit für Hub-Dashboards, Partnerbereiche und Investorenbereiche."
+        },
+        productions: {
+          eyebrow: "Erste Produktionen",
+          title: "Ein Produktionsmodul. Unendliche Möglichkeiten.",
+          text: "Das Netzwerk startet mit hochwertigen Kategorien, schnellen Zyklen, wachsender Nachfrage und starkem Nutzen durch geplante lokale Produktion.",
+          cardOneTitle: "Gourmet- und Medizinalpilze",
+          cardOneText: "Premium-Produktion für Gastronomie, Spezialhandel und funktionales Wohlbefinden.",
+          cardTwoTitle: "Microgreens",
+          cardTwoText: "Maximale Frische, hohe Nährstoffdichte und wiederkehrende lokale Lieferungen.",
+          cardThreeTitle: "Spezialkulturen",
+          cardThreeText: "Hochwertige Sorten für professionelle Märkte und dedizierte Lieferketten."
+        },
+        numbers: {
+          eyebrow: "Expansion",
+          title: "Ein Hub wird zu einem Netzwerk.",
+          text: "Jedes neue Modul erhöht Produktionskapazität, geografische Abdeckung und kommerzielle Stärke. Wachstum ist nicht linear: Es ist verteilte Infrastruktur."
+        },
+        paths: {
+          eyebrow: "Drei Wege",
+          title: "Steigen Sie dort ins Netzwerk ein, wo es für Sie passt.",
+          text: "Amalis spricht Unternehmer, Investoren und gewerbliche Kunden mit einer Plattform und einer gemeinsamen Vision an.",
+          hubTitle: "Hub starten",
+          hubText: "Für Menschen, die einen Indoor-Produktionsknoten mit Standards, Support und vernetzter Nachfrage aufbauen und betreiben wollen.",
+          hubCta: "Ich möchte einen Hub",
+          investTitle: "Investieren",
+          investText: "Für alle, die verteilte Produktion als skalierbare Infrastruktur im europäischen Food System sehen.",
+          investCta: "Über Wachstum sprechen",
+          buyTitle: "Produktion kaufen",
+          buyText: "Für Restaurants, Distributoren und Händler, die lokale, frische und planbare Produktion suchen.",
+          buyCta: "Lieferung anfragen"
+        },
+        reservedArea: {
+          eyebrow: "Webapp-Basis",
+          title: "Die Landingpage ist das erste Modul einer Plattform.",
+          text: "Login, Hub-Dashboards, Produktionsmonitoring, Investorenbereich, Partnerbereich und Hub-Management sind in Text- und visueller Struktur bereits vorgesehen.",
+          panelTitle: "Reservierter Bereich vorbereitet",
+          panelText: "Das Übersetzungssystem deckt bereits Menüs, CTAs, Inhalte und künftige Attribute für Inputs, Tooltips und operative Interfaces ab.",
+          loginCta: "Künftiger Zugang",
+          partnerCta: "Partnerbereich",
+          previewTitle: "Hub Dashboard",
+          previewStatus: "Online",
+          tileOne: "Zyklen",
+          tileOneValue: "12",
+          tileTwo: "Chargen",
+          tileTwoValue: "48",
+          tileThree: "Produktionsprognose",
+          tileThreeValue: "Planbar"
+        },
+        finalCta: {
+          eyebrow: "Nächster Schritt",
+          title: "Bauen wir gemeinsam die Zukunft der Ernährung.",
+          text: "Ein verteiltes Produktionsnetzwerk beginnt mit den ersten Hubs, den ersten Partnern und den ersten Kunden, die sich ein näheres, präziseres und resilienteres Food System vorstellen können.",
+          primaryCta: "Amalis kontaktieren",
+          secondaryCta: "Reservierten Bereich öffnen"
+        },
+        footer: {
+          claim: "Indoor farming network",
+          rights: "Alle Rechte vorbehalten"
+        }
+      }
+    };
+
+    const positioningTranslations = {
+      it: {
+        nav: {
+          vision: "Visione",
+          hub: "Motore",
+          technology: "Impatto",
+          paths: "Rete"
+        },
+        roadmap: {
+          title: "ROADMAP DEL PROGETTO",
+          check: "✓",
+          stepOneTitle: "Visione e Progettazione",
+          stepOneStatus: "Completato",
+          stepOneTooltip: "La visione strategica e il modello di rete sono definiti.",
+          stepTwoTitle: "Validazione Hub Pilota",
+          stepTwoStatus: "In Corso",
+          stepTwoTooltip: "La fase pilota valida protocolli, tecnologia e primi scenari produttivi.",
+          stepThreeTitle: "Primi Hub Operativi",
+          stepThreeStatus: "Prossimo",
+          stepThreeTooltip: "Attivazione dei primi nodi produttivi collegati alla rete.",
+          stepFourTitle: "Partnership Strategiche",
+          stepFourStatus: "Pianificato",
+          stepFourTooltip: "Coinvolgimento di GDO, distributori, gruppi di acquisto e aziende alimentari.",
+          stepFiveTitle: "Round di Crescita",
+          stepFiveStatus: "Pianificato",
+          stepFiveTooltip: "Capitale di crescita per accelerare rete, piattaforma e capacità operativa.",
+          stepSixTitle: "Rete Nazionale",
+          stepSixStatus: "Visione",
+          stepSixTooltip: "Una rete di hub distribuiti nelle principali aree urbane italiane.",
+          stepSevenTitle: "Espansione Internazionale",
+          stepSevenStatus: "Visione",
+          stepSevenTooltip: "Scalare il modello Amalis oltre il mercato nazionale."
+        },
+        hero: {
+          eyebrow: "La prima rete distribuita di produzione alimentare indoor",
+          title: "La prima rete di produzione alimentare indoor distribuita.",
+          subtitle: "Stiamo costruendo una rete di hub produttivi indoor per coltivare funghi gourmet, microgreens e colture speciali vicino ai luoghi di consumo.",
+          primaryCta: "Scopri la Rete",
+          secondaryCta: "Avvia un Hub",
+          signalOneValue: "✓",
+          signalOneLabel: "Produzione Locale",
+          signalTwoValue: "✓",
+          signalTwoLabel: "Rete Scalabile",
+          signalThreeValue: "✓",
+          signalThreeLabel: "Riduzione delle Emissioni",
+          pillOneLabel: "Nodi",
+          pillOneValue: "Connessi",
+          pillTwoLabel: "Rete",
+          pillTwoValue: "Scalabile",
+          pillThreeLabel: "Produzione",
+          pillThreeValue: "Locale"
+        },
+        vision: {
+          eyebrow: "PRODUZIONE E DISTRIBUZIONE",
+          problemTitle: "Il cibo percorre troppa strada.",
+          problemText: "Ogni giorno prodotti freschi viaggiano per centinaia o migliaia di chilometri prima di arrivare a ristoranti, supermercati e consumatori.",
+          metricOneValue: "1000+",
+          metricOneTitle: "Km percorsi",
+          metricOneText: "Dalla produzione al consumo.",
+          metricTwoValue: "CO₂",
+          metricTwoTitle: "Emissioni aggiuntive",
+          metricTwoText: "Generate dalla logistica.",
+          metricThreeValue: "Giorni",
+          metricThreeTitle: "Persi nel trasporto",
+          metricThreeText: "Meno freschezza disponibile.",
+          metricFourValue: "Qualità",
+          metricFourTitle: "Variabile",
+          metricFourText: "Più distanza significa meno controllo.",
+          closeTitle: "Più distanza significa più costi, più emissioni e meno controllo sulla qualità.",
+          closeText: "Per questo serve un nuovo modello produttivo.",
+          questionEyebrow: "Cambio di prospettiva",
+          questionTitle: "Non stiamo costruendo un hub.",
+          questionSecondTitle: "Stiamo costruendo una rete.",
+          questionText: "Un singolo hub produce. Una rete coordina. Una rete distribuita può trasformare il modo in cui il cibo viene prodotto e consegnato.",
+          growthStageOne: "1 Hub",
+          growthStageTwo: "5 Hub",
+          growthStageThree: "20 Hub",
+          growthStageFour: "Rete Nazionale",
+          growthStageFive: "Espansione Internazionale",
+          growthMetricValues: "1 → 100 → 1000+",
+          growthMetricLabel: "Hub produttivi connessi",
+          growthMetricOneValue: "1",
+          growthMetricOneLabel: "Hub pilota",
+          growthMetricTwoValue: "100",
+          growthMetricTwoLabel: "Hub connessi",
+          growthMetricThreeValue: "1000+",
+          growthMetricThreeLabel: "Scala rete",
+          growthMethodOneKicker: "Produzione",
+          growthMethodOneTitle: "Vicino al consumo",
+          growthMethodOneText: "Meno chilometri. Più freschezza.",
+          growthMethodTwoKicker: "Connessione",
+          growthMethodTwoTitle: "Hub e dati",
+          growthMethodTwoText: "Produzione e controllo in tempo reale.",
+          growthMethodThreeKicker: "Espansione",
+          growthMethodThreeTitle: "La rete",
+          growthMethodThreeText: "Nuovi hub, nuove città, maggiore capacità produttiva."
+        },
+        hub: {
+          eyebrow: "Tecnologia abilitante",
+          title: "Gli hub sono il motore della rete.",
+          text: "Gli hub produttivi indoor consentono di coltivare alimenti ad alto valore durante tutto l'anno seguendo protocolli condivisi e standard di qualità comuni.",
+          dashboardTitle: "Nodo produttivo connesso",
+          metricOne: "Produzione",
+          metricOneValue: "Continua",
+          metricTwo: "Monitoraggio",
+          metricTwoValue: "Remoto",
+          metricThree: "Standard",
+          metricThreeValue: "Comuni",
+          metricFour: "Rete",
+          metricFourValue: "Connessa"
+        },
+        technology: {
+          eyebrow: "Impatto della rete",
+          title: "Quando la rete crescerà.",
+          text: "Il valore di Amalis cresce con ogni nuovo nodo: più produzione locale, meno chilometri percorsi e filiere alimentari più resilienti.",
+          cardOneValue: "Tonnellate",
+          cardOneTitle: "Vicino al Consumo",
+          cardOneText: "Alimenti prodotti più vicino ai consumatori finali.",
+          cardTwoValue: "CO₂",
+          cardTwoTitle: "Meno Emissioni",
+          cardTwoText: "Riduzione della CO₂ legata al trasporto e alle filiere lunghe.",
+          cardThreeValue: "Urbano",
+          cardThreeTitle: "Produzione Distribuita",
+          cardThreeText: "Installabile in aree urbane ed extraurbane.",
+          cardFourValue: "Resilienza",
+          cardFourTitle: "Sicurezza Alimentare",
+          cardFourText: "Filiere più vicine, controllabili e resilienti.",
+          cardFiveValue: "Impresa",
+          cardFiveTitle: "Nuove Opportunità",
+          cardFiveText: "Nuovi modelli imprenditoriali per produttori e partner."
+        },
+        productions: {
+          eyebrow: "Produzioni della rete",
+          title: "Una rete. Molte produzioni.",
+          text: "Gli hub Amalis Urban Farm possono essere configurati per diverse produzioni ad alto valore aggiunto in base al territorio, alla domanda e alle opportunità di mercato.",
+          cardOneTag: "Gourmet & Medicinali",
+          cardOneTitle: "Funghi Gourmet e Medicinali",
+          cardOneText: "Pleurotus, Shiitake, Lion's Mane e altre varietà ad alto valore.",
+          cardTwoTag: "Raccolta rapida",
+          cardTwoTitle: "Microgreens",
+          cardTwoText: "Produzione rapida e ad alta densità per ristorazione e retail.",
+          cardThreeTag: "Foglia & aromatiche",
+          cardThreeTitle: "Verdure a Foglia e Aromatiche",
+          cardThreeText: "Lattughe, basilico, rucola, prezzemolo e altre colture ad alta rotazione.",
+          cardFourTag: "Alto valore",
+          cardFourTitle: "Colture Speciali",
+          cardFourText: "Fiori eduli, zafferano, zenzero e produzioni premium.",
+          cardFiveTag: "Zootecnia",
+          cardFiveTitle: "Foraggio Idroponico",
+          cardFiveText: "Produzione locale di foraggio fresco durante tutto l'anno.",
+          finalText: "La stessa infrastruttura. Produzioni diverse. Mercati diversi."
+        },
+        numbers: {
+          eyebrow: "La rete",
+          title: "Una rete. Migliaia di hub. Un unico ecosistema.",
+          text: "Ogni nuovo hub entra in una rete condivisa di produzione, dati, standard e distribuzione. Più la rete cresce, maggiore diventa il suo valore per tutti i partecipanti.",
+          cardTitle: "Da un hub locale a una rete internazionale.",
+          cardText: "La crescita avviene nodo dopo nodo, città dopo città.",
+          stepOne: "Hub Pilota",
+          stepTwo: "Prime Città",
+          stepThree: "Rete Nazionale",
+          stepFour: "Espansione Europea",
+          stepFive: "Rete Internazionale"
+        },
+        paths: {
+          eyebrow: "Accesso alla rete",
+          title: "Come entrare nella rete.",
+          text: "Imprenditori, investitori, clienti commerciali e partner strategici possono contribuire alla crescita di una nuova infrastruttura alimentare distribuita.",
+          intro: "Quattro modi diversi. Un'unica rete.",
+          hubLabel: "Per imprenditori",
+          hubTitle: "Avvia un Hub",
+          hubText: "Diventa un nodo produttivo locale collegato alla rete Amalis.",
+          hubCta: "Avvia un Hub",
+          investLabel: "Per investitori",
+          investTitle: "Investi nella Rete",
+          investText: "Partecipa alla crescita di una piattaforma agritech scalabile.",
+          investCta: "Investi nella Rete",
+          buyLabel: "Per clienti commerciali",
+          buyTitle: "Acquista Produzione",
+          buyText: "Accedi a forniture locali di funghi, microgreens e colture speciali.",
+          buyCta: "Acquista Produzione",
+          partnerLabel: "Per partner strategici",
+          partnerTitle: "Diventa Partner",
+          partnerText: "Costruiamo filiere più vicine con GDO, distributori e gruppi di acquisto.",
+          partnerCta: "Diventa Partner"
+        },
+        finalCta: {
+          eyebrow: "Rete distribuita",
+          title: "Il futuro del cibo sarà distribuito.",
+          text: "Stiamo costruendo una rete di hub produttivi connessi per avvicinare la produzione alimentare ai luoghi di consumo e rendere le filiere più resilienti, efficienti e sostenibili.",
+          primaryCta: "Richiedi Informazioni",
+          secondaryCta: "Diventa Partner"
+        },
+        footer: {
+          brandText: "Un progetto agritech dedicato alla creazione della prima rete distribuita di produzione alimentare indoor.",
+          companyTitle: "Società",
+          companyName: "Amalis Group S.r.l.",
+          companyAddressOne: "Via San Nicola, snc",
+          companyAddressTwo: "95040 Camporotondo Etneo (CT)",
+          companyCountry: "Italia",
+          vat: "P. IVA 06169160873",
+          infoTitle: "Informazioni",
+          privacy: "Privacy",
+          terms: "Termini",
+          sitemap: "Mappa del sito",
+          claim: "Distributed Indoor Food Production Network"
+        }
+      },
+      en: {
+        nav: { vision: "Vision", hub: "Engine", technology: "Impact", paths: "Network" },
+        roadmap: {
+          title: "PROJECT ROADMAP",
+          check: "✓",
+          stepOneTitle: "Vision and Design",
+          stepOneStatus: "Completed",
+          stepOneTooltip: "The strategic vision and network model are defined.",
+          stepTwoTitle: "Pilot Hub Validation",
+          stepTwoStatus: "In Progress",
+          stepTwoTooltip: "The pilot phase validates protocols, technology and first production scenarios.",
+          stepThreeTitle: "First Operating Hubs",
+          stepThreeStatus: "Next",
+          stepThreeTooltip: "Activation of the first production nodes connected to the network.",
+          stepFourTitle: "Strategic Partnerships",
+          stepFourStatus: "Planned",
+          stepFourTooltip: "Involving retailers, distributors, buying groups and food companies.",
+          stepFiveTitle: "Growth Round",
+          stepFiveStatus: "Planned",
+          stepFiveTooltip: "Growth capital to accelerate the network, platform and operating capacity.",
+          stepSixTitle: "National Network",
+          stepSixStatus: "Vision",
+          stepSixTooltip: "A network of hubs distributed across major urban areas.",
+          stepSevenTitle: "International Expansion",
+          stepSevenStatus: "Vision",
+          stepSevenTooltip: "Scaling the Amalis model beyond the national market."
+        },
+        hero: {
+          eyebrow: "The first distributed indoor food production network",
+          title: "The first distributed indoor food production network.",
+          subtitle: "We are building a network of indoor production hubs to grow gourmet mushrooms, microgreens and specialty crops close to consumption areas.",
+          primaryCta: "Discover the Network",
+          secondaryCta: "Start a Hub",
+          signalOneValue: "✓",
+          signalOneLabel: "Local Production",
+          signalTwoValue: "✓",
+          signalTwoLabel: "Scalable Network",
+          signalThreeValue: "✓",
+          signalThreeLabel: "Lower Emissions",
+          pillOneLabel: "Nodes",
+          pillOneValue: "Connected",
+          pillTwoLabel: "Network",
+          pillTwoValue: "Scalable",
+          pillThreeLabel: "Production",
+          pillThreeValue: "Local"
+        },
+        vision: {
+          eyebrow: "PRODUCTION AND DISTRIBUTION",
+          problemTitle: "Food travels too far.",
+          problemText: "Every day fresh products travel hundreds or thousands of kilometers before reaching restaurants, supermarkets and consumers.",
+          metricOneValue: "1000+",
+          metricOneTitle: "Km travelled",
+          metricOneText: "From production to consumption.",
+          metricTwoValue: "CO₂",
+          metricTwoTitle: "Additional emissions",
+          metricTwoText: "Generated by logistics.",
+          metricThreeValue: "Days",
+          metricThreeTitle: "Lost in transport",
+          metricThreeText: "Less freshness available.",
+          metricFourValue: "Quality",
+          metricFourTitle: "Variable",
+          metricFourText: "More distance means less control.",
+          closeTitle: "More distance means higher costs, more emissions and less control over quality.",
+          closeText: "This is why a new production model is needed.",
+          questionEyebrow: "Shift in perspective",
+          questionTitle: "We are not building one hub.",
+          questionSecondTitle: "We are building a network.",
+          questionText: "A single hub produces. A network coordinates. A distributed network can transform how food is produced and delivered.",
+          growthStageOne: "1 Hub",
+          growthStageTwo: "5 Hubs",
+          growthStageThree: "20 Hubs",
+          growthStageFour: "National Network",
+          growthStageFive: "International Expansion",
+          growthMetricValues: "1 → 100 → 1000+",
+          growthMetricLabel: "Connected production hubs",
+          growthMetricOneValue: "1",
+          growthMetricOneLabel: "Pilot hub",
+          growthMetricTwoValue: "100",
+          growthMetricTwoLabel: "Connected hubs",
+          growthMetricThreeValue: "1000+",
+          growthMetricThreeLabel: "Network scale",
+          growthMethodOneKicker: "Production",
+          growthMethodOneTitle: "Close to consumption",
+          growthMethodOneText: "Fewer kilometers. More freshness.",
+          growthMethodTwoKicker: "Connection",
+          growthMethodTwoTitle: "Hubs and data",
+          growthMethodTwoText: "Production and control in real time.",
+          growthMethodThreeKicker: "Expansion",
+          growthMethodThreeTitle: "The network",
+          growthMethodThreeText: "New hubs, new cities, greater production capacity."
+        },
+        hub: {
+          eyebrow: "Enabling technology",
+          title: "Hubs are the engine of the network.",
+          text: "Indoor production hubs make it possible to grow high-value food all year round through shared protocols and common quality standards.",
+          dashboardTitle: "Connected production node",
+          metricOne: "Production",
+          metricOneValue: "Continuous",
+          metricTwo: "Monitoring",
+          metricTwoValue: "Remote",
+          metricThree: "Standards",
+          metricThreeValue: "Shared",
+          metricFour: "Network",
+          metricFourValue: "Connected"
+        },
+        technology: {
+          eyebrow: "Network impact",
+          title: "When the network grows.",
+          text: "Amalis becomes stronger with every new node: more local production, fewer kilometers travelled and more resilient food supply chains.",
+          cardOneValue: "Tons",
+          cardOneTitle: "Close to Consumption",
+          cardOneText: "Food produced closer to final consumers.",
+          cardTwoValue: "CO₂",
+          cardTwoTitle: "Lower Emissions",
+          cardTwoText: "Reduced CO₂ linked to transport and long supply chains.",
+          cardThreeValue: "Urban",
+          cardThreeTitle: "Distributed Production",
+          cardThreeText: "Deployable in urban and extra-urban areas.",
+          cardFourValue: "Resilience",
+          cardFourTitle: "Food Security",
+          cardFourText: "Closer, more controllable and more resilient supply chains.",
+          cardFiveValue: "Business",
+          cardFiveTitle: "New Opportunities",
+          cardFiveText: "New entrepreneurial models for producers and partners."
+        },
+        productions: {
+          eyebrow: "Network productions",
+          title: "One network. Many productions.",
+          text: "Amalis Urban Farm hubs can be configured for different high-value productions according to territory, demand and market opportunities.",
+          cardOneTag: "Gourmet & medicinal",
+          cardOneTitle: "Gourmet and Medicinal Mushrooms",
+          cardOneText: "Pleurotus, Shiitake, Lion's Mane and other high-value varieties.",
+          cardTwoTag: "Fast harvest",
+          cardTwoTitle: "Microgreens",
+          cardTwoText: "Fast, high-density production for restaurants and retail.",
+          cardThreeTag: "Leaf & herbs",
+          cardThreeTitle: "Leafy Greens and Herbs",
+          cardThreeText: "Lettuces, basil, arugula, parsley and other high-rotation crops.",
+          cardFourTag: "High value",
+          cardFourTitle: "Specialty Crops",
+          cardFourText: "Edible flowers, saffron, ginger and premium productions.",
+          cardFiveTag: "Livestock",
+          cardFiveTitle: "Hydroponic Fodder",
+          cardFiveText: "Local production of fresh fodder all year round.",
+          finalText: "The same infrastructure. Different productions. Different markets."
+        },
+        numbers: {
+          eyebrow: "The network",
+          title: "One network. Thousands of hubs. One ecosystem.",
+          text: "Each new hub joins a shared network of production, data, standards and distribution. The more the network grows, the greater its value becomes for every participant.",
+          cardTitle: "From a local hub to an international network.",
+          cardText: "Growth happens node by node, city by city.",
+          stepOne: "Pilot Hub",
+          stepTwo: "First Cities",
+          stepThree: "National Network",
+          stepFour: "European Expansion",
+          stepFive: "International Network"
+        },
+        paths: {
+          eyebrow: "Network access",
+          title: "How to enter the network.",
+          text: "Entrepreneurs, investors, commercial buyers and strategic partners can help grow a new distributed food infrastructure.",
+          intro: "Four different ways. One network.",
+          hubLabel: "For entrepreneurs",
+          hubTitle: "Start a Hub",
+          hubText: "Become a local production node connected to the Amalis network.",
+          hubCta: "Start a Hub",
+          investLabel: "For investors",
+          investTitle: "Invest in the Network",
+          investText: "Take part in the growth of a scalable agritech platform.",
+          investCta: "Invest in the Network",
+          buyLabel: "For commercial buyers",
+          buyTitle: "Buy Production",
+          buyText: "Access local supplies of mushrooms, microgreens and specialty crops.",
+          buyCta: "Buy Production",
+          partnerLabel: "For strategic partners",
+          partnerTitle: "Become Partner",
+          partnerText: "Build closer supply chains with retailers, distributors and buying groups.",
+          partnerCta: "Become Partner"
+        },
+        finalCta: {
+          eyebrow: "Distributed network",
+          title: "The future of food will be distributed.",
+          text: "We are building a network of connected production hubs to bring food production closer to consumption areas and make supply chains more resilient, efficient and sustainable.",
+          primaryCta: "Request Information",
+          secondaryCta: "Become Partner"
+        },
+        footer: {
+          brandText: "An agritech project dedicated to creating the first distributed indoor food production network.",
+          companyTitle: "Company",
+          companyName: "Amalis Group S.r.l.",
+          companyAddressOne: "Via San Nicola, snc",
+          companyAddressTwo: "95040 Camporotondo Etneo (CT)",
+          companyCountry: "Italy",
+          vat: "VAT IT06169160873",
+          infoTitle: "Information",
+          privacy: "Privacy",
+          terms: "Terms",
+          sitemap: "Sitemap",
+          claim: "Distributed Indoor Food Production Network"
+        }
+      },
+      es: {
+        nav: { vision: "Visión", hub: "Motor", technology: "Impacto", paths: "Red" },
+        roadmap: {
+          title: "ROADMAP DEL PROYECTO",
+          check: "✓",
+          stepOneTitle: "Visión y Diseño",
+          stepOneStatus: "Completado",
+          stepOneTooltip: "La visión estratégica y el modelo de red están definidos.",
+          stepTwoTitle: "Validación Hub Piloto",
+          stepTwoStatus: "En Curso",
+          stepTwoTooltip: "La fase piloto valida protocolos, tecnología y primeros escenarios productivos.",
+          stepThreeTitle: "Primeros Hubs Operativos",
+          stepThreeStatus: "Próximo",
+          stepThreeTooltip: "Activación de los primeros nodos productivos conectados a la red.",
+          stepFourTitle: "Partnerships Estratégicas",
+          stepFourStatus: "Planificado",
+          stepFourTooltip: "Participación de retailers, distribuidores, grupos de compra y empresas alimentarias.",
+          stepFiveTitle: "Ronda de Crecimiento",
+          stepFiveStatus: "Planificado",
+          stepFiveTooltip: "Capital de crecimiento para acelerar red, plataforma y capacidad operativa.",
+          stepSixTitle: "Red Nacional",
+          stepSixStatus: "Visión",
+          stepSixTooltip: "Una red de hubs distribuidos en las principales áreas urbanas.",
+          stepSevenTitle: "Expansión Internacional",
+          stepSevenStatus: "Visión",
+          stepSevenTooltip: "Escalar el modelo Amalis más allá del mercado nacional."
+        },
+        hero: {
+          eyebrow: "La primera red distribuida de producción alimentaria indoor",
+          title: "La primera red de producción alimentaria indoor distribuida.",
+          subtitle: "Estamos construyendo una red de hubs productivos indoor para cultivar setas gourmet, microgreens y cultivos especiales cerca de los lugares de consumo.",
+          primaryCta: "Descubrir la Red",
+          secondaryCta: "Iniciar un Hub",
+          signalOneValue: "✓",
+          signalOneLabel: "Producción Local",
+          signalTwoValue: "✓",
+          signalTwoLabel: "Red Escalable",
+          signalThreeValue: "✓",
+          signalThreeLabel: "Reducción de Emisiones",
+          pillOneLabel: "Nodos",
+          pillOneValue: "Conectados",
+          pillTwoLabel: "Red",
+          pillTwoValue: "Escalable",
+          pillThreeLabel: "Producción",
+          pillThreeValue: "Local"
+        },
+        vision: {
+          eyebrow: "PRODUCCIÓN Y DISTRIBUCIÓN",
+          problemTitle: "La comida recorre demasiada distancia.",
+          problemText: "Cada día productos frescos viajan cientos o miles de kilómetros antes de llegar a restaurantes, supermercados y consumidores.",
+          metricOneValue: "1000+",
+          metricOneTitle: "Km recorridos",
+          metricOneText: "De la producción al consumo.",
+          metricTwoValue: "CO₂",
+          metricTwoTitle: "Emisiones adicionales",
+          metricTwoText: "Generadas por la logística.",
+          metricThreeValue: "Días",
+          metricThreeTitle: "Perdidos en transporte",
+          metricThreeText: "Menos frescura disponible.",
+          metricFourValue: "Calidad",
+          metricFourTitle: "Variable",
+          metricFourText: "Más distancia significa menos control.",
+          closeTitle: "Más distancia significa más costes, más emisiones y menos control sobre la calidad.",
+          closeText: "Por eso hace falta un nuevo modelo productivo.",
+          questionEyebrow: "Cambio de perspectiva",
+          questionTitle: "No estamos construyendo un hub.",
+          questionSecondTitle: "Estamos construyendo una red.",
+          questionText: "Un solo hub produce. Una red coordina. Una red distribuida puede transformar la forma en que los alimentos se producen y se entregan.",
+          growthStageOne: "1 Hub",
+          growthStageTwo: "5 Hubs",
+          growthStageThree: "20 Hubs",
+          growthStageFour: "Red Nacional",
+          growthStageFive: "Expansión Internacional",
+          growthMetricValues: "1 → 100 → 1000+",
+          growthMetricLabel: "Hubs productivos conectados",
+          growthMetricOneValue: "1",
+          growthMetricOneLabel: "Hub piloto",
+          growthMetricTwoValue: "100",
+          growthMetricTwoLabel: "Hubs conectados",
+          growthMetricThreeValue: "1000+",
+          growthMetricThreeLabel: "Escala de red",
+          growthMethodOneKicker: "Producción",
+          growthMethodOneTitle: "Cerca del consumo",
+          growthMethodOneText: "Menos kilómetros. Más frescura.",
+          growthMethodTwoKicker: "Conexión",
+          growthMethodTwoTitle: "Hubs y datos",
+          growthMethodTwoText: "Producción y control en tiempo real.",
+          growthMethodThreeKicker: "Expansión",
+          growthMethodThreeTitle: "La red",
+          growthMethodThreeText: "Nuevos hubs, nuevas ciudades, mayor capacidad productiva."
+        },
+        hub: {
+          eyebrow: "Tecnología habilitadora",
+          title: "Los hubs son el motor de la red.",
+          text: "Los hubs productivos indoor permiten cultivar alimentos de alto valor durante todo el año siguiendo protocolos compartidos y estándares comunes de calidad.",
+          dashboardTitle: "Nodo productivo conectado",
+          metricOne: "Producción",
+          metricOneValue: "Continua",
+          metricTwo: "Monitoreo",
+          metricTwoValue: "Remoto",
+          metricThree: "Estándares",
+          metricThreeValue: "Comunes",
+          metricFour: "Red",
+          metricFourValue: "Conectada"
+        },
+        technology: {
+          eyebrow: "Impacto de la red",
+          title: "Cuando la red crezca.",
+          text: "Amalis crece con cada nuevo nodo: más producción local, menos kilómetros recorridos y cadenas alimentarias más resilientes.",
+          cardOneValue: "Toneladas",
+          cardOneTitle: "Cerca del Consumo",
+          cardOneText: "Alimentos producidos más cerca de los consumidores finales.",
+          cardTwoValue: "CO₂",
+          cardTwoTitle: "Menos Emisiones",
+          cardTwoText: "Reducción de CO₂ vinculada al transporte y a las cadenas largas.",
+          cardThreeValue: "Urbano",
+          cardThreeTitle: "Producción Distribuida",
+          cardThreeText: "Instalable en áreas urbanas y extraurbanas.",
+          cardFourValue: "Resiliencia",
+          cardFourTitle: "Seguridad Alimentaria",
+          cardFourText: "Cadenas más cercanas, controlables y resilientes.",
+          cardFiveValue: "Empresa",
+          cardFiveTitle: "Nuevas Oportunidades",
+          cardFiveText: "Nuevos modelos empresariales para productores y partners."
+        },
+        productions: {
+          eyebrow: "Producciones de la red",
+          title: "Una red. Muchas producciones.",
+          text: "Los hubs Amalis Urban Farm pueden configurarse para diferentes producciones de alto valor añadido según el territorio, la demanda y las oportunidades de mercado.",
+          cardOneTag: "Gourmet & medicinales",
+          cardOneTitle: "Setas Gourmet y Medicinales",
+          cardOneText: "Pleurotus, Shiitake, Lion's Mane y otras variedades de alto valor.",
+          cardTwoTag: "Cosecha rápida",
+          cardTwoTitle: "Microgreens",
+          cardTwoText: "Producción rápida y de alta densidad para restauración y retail.",
+          cardThreeTag: "Hoja & aromáticas",
+          cardThreeTitle: "Verduras de Hoja y Aromáticas",
+          cardThreeText: "Lechugas, albahaca, rúcula, perejil y otros cultivos de alta rotación.",
+          cardFourTag: "Alto valor",
+          cardFourTitle: "Cultivos Especiales",
+          cardFourText: "Flores comestibles, azafrán, jengibre y producciones premium.",
+          cardFiveTag: "Ganadería",
+          cardFiveTitle: "Forraje Hidropónico",
+          cardFiveText: "Producción local de forraje fresco durante todo el año.",
+          finalText: "La misma infraestructura. Producciones diferentes. Mercados diferentes."
+        },
+        numbers: {
+          eyebrow: "La red",
+          title: "Una red. Miles de hubs. Un único ecosistema.",
+          text: "Cada nuevo hub entra en una red compartida de producción, datos, estándares y distribución. Cuanto más crece la red, mayor es su valor para todos los participantes.",
+          cardTitle: "De un hub local a una red internacional.",
+          cardText: "El crecimiento ocurre nodo tras nodo, ciudad tras ciudad.",
+          stepOne: "Hub Piloto",
+          stepTwo: "Primeras Ciudades",
+          stepThree: "Red Nacional",
+          stepFour: "Expansión Europea",
+          stepFive: "Red Internacional"
+        },
+        paths: {
+          eyebrow: "Acceso a la red",
+          title: "Cómo entrar en la red.",
+          text: "Emprendedores, inversores, clientes comerciales y partners estratégicos pueden contribuir al crecimiento de una nueva infraestructura alimentaria distribuida.",
+          intro: "Cuatro formas distintas. Una sola red.",
+          hubLabel: "Para emprendedores",
+          hubTitle: "Inicia un Hub",
+          hubText: "Conviértete en un nodo productivo local conectado a la red Amalis.",
+          hubCta: "Iniciar un Hub",
+          investLabel: "Para inversores",
+          investTitle: "Invierte en la Red",
+          investText: "Participa en el crecimiento de una plataforma agritech escalable.",
+          investCta: "Invertir en la Red",
+          buyLabel: "Para clientes comerciales",
+          buyTitle: "Compra Producción",
+          buyText: "Accede a suministros locales de setas, microgreens y cultivos especiales.",
+          buyCta: "Comprar Producción",
+          partnerLabel: "Para partners estratégicos",
+          partnerTitle: "Ser Partner",
+          partnerText: "Construimos cadenas más cercanas con retailers, distribuidores y grupos de compra.",
+          partnerCta: "Ser Partner"
+        },
+        finalCta: {
+          eyebrow: "Red distribuida",
+          title: "El futuro de la comida será distribuido.",
+          text: "Estamos construyendo una red de hubs productivos conectados para acercar la producción alimentaria a los lugares de consumo y hacer las cadenas más resilientes, eficientes y sostenibles.",
+          primaryCta: "Solicitar Información",
+          secondaryCta: "Ser Partner"
+        },
+        footer: {
+          brandText: "Un proyecto agritech dedicado a crear la primera red distribuida de producción alimentaria indoor.",
+          companyTitle: "Sociedad",
+          companyName: "Amalis Group S.r.l.",
+          companyAddressOne: "Via San Nicola, snc",
+          companyAddressTwo: "95040 Camporotondo Etneo (CT)",
+          companyCountry: "Italia",
+          vat: "P. IVA 06169160873",
+          infoTitle: "Información",
+          privacy: "Privacidad",
+          terms: "Términos",
+          sitemap: "Mapa del sitio",
+          claim: "Distributed Indoor Food Production Network"
+        }
+      },
+      fr: {
+        nav: { vision: "Vision", hub: "Moteur", technology: "Impact", paths: "Réseau" },
+        roadmap: {
+          title: "ROADMAP DU PROJET",
+          check: "✓",
+          stepOneTitle: "Vision et Conception",
+          stepOneStatus: "Terminé",
+          stepOneTooltip: "La vision stratégique et le modèle de réseau sont définis.",
+          stepTwoTitle: "Validation Hub Pilote",
+          stepTwoStatus: "En Cours",
+          stepTwoTooltip: "La phase pilote valide protocoles, technologie et premiers scénarios productifs.",
+          stepThreeTitle: "Premiers Hubs Opérationnels",
+          stepThreeStatus: "Prochain",
+          stepThreeTooltip: "Activation des premiers nœuds productifs connectés au réseau.",
+          stepFourTitle: "Partenariats Stratégiques",
+          stepFourStatus: "Planifié",
+          stepFourTooltip: "Implication de retailers, distributeurs, groupements d'achat et entreprises alimentaires.",
+          stepFiveTitle: "Round de Croissance",
+          stepFiveStatus: "Planifié",
+          stepFiveTooltip: "Capital de croissance pour accélérer réseau, plateforme et capacité opérationnelle.",
+          stepSixTitle: "Réseau National",
+          stepSixStatus: "Vision",
+          stepSixTooltip: "Un réseau de hubs distribués dans les principales zones urbaines.",
+          stepSevenTitle: "Expansion Internationale",
+          stepSevenStatus: "Vision",
+          stepSevenTooltip: "Déployer le modèle Amalis au-delà du marché national."
+        },
+        hero: {
+          eyebrow: "Le premier réseau distribué de production alimentaire indoor",
+          title: "Le premier réseau de production alimentaire indoor distribuée.",
+          subtitle: "Nous construisons un réseau de hubs productifs indoor pour cultiver champignons gourmet, microgreens et cultures spéciales près des lieux de consommation.",
+          primaryCta: "Découvrir le Réseau",
+          secondaryCta: "Lancer un Hub",
+          signalOneValue: "✓",
+          signalOneLabel: "Production Locale",
+          signalTwoValue: "✓",
+          signalTwoLabel: "Réseau Scalable",
+          signalThreeValue: "✓",
+          signalThreeLabel: "Réduction des Émissions",
+          pillOneLabel: "Nœuds",
+          pillOneValue: "Connectés",
+          pillTwoLabel: "Réseau",
+          pillTwoValue: "Scalable",
+          pillThreeLabel: "Production",
+          pillThreeValue: "Locale"
+        },
+        vision: {
+          eyebrow: "PRODUCTION ET DISTRIBUTION",
+          problemTitle: "La nourriture parcourt trop de distance.",
+          problemText: "Chaque jour, des produits frais parcourent des centaines ou des milliers de kilomètres avant d'arriver aux restaurants, supermarchés et consommateurs.",
+          metricOneValue: "1000+",
+          metricOneTitle: "Km parcourus",
+          metricOneText: "De la production à la consommation.",
+          metricTwoValue: "CO₂",
+          metricTwoTitle: "Émissions ajoutées",
+          metricTwoText: "Générées par la logistique.",
+          metricThreeValue: "Jours",
+          metricThreeTitle: "Perdus en transport",
+          metricThreeText: "Moins de fraîcheur disponible.",
+          metricFourValue: "Qualité",
+          metricFourTitle: "Variable",
+          metricFourText: "Plus de distance signifie moins de contrôle.",
+          closeTitle: "Plus de distance signifie plus de coûts, plus d'émissions et moins de contrôle sur la qualité.",
+          closeText: "C'est pourquoi un nouveau modèle productif est nécessaire.",
+          questionEyebrow: "Changement de perspective",
+          questionTitle: "Nous ne construisons pas un hub.",
+          questionSecondTitle: "Nous construisons un réseau.",
+          questionText: "Un seul hub produit. Un réseau coordonne. Un réseau distribué peut transformer la façon dont la nourriture est produite et livrée.",
+          growthStageOne: "1 Hub",
+          growthStageTwo: "5 Hubs",
+          growthStageThree: "20 Hubs",
+          growthStageFour: "Réseau National",
+          growthStageFive: "Expansion Internationale",
+          growthMetricValues: "1 → 100 → 1000+",
+          growthMetricLabel: "Hubs productifs connectés",
+          growthMetricOneValue: "1",
+          growthMetricOneLabel: "Hub pilote",
+          growthMetricTwoValue: "100",
+          growthMetricTwoLabel: "Hubs connectés",
+          growthMetricThreeValue: "1000+",
+          growthMetricThreeLabel: "Échelle réseau",
+          growthMethodOneKicker: "Production",
+          growthMethodOneTitle: "Près de la consommation",
+          growthMethodOneText: "Moins de kilomètres. Plus de fraîcheur.",
+          growthMethodTwoKicker: "Connexion",
+          growthMethodTwoTitle: "Hubs et données",
+          growthMethodTwoText: "Production et contrôle en temps réel.",
+          growthMethodThreeKicker: "Expansion",
+          growthMethodThreeTitle: "Le réseau",
+          growthMethodThreeText: "Nouveaux hubs, nouvelles villes, plus grande capacité productive."
+        },
+        hub: {
+          eyebrow: "Technologie habilitante",
+          title: "Les hubs sont le moteur du réseau.",
+          text: "Les hubs productifs indoor permettent de cultiver des aliments à haute valeur toute l'année selon des protocoles partagés et des standards de qualité communs.",
+          dashboardTitle: "Nœud productif connecté",
+          metricOne: "Production",
+          metricOneValue: "Continue",
+          metricTwo: "Monitoring",
+          metricTwoValue: "Remote",
+          metricThree: "Standards",
+          metricThreeValue: "Communs",
+          metricFour: "Réseau",
+          metricFourValue: "Connecté"
+        },
+        technology: {
+          eyebrow: "Impact du réseau",
+          title: "Quand le réseau grandira.",
+          text: "Amalis se renforce avec chaque nouveau nœud : plus de production locale, moins de kilomètres parcourus et des filières alimentaires plus résilientes.",
+          cardOneValue: "Tonnes",
+          cardOneTitle: "Près de la Consommation",
+          cardOneText: "Des aliments produits plus près des consommateurs finaux.",
+          cardTwoValue: "CO₂",
+          cardTwoTitle: "Moins d'Émissions",
+          cardTwoText: "Réduction du CO₂ lié au transport et aux filières longues.",
+          cardThreeValue: "Urbain",
+          cardThreeTitle: "Production Distribuée",
+          cardThreeText: "Installable en zones urbaines et extra-urbaines.",
+          cardFourValue: "Résilience",
+          cardFourTitle: "Sécurité Alimentaire",
+          cardFourText: "Des filières plus proches, contrôlables et résilientes.",
+          cardFiveValue: "Entreprise",
+          cardFiveTitle: "Nouvelles Opportunités",
+          cardFiveText: "De nouveaux modèles entrepreneuriaux pour producteurs et partenaires."
+        },
+        productions: {
+          eyebrow: "Productions du réseau",
+          title: "Un réseau. De nombreuses productions.",
+          text: "Les hubs Amalis Urban Farm peuvent être configurés pour différentes productions à forte valeur ajoutée selon le territoire, la demande et les opportunités de marché.",
+          cardOneTag: "Gourmet & médicinaux",
+          cardOneTitle: "Champignons Gourmet et Médicinaux",
+          cardOneText: "Pleurotus, Shiitake, Lion's Mane et autres variétés à forte valeur.",
+          cardTwoTag: "Récolte rapide",
+          cardTwoTitle: "Microgreens",
+          cardTwoText: "Production rapide et haute densité pour restauration et retail.",
+          cardThreeTag: "Feuille & aromatiques",
+          cardThreeTitle: "Légumes Feuilles et Aromatiques",
+          cardThreeText: "Laitues, basilic, roquette, persil et autres cultures à rotation élevée.",
+          cardFourTag: "Haute valeur",
+          cardFourTitle: "Cultures Spéciales",
+          cardFourText: "Fleurs comestibles, safran, gingembre et productions premium.",
+          cardFiveTag: "Élevage",
+          cardFiveTitle: "Fourrage Hydroponique",
+          cardFiveText: "Production locale de fourrage frais toute l'année.",
+          finalText: "La même infrastructure. Des productions différentes. Des marchés différents."
+        },
+        numbers: {
+          eyebrow: "Le réseau",
+          title: "Un réseau. Des milliers de hubs. Un seul écosystème.",
+          text: "Chaque nouveau hub rejoint un réseau partagé de production, données, standards et distribution. Plus le réseau grandit, plus sa valeur augmente pour tous les participants.",
+          cardTitle: "D'un hub local à un réseau international.",
+          cardText: "La croissance se fait nœud après nœud, ville après ville.",
+          stepOne: "Hub Pilote",
+          stepTwo: "Premières Villes",
+          stepThree: "Réseau National",
+          stepFour: "Expansion Européenne",
+          stepFive: "Réseau International"
+        },
+        paths: {
+          eyebrow: "Accès au réseau",
+          title: "Comment entrer dans le réseau.",
+          text: "Entrepreneurs, investisseurs, clients commerciaux et partenaires stratégiques peuvent contribuer à une nouvelle infrastructure alimentaire distribuée.",
+          intro: "Quatre façons différentes. Un seul réseau.",
+          hubLabel: "Pour entrepreneurs",
+          hubTitle: "Lancer un Hub",
+          hubText: "Devenez un nœud productif local connecté au réseau Amalis.",
+          hubCta: "Lancer un Hub",
+          investLabel: "Pour investisseurs",
+          investTitle: "Investir dans le Réseau",
+          investText: "Participez à la croissance d'une plateforme agritech scalable.",
+          investCta: "Investir",
+          buyLabel: "Pour clients commerciaux",
+          buyTitle: "Acheter la Production",
+          buyText: "Accédez à des approvisionnements locaux de champignons, microgreens et cultures spéciales.",
+          buyCta: "Acheter",
+          partnerLabel: "Pour partenaires stratégiques",
+          partnerTitle: "Devenir Partenaire",
+          partnerText: "Construisons des filières plus proches avec retailers, distributeurs et groupements d'achat.",
+          partnerCta: "Devenir Partenaire"
+        },
+        finalCta: {
+          eyebrow: "Réseau distribué",
+          title: "Le futur de l'alimentation sera distribué.",
+          text: "Nous construisons un réseau de hubs productifs connectés pour rapprocher la production alimentaire des lieux de consommation et rendre les filières plus résilientes, efficaces et durables.",
+          primaryCta: "Demander des Informations",
+          secondaryCta: "Devenir Partenaire"
+        },
+        footer: {
+          brandText: "Un projet agritech dédié à la création du premier réseau distribué de production alimentaire indoor.",
+          companyTitle: "Société",
+          companyName: "Amalis Group S.r.l.",
+          companyAddressOne: "Via San Nicola, snc",
+          companyAddressTwo: "95040 Camporotondo Etneo (CT)",
+          companyCountry: "Italie",
+          vat: "P. IVA 06169160873",
+          infoTitle: "Informations",
+          privacy: "Confidentialité",
+          terms: "Conditions",
+          sitemap: "Plan du site",
+          claim: "Distributed Indoor Food Production Network"
+        }
+      },
+      de: {
+        nav: { vision: "Vision", hub: "Motor", technology: "Impact", paths: "Netzwerk" },
+        roadmap: {
+          title: "PROJEKT-ROADMAP",
+          check: "✓",
+          stepOneTitle: "Vision und Design",
+          stepOneStatus: "Abgeschlossen",
+          stepOneTooltip: "Strategische Vision und Netzwerkmodell sind definiert.",
+          stepTwoTitle: "Pilot-Hub Validierung",
+          stepTwoStatus: "In Arbeit",
+          stepTwoTooltip: "Die Pilotphase validiert Protokolle, Technologie und erste Produktionsszenarien.",
+          stepThreeTitle: "Erste operative Hubs",
+          stepThreeStatus: "Nächster Schritt",
+          stepThreeTooltip: "Aktivierung der ersten Produktionsknoten im Netzwerk.",
+          stepFourTitle: "Strategische Partnerschaften",
+          stepFourStatus: "Geplant",
+          stepFourTooltip: "Einbindung von Retailern, Distributoren, Einkaufsgruppen und Lebensmittelunternehmen.",
+          stepFiveTitle: "Wachstumsrunde",
+          stepFiveStatus: "Geplant",
+          stepFiveTooltip: "Wachstumskapital für Netzwerk, Plattform und operative Kapazität.",
+          stepSixTitle: "Nationales Netzwerk",
+          stepSixStatus: "Vision",
+          stepSixTooltip: "Ein Netzwerk verteilter Hubs in wichtigen urbanen Regionen.",
+          stepSevenTitle: "Internationale Expansion",
+          stepSevenStatus: "Vision",
+          stepSevenTooltip: "Skalierung des Amalis Modells über den nationalen Markt hinaus."
+        },
+        hero: {
+          eyebrow: "Das erste verteilte Netzwerk für Indoor-Lebensmittelproduktion",
+          title: "Das erste verteilte Netzwerk für Indoor-Lebensmittelproduktion.",
+          subtitle: "Wir bauen ein Netzwerk aus Indoor-Produktionshubs, um Gourmetpilze, Microgreens und Spezialkulturen nahe an Verbrauchsorten anzubauen.",
+          primaryCta: "Netzwerk entdecken",
+          secondaryCta: "Hub starten",
+          signalOneValue: "✓",
+          signalOneLabel: "Lokale Produktion",
+          signalTwoValue: "✓",
+          signalTwoLabel: "Skalierbares Netzwerk",
+          signalThreeValue: "✓",
+          signalThreeLabel: "Weniger Emissionen",
+          pillOneLabel: "Knoten",
+          pillOneValue: "Verbunden",
+          pillTwoLabel: "Netzwerk",
+          pillTwoValue: "Skalierbar",
+          pillThreeLabel: "Produktion",
+          pillThreeValue: "Lokal"
+        },
+        vision: {
+          eyebrow: "PRODUKTION UND DISTRIBUTION",
+          problemTitle: "Lebensmittel legen zu weite Wege zurück.",
+          problemText: "Jeden Tag reisen frische Produkte hunderte oder tausende Kilometer, bevor sie Restaurants, Supermärkte und Verbraucher erreichen.",
+          metricOneValue: "1000+",
+          metricOneTitle: "Km zurückgelegt",
+          metricOneText: "Von der Produktion bis zum Verbrauch.",
+          metricTwoValue: "CO₂",
+          metricTwoTitle: "Zusätzliche Emissionen",
+          metricTwoText: "Durch Logistik verursacht.",
+          metricThreeValue: "Tage",
+          metricThreeTitle: "Im Transport verloren",
+          metricThreeText: "Weniger verfügbare Frische.",
+          metricFourValue: "Qualität",
+          metricFourTitle: "Variabel",
+          metricFourText: "Mehr Distanz bedeutet weniger Kontrolle.",
+          closeTitle: "Mehr Distanz bedeutet höhere Kosten, mehr Emissionen und weniger Kontrolle über Qualität.",
+          closeText: "Deshalb braucht es ein neues Produktionsmodell.",
+          questionEyebrow: "Perspektivwechsel",
+          questionTitle: "Wir bauen keinen einzelnen Hub.",
+          questionSecondTitle: "Wir bauen ein Netzwerk.",
+          questionText: "Ein einzelner Hub produziert. Ein Netzwerk koordiniert. Ein verteiltes Netzwerk kann verändern, wie Lebensmittel produziert und geliefert werden.",
+          growthStageOne: "1 Hub",
+          growthStageTwo: "5 Hubs",
+          growthStageThree: "20 Hubs",
+          growthStageFour: "Nationales Netzwerk",
+          growthStageFive: "Internationale Expansion",
+          growthMetricValues: "1 → 100 → 1000+",
+          growthMetricLabel: "Vernetzte Produktionshubs",
+          growthMetricOneValue: "1",
+          growthMetricOneLabel: "Pilot-Hub",
+          growthMetricTwoValue: "100",
+          growthMetricTwoLabel: "Vernetzte Hubs",
+          growthMetricThreeValue: "1000+",
+          growthMetricThreeLabel: "Netzwerkskala",
+          growthMethodOneKicker: "Produktion",
+          growthMethodOneTitle: "Nah am Verbrauch",
+          growthMethodOneText: "Weniger Kilometer. Mehr Frische.",
+          growthMethodTwoKicker: "Verbindung",
+          growthMethodTwoTitle: "Hubs und Daten",
+          growthMethodTwoText: "Produktion und Kontrolle in Echtzeit.",
+          growthMethodThreeKicker: "Expansion",
+          growthMethodThreeTitle: "Das Netzwerk",
+          growthMethodThreeText: "Neue Hubs, neue Städte, höhere Produktionskapazität."
+        },
+        hub: {
+          eyebrow: "Ermöglichende Technologie",
+          title: "Die Hubs sind der Motor des Netzwerks.",
+          text: "Indoor-Produktionshubs ermöglichen den ganzjährigen Anbau hochwertiger Lebensmittel nach gemeinsamen Protokollen und Qualitätsstandards.",
+          dashboardTitle: "Verbundener Produktionsknoten",
+          metricOne: "Produktion",
+          metricOneValue: "Kontinuierlich",
+          metricTwo: "Monitoring",
+          metricTwoValue: "Remote",
+          metricThree: "Standards",
+          metricThreeValue: "Gemeinsam",
+          metricFour: "Netzwerk",
+          metricFourValue: "Verbunden"
+        },
+        technology: {
+          eyebrow: "Netzwerk-Impact",
+          title: "Wenn das Netzwerk wächst.",
+          text: "Amalis wird mit jedem neuen Knoten stärker: mehr lokale Produktion, weniger Transportkilometer und resilientere Lebensmittelketten.",
+          cardOneValue: "Tonnen",
+          cardOneTitle: "Nah am Verbrauch",
+          cardOneText: "Lebensmittel werden näher an den Endverbrauchern produziert.",
+          cardTwoValue: "CO₂",
+          cardTwoTitle: "Weniger Emissionen",
+          cardTwoText: "Reduzierung von CO₂ durch Transport und lange Lieferketten.",
+          cardThreeValue: "Urban",
+          cardThreeTitle: "Verteilte Produktion",
+          cardThreeText: "Installierbar in urbanen und außerurbanen Bereichen.",
+          cardFourValue: "Resilienz",
+          cardFourTitle: "Lebensmittelsicherheit",
+          cardFourText: "Nähere, kontrollierbare und resilientere Lieferketten.",
+          cardFiveValue: "Unternehmen",
+          cardFiveTitle: "Neue Chancen",
+          cardFiveText: "Neue Geschäftsmodelle für Produzenten und Partner."
+        },
+        productions: {
+          eyebrow: "Produktionen des Netzwerks",
+          title: "Ein Netzwerk. Viele Produktionen.",
+          text: "Amalis Urban Farm Hubs können je nach Gebiet, Nachfrage und Marktchancen für verschiedene hochwertige Produktionen konfiguriert werden.",
+          cardOneTag: "Gourmet & medizinisch",
+          cardOneTitle: "Gourmet- und Medizinalpilze",
+          cardOneText: "Pleurotus, Shiitake, Lion's Mane und weitere hochwertige Sorten.",
+          cardTwoTag: "Schnelle Ernte",
+          cardTwoTitle: "Microgreens",
+          cardTwoText: "Schnelle Produktion mit hoher Dichte für Gastronomie und Retail.",
+          cardThreeTag: "Blatt & Kräuter",
+          cardThreeTitle: "Blattgemüse und Kräuter",
+          cardThreeText: "Salate, Basilikum, Rucola, Petersilie und weitere Kulturen mit hoher Rotation.",
+          cardFourTag: "Hoher Wert",
+          cardFourTitle: "Spezialkulturen",
+          cardFourText: "Essbare Blüten, Safran, Ingwer und Premium-Produktionen.",
+          cardFiveTag: "Tierhaltung",
+          cardFiveTitle: "Hydroponisches Futter",
+          cardFiveText: "Lokale Produktion von frischem Futter das ganze Jahr über.",
+          finalText: "Dieselbe Infrastruktur. Unterschiedliche Produktionen. Unterschiedliche Märkte."
+        },
+        numbers: {
+          eyebrow: "Das Netzwerk",
+          title: "Ein Netzwerk. Tausende Hubs. Ein Ökosystem.",
+          text: "Jeder neue Hub wird Teil eines gemeinsamen Netzwerks aus Produktion, Daten, Standards und Distribution. Je stärker das Netzwerk wächst, desto größer wird sein Wert für alle Beteiligten.",
+          cardTitle: "Von einem lokalen Hub zu einem internationalen Netzwerk.",
+          cardText: "Wachstum entsteht Knoten für Knoten, Stadt für Stadt.",
+          stepOne: "Pilot-Hub",
+          stepTwo: "Erste Städte",
+          stepThree: "Nationales Netzwerk",
+          stepFour: "Europäische Expansion",
+          stepFive: "Internationales Netzwerk"
+        },
+        paths: {
+          eyebrow: "Zugang zum Netzwerk",
+          title: "Wie man Teil des Netzwerks wird.",
+          text: "Unternehmer, Investoren, gewerbliche Kunden und strategische Partner können eine neue verteilte Lebensmittelinfrastruktur mitaufbauen.",
+          intro: "Vier verschiedene Wege. Ein Netzwerk.",
+          hubLabel: "Für Unternehmer",
+          hubTitle: "Hub starten",
+          hubText: "Werden Sie ein lokaler Produktionsknoten im Amalis Netzwerk.",
+          hubCta: "Hub starten",
+          investLabel: "Für Investoren",
+          investTitle: "In das Netzwerk investieren",
+          investText: "Beteiligen Sie sich am Wachstum einer skalierbaren Agritech-Plattform.",
+          investCta: "Investieren",
+          buyLabel: "Für gewerbliche Kunden",
+          buyTitle: "Produktion kaufen",
+          buyText: "Zugang zu lokalen Lieferungen von Pilzen, Microgreens und Spezialkulturen.",
+          buyCta: "Produktion kaufen",
+          partnerLabel: "Für strategische Partner",
+          partnerTitle: "Partner werden",
+          partnerText: "Wir bauen nähere Lieferketten mit Retail, Distributoren und Einkaufsgruppen.",
+          partnerCta: "Partner werden"
+        },
+        finalCta: {
+          eyebrow: "Verteiltes Netzwerk",
+          title: "Die Zukunft der Lebensmittel wird verteilt sein.",
+          text: "Wir bauen ein Netzwerk vernetzter Produktionshubs, um Lebensmittelproduktion näher an Verbrauchsorte zu bringen und Lieferketten resilienter, effizienter und nachhaltiger zu machen.",
+          primaryCta: "Informationen anfragen",
+          secondaryCta: "Partner werden"
+        },
+        footer: {
+          brandText: "Ein Agritech-Projekt zum Aufbau des ersten verteilten Netzwerks für Indoor-Lebensmittelproduktion.",
+          companyTitle: "Gesellschaft",
+          companyName: "Amalis Group S.r.l.",
+          companyAddressOne: "Via San Nicola, snc",
+          companyAddressTwo: "95040 Camporotondo Etneo (CT)",
+          companyCountry: "Italien",
+          vat: "USt-IdNr. IT06169160873",
+          infoTitle: "Informationen",
+          privacy: "Datenschutz",
+          terms: "Bedingungen",
+          sitemap: "Sitemap",
+          claim: "Distributed Indoor Food Production Network"
+        }
+      }
+    };
+
+    function mergeTranslations(target, source) {
+      Object.entries(source).forEach(([language, sections]) => {
+        target[language] = target[language] || {};
+        Object.entries(sections).forEach(([section, values]) => {
+          target[language][section] = Object.assign({}, target[language][section], values);
+        });
+      });
+    }
+
+    mergeTranslations(translations, positioningTranslations);
+
+    const supportedLanguages = Object.keys(translations);
+    const defaultLanguage = "it";
+    const languageSelect = document.querySelector("#languageSelect");
+
+    function getTranslation(path, language) {
+      return path.split(".").reduce((value, key) => value && value[key], translations[language]);
+    }
+
+    function applyTranslations(language) {
+      const activeLanguage = translations[language] ? language : defaultLanguage;
+      document.documentElement.lang = activeLanguage;
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const value = getTranslation(element.dataset.i18n, activeLanguage);
+        if (typeof value === "string") {
+          element.textContent = value;
+        }
+      });
+
+      document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => {
+        const value = getTranslation(element.dataset.i18nPlaceholder, activeLanguage);
+        if (typeof value === "string") {
+          element.setAttribute("placeholder", value);
+        }
+      });
+
+      document.querySelectorAll("[data-i18n-title]").forEach((element) => {
+        const value = getTranslation(element.dataset.i18nTitle, activeLanguage);
+        if (typeof value === "string") {
+          element.setAttribute("title", value);
+          element.setAttribute("aria-label", value);
+        }
+      });
+
+      localStorage.setItem("amalisLanguage", activeLanguage);
+      languageSelect.value = activeLanguage;
+    }
+
+    function populateLanguageSelect() {
+      languageSelect.innerHTML = "";
+      supportedLanguages.forEach((language) => {
+        const option = document.createElement("option");
+        option.value = language;
+        option.textContent = translations[language].nav.languageName;
+        languageSelect.appendChild(option);
+      });
+    }
+
+    function initI18n() {
+      populateLanguageSelect();
+      const savedLanguage = localStorage.getItem("amalisLanguage");
+      const browserLanguage = navigator.language && navigator.language.slice(0, 2);
+      const initialLanguage = translations[savedLanguage]
+        ? savedLanguage
+        : translations[browserLanguage]
+          ? browserLanguage
+          : defaultLanguage;
+
+      applyTranslations(initialLanguage);
+      languageSelect.addEventListener("change", (event) => applyTranslations(event.target.value));
+    }
+
+    function initReveal() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, { threshold: 0.16 });
+
+      document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
+    }
+
+    function initCanvas() {
+      const canvas = document.querySelector("#orbitCanvas");
+      const context = canvas.getContext("2d");
+      const visual = canvas.parentElement;
+      let width = 0;
+      let height = 0;
+      let frame = 0;
+
+      function resize() {
+        const ratio = window.devicePixelRatio || 1;
+        width = visual.clientWidth;
+        height = visual.clientHeight;
+        canvas.width = width * ratio;
+        canvas.height = height * ratio;
+        canvas.style.width = width + "px";
+        canvas.style.height = height + "px";
+        context.setTransform(ratio, 0, 0, ratio, 0, 0);
+      }
+
+      function draw() {
+        frame += 0.01;
+        context.clearRect(0, 0, width, height);
+        const nodes = [
+          { x: 0.09, y: 0.74, r: 4.8, depth: 1 },
+          { x: 0.2, y: 0.55, r: 3.4, depth: 0.72 },
+          { x: 0.31, y: 0.82, r: 4.2, depth: 0.9 },
+          { x: 0.43, y: 0.45, r: 3.6, depth: 0.74 },
+          { x: 0.52, y: 0.64, r: 4.4, depth: 1 },
+          { x: 0.61, y: 0.38, r: 3.1, depth: 0.62 },
+          { x: 0.73, y: 0.55, r: 3.8, depth: 0.8 },
+          { x: 0.86, y: 0.34, r: 3.2, depth: 0.58 },
+          { x: 0.9, y: 0.68, r: 4.1, depth: 0.86 }
+        ];
+
+        const links = [
+          [0, 1], [0, 2], [1, 3], [2, 4], [3, 4],
+          [3, 5], [4, 6], [5, 7], [6, 7], [6, 8], [2, 8]
+        ];
+
+        links.forEach(([from, to], index) => {
+          const a = nodes[from];
+          const b = nodes[to];
+          const ax = a.x * width;
+          const ay = a.y * height;
+          const bx = b.x * width;
+          const by = b.y * height;
+          const pulse = (Math.sin(frame * 2.2 + index * 0.7) + 1) / 2;
+          const gradient = context.createLinearGradient(ax, ay, bx, by);
+          gradient.addColorStop(0, "rgba(211,255,218,0.18)");
+          gradient.addColorStop(0.5, `rgba(124,244,154,${0.32 + pulse * 0.28})`);
+          gradient.addColorStop(1, "rgba(211,255,218,0.18)");
+
+          context.beginPath();
+          context.moveTo(ax, ay);
+          context.lineTo(bx, by);
+          context.strokeStyle = gradient;
+          context.lineWidth = 1.2 + pulse * 0.9;
+          context.shadowColor = "rgba(127,255,164,0.45)";
+          context.shadowBlur = 8 + pulse * 12;
+          context.stroke();
+          context.shadowBlur = 0;
+
+          const travel = (frame * (0.22 + index * 0.01) + index * 0.137) % 1;
+          const dotX = ax + (bx - ax) * travel;
+          const dotY = ay + (by - ay) * travel;
+          context.beginPath();
+          context.arc(dotX, dotY, 2.2 + pulse * 1.6, 0, Math.PI * 2);
+          context.fillStyle = "rgba(232,255,236,0.92)";
+          context.shadowColor = "rgba(127,255,164,0.86)";
+          context.shadowBlur = 18;
+          context.fill();
+          context.shadowBlur = 0;
+        });
+
+        nodes.forEach((node, index) => {
+          const x = node.x * width;
+          const y = node.y * height;
+          const pulse = (Math.sin(frame * 3 + index) + 1) / 2;
+          const radius = node.r + pulse * 2.2;
+
+          context.beginPath();
+          context.arc(x, y, radius * 3.2, 0, Math.PI * 2);
+          context.fillStyle = `rgba(138,255,164,${0.08 + node.depth * 0.08})`;
+          context.fill();
+
+          context.beginPath();
+          context.arc(x, y, radius, 0, Math.PI * 2);
+          context.fillStyle = `rgba(224,255,229,${0.72 + node.depth * 0.18})`;
+          context.shadowColor = "rgba(113,255,146,0.92)";
+          context.shadowBlur = 16 + node.depth * 12;
+          context.fill();
+          context.shadowBlur = 0;
+        });
+
+        requestAnimationFrame(draw);
+      }
+
+      resize();
+      window.addEventListener("resize", resize);
+      draw();
+    }
+
+    function initFooterYear() {
+      const footerYear = document.querySelector("#footerYear");
+      if (footerYear) {
+        footerYear.textContent = new Date().getFullYear();
+      }
+    }
+
+    initI18n();
+    initReveal();
+    initCanvas();
+    initFooterYear();
+  </script>
+</body>
+</html>
